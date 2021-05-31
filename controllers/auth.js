@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(cors());
 exports.signUp = (req, res) => {
   console.log("entered in signup mode");
-  const { name, email, password } = req.body;
+  const { firstname, lastname, email, phonenumber, password, dob } = req.body;
   client
     .query(`SELECT * FROM details WHERE email = '${email}';`)
     .then((data) => {
@@ -27,14 +27,17 @@ exports.signUp = (req, res) => {
           }
 
           const user = {
-            name,
+            firstname,
+            lastname,
             email,
+            phonenumber,
             password: hash,
+            dob,
           };
 
           client
             .query(
-              `INSERT INTO details (name, email, password) VALUES ('${user.name}', '${user.email}' , '${user.password}');`
+              `INSERT INTO details (firstname, lastname, email, phonenumber, password, dob) VALUES  ('${user.firstname}', '${user.lastname}','${user.email}' , '${user.phonenumber}','${user.password}','${user.dob}');`
             )
             .then((data) => {
               const token = jwt.sign(
@@ -50,6 +53,7 @@ exports.signUp = (req, res) => {
               });
             })
             .catch((err) => {
+              console.log(err);
               res.status(500).json({
                 error: "Database error occured!",
               });
@@ -59,7 +63,7 @@ exports.signUp = (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({
-        error: "Database error occured!",
+        error: "Database error occured!!",
       });
     });
 };

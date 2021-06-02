@@ -15,7 +15,6 @@ app.use(cors());
 
 client.connect((err) => {
   if (err) {
-    // console.log("inside error")
     console.log(err);
   } else {
     console.log("Connected to database!");
@@ -26,11 +25,6 @@ app.get("/", (req, res) => {
 });
 app.use("/auth", authRoutes);
 app.use("/posts", postRoutes);
-
-app.post("/upload", (req, res) => {
-  const { name, data } = req.files.pic;
-  console.log(data);
-});
 
 app.listen(port, () => {
   console.log("hey there!");

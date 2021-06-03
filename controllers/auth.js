@@ -1,3 +1,4 @@
+require("dotenv").config()
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const client = require("../configs/db");
@@ -8,7 +9,7 @@ app.use(express.json());
 app.use(cors());
 exports.signUp = (req, res) => {
   console.log("entered in signup mode");
-  const { firstname, lastname, email, phonenumber, password, dob } = req.body;
+  const { firstname, lastname, email, phonenumber, password, dob} = req.body;
   client
     .query(`SELECT * FROM details WHERE email = '${email}';`)
     .then((data) => {
@@ -16,13 +17,13 @@ exports.signUp = (req, res) => {
 
       if (isValid.length !== 0) {
         res.status(400).json({
-          error: "user already exists",
+          message: "user already exists",
         });
       } else {
         bcrypt.hash(password, 10, (err, hash) => {
           if (err) {
             res.status(500).json({
-              error: "internal server error occured",
+              message: "internal server error occured",
             });
           }
 
@@ -40,6 +41,7 @@ exports.signUp = (req, res) => {
               `INSERT INTO details (firstname, lastname, email, phonenumber, password, dob) VALUES  ('${user.firstname}', '${user.lastname}','${user.email}' , '${user.phonenumber}','${user.password}','${user.dob}');`
             )
             .then((data) => {
+              console.log(data);
               const token = jwt.sign(
                 {
                   email: email,
@@ -55,7 +57,7 @@ exports.signUp = (req, res) => {
             .catch((err) => {
               console.log(err);
               res.status(500).json({
-                error: "Database error occured!",
+                message: "Database error occured!",
               });
             });
         });
@@ -63,7 +65,7 @@ exports.signUp = (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({
-        error: "Database error occured!!",
+        message: "Database error occured!!",
       });
     });
 };
@@ -77,13 +79,13 @@ exports.signIn = (req, res) => {
       userData = data.rows;
       if (userData.length === 0) {
         res.status(400).json({
-          error: "user does not exist, signup instead!",
+          message: "user does not exist, signup instead!",
         });
       } else {
         bcrypt.compare(password, userData[0].password, (err, result) => {
           if (err) {
             res.status(500).json({
-              error: "server error",
+              message: "server error",
             });
           } else if (result === true) {
             const token = jwt.sign(
@@ -98,7 +100,7 @@ exports.signIn = (req, res) => {
             });
           } else {
             res.status(400).json({
-              error: "Enter correct password!",
+              message: "Enter correct password!",
             });
           }
         });
@@ -106,7 +108,7 @@ exports.signIn = (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({
-        error: "database error occured!",
+        message: "database error occured!",
       });
     });
 };

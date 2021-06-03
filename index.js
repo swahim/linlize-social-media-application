@@ -13,6 +13,13 @@ app.use(fileUploader());
 app.use(express.json());
 app.use(cors());
 
+app.get("/", (req, res) => {
+  res.status(200).send("Server is up and running..!");
+});
+app.use("/auth", authRoutes);
+app.use("/posts", postRoutes);
+
+
 client.connect((err) => {
   if (err) {
     console.log(err);
@@ -20,12 +27,7 @@ client.connect((err) => {
     console.log("Connected to database!");
   }
 });
-app.get("/", (req, res) => {
-  res.status(200).send("Server is up and running..!");
-});
-app.use("/auth", authRoutes);
-app.use("/posts", postRoutes);
 
 app.listen(port, () => {
-  console.log("hey there!");
+  console.log("On port 8000!");
 });

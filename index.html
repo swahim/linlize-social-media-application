@@ -12,9 +12,17 @@
       enctype="multipart/form-data"
       method="POST"
     >
-      <input type="text" placeholder="email id" class="emailid"/>
+      <input type="text" placeholder="email" name='email' />
       <input type="file" name="pic" />
       <input type="submit" value="Upload a file" />
     </form>
+    <form
+      action="http://localhost:8200/posts/getpics"
+      method="GET"
+    >
+      <input type="text" placeholder="email" name='email' class="email"/>
+      <input type="submit" value="Search" />
+    </form>
+    <script src="./script.js"></script>
   </body>
 </html>

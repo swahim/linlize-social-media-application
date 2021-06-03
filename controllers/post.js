@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const fileUpload = require("express-fileupload");
+const e = require("express");
 app.use(fileUpload());
 app.use(express.json());
 app.use(cors());
@@ -49,3 +50,42 @@ exports.newprofilepic = (req, res) => {
     });
   }
 };
+
+exports.getpics = (req, resp) => {
+  let email = req.body.email;
+  console.log(email);
+  let image = '';
+  let mime = '';
+  client
+   .query(`SELECT img, mime FROM profilepic WHERE email = '${email}'`)
+   .then((res) => {
+     image = res.rows[0].img;
+     mime = res.rows[0].mime;
+     resp.status(200).json({
+       message: "image fetched successfully",
+       data: `<img src='data:${mime};base64,${image}'>`
+     })
+   })
+   .catch(e => resp.send('User Not Found'));
+  // let img_length = 0;
+  // let bg_images = [];
+  // let mime =[];
+  // client
+  //   .query('SELECT img, mime FROM profilepic WHERE')
+ 
+  //   .then((res) => {
+  //   img_length = res.rows.length;
+  //   res.rows.forEach((data) => {
+  //     bg_images.push(data.img);
+      
+  //     mime.push((data.mime).toString('base64'));
+  //   });
+  //   console.log(bg_images);
+  //   console.log(img_length)
+  //   resp.render('img', {img_length:img_length , mime:mime, image:bg_images});
+  //   })
+  //   .catch(e => console.error(e.stack));
+
+    
+}
+// exports.test = (req, res) => {};

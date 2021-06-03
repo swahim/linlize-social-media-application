@@ -63,7 +63,8 @@ exports.getpics = (req, resp) => {
      mime = res.rows[0].mime;
      resp.status(200).json({
        message: "image fetched successfully",
-       data: `<img src='data:${mime};base64,${image}'>`
+      //  data: `<img src='data:${mime};base64,${image}'>`
+      data: `data:${mime};base64,${image}`
      })
    })
    .catch(e => resp.send('User Not Found'));

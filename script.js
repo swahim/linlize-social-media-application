@@ -14,10 +14,8 @@ profilepic.addEventListener("submit", (event) => {
   })
    .then((resp)=> resp.json())
    .then((data)=>{
-       console.log(data.data);
-       const temp=data.data;
-       const tagi=document.querySelector(".image_section");
-       tagi.innerHTML=temp;
+       const img=document.querySelector(".image_section");
+      img.src=data.data;
 
    })
     .catch((err) => {

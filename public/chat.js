@@ -1,4 +1,4 @@
-var socket=io.connect('http://localhost:8000');
+var socket=io.connect('https://sheltered-wildwood-01008.herokuapp.com');
 
 var message =document.getElementById('message');
 var handle =document.getElementById('handle');

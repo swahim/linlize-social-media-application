@@ -1,4 +1,4 @@
-require("dotenv").config()
+require("dotenv").config();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const client = require("../configs/db");
@@ -7,9 +7,10 @@ const cors = require("cors");
 const app = express();
 app.use(express.json());
 app.use(cors());
+
 exports.signUp = (req, res) => {
   console.log("entered in signup mode");
-  const { firstname, lastname, email, phonenumber, password, dob} = req.body;
+  const { username, email, password } = req.body;
   client
     .query(`SELECT * FROM details WHERE email = '${email}';`)
     .then((data) => {
@@ -28,17 +29,14 @@ exports.signUp = (req, res) => {
           }
 
           const user = {
-            firstname,
-            lastname,
+            username,
             email,
-            phonenumber,
             password: hash,
-            dob,
           };
 
           client
             .query(
-              `INSERT INTO details (firstname, lastname, email, phonenumber, password, dob) VALUES  ('${user.firstname}', '${user.lastname}','${user.email}' , '${user.phonenumber}','${user.password}','${user.dob}');`
+              `INSERT INTO details (username, email, password) VALUES  ('${user.username}','${user.email}','${user.password}');`
             )
             .then((data) => {
               console.log(data);

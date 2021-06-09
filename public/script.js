@@ -1,64 +1,72 @@
-const apiURL = "http://localhost:8000";
-let image_compressed = '';
+const typedTextSpan = document.querySelector(".newPlatform");
+const text = ["PLATFORM", "IDEAS", "COMMUNITY"];
+let count = 0;
+let index = 0;
+let currentText = "";
+let letter = "";
 
-
-const profilepic = document.querySelector(".getprofilepic");
-profilepic.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const email = document.querySelector(".emailid").value;
-  fetch(`${apiURL}/posts/getpics`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ email }),
-  })
-   .then((resp)=> resp.json())
-   .then((data)=>{
-       const img=document.querySelector(".image_section");
-      img.src=data.data;
-
-   })
-    .catch((err) => {
-      alert("Error Fetching data");
-      console.log(err);
-    });
-});
-const submit_profile = document.querySelector("#image_submit");
-submit_profile.addEventListener('submit', handleImageUpload);
-
-async function handleImageUpload(event) {
-  event.preventDefault();
-  console.log(event);
-  const email = event.target[0].value;
-  const imageFile = event.target[1].files[0];
-  const name = event.target[1].files[0].name;
-  console.log(email,name);
-  console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
-  const options = {
-    maxSizeMB: 0.04,
-    maxWidthOrHeight: 300,
-    useWebWorker: true
-  };
-
-  try {
-    const compressedFile = await imageCompression(imageFile, options);
-    console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
-    compressedFile.name = name;
-    uploadToServer(compressedFile, email, name)
-  } catch (error) {
-    console.log(error);
+(function type() {
+  if (count === text.length) {
+    count = 0;
   }
+  currentText = text[count];
+  letter = currentText.slice(0, ++index);
+  typedTextSpan.textContent = letter;
+  if (letter.length === currentText.length) {
+    index = 0;
+    count++;
+  }
+  setTimeout(type, 200);
+})();
 
-}
+window.addEventListener("load", () => {
+  const preloader = document.querySelector(".section1");
+  setTimeout(() => {
+    preloader.style.opacity = "0";
+  }, 1000)
+})
 
+// window.addEventListener("load", () => {
+//   const preloader = document.querySelector(".section1");
+//   preloader.style.opacity = "0";
+// });
 
-function uploadToServer(file, email, name){
-  var formData = new FormData();
-  formData.append('image', file, name);
-  formData.append('email', email);
-  return fetch('http://localhost:8000/posts/newprofilepic', {
-    method: 'POST',
-    body: formData
-  });
-}
+const bgChanger = () => {
+  const section3 = document.querySelector(".section3");
+  if (window.scrollY > window.innerHeight / 2) {
+    section3.classList.add("section3-BgEffect");
+  } else {
+    section3.classList.remove("section3-BgEffect");
+  }
+};
+// const animation1 = () => {
+//   const firstBoxRight = document.querySelector(".firstBoxRight");
+
+//   if(window.scrollY > window.innerHeight / 2.6){
+//       firstBoxRight.style.animation = "fade-in 2s ease";
+//   }else{
+//     firstBoxRight.style.animation = "fade-out 1s ease";
+//   }
+// }
+
+// const animation2 = () => {
+//   const secondBoxRight = document.querySelector(".secondBoxRight");
+//   if(window.scrollY > window.innerHeight / 1.54){
+//     secondBoxRight.style.animation = "fade-in 2s ease";
+//   }else{
+//     secondBoxRight.style.animation = "fade-out 1s ease";
+//   }
+// }
+
+// const animation3 = () => {
+//   const secondBoxLeft2 = document.querySelector(".secondBoxLeft2");
+//   if(window.scrollY > window.innerHeight / 1.03){
+//     secondBoxLeft2.style.amimation = "fade-in 2s ease";
+//   }else{
+//     secondBoxLeft2.style.animation = "fade-out 1s ease";
+//   }
+// }
+
+window.addEventListener("scroll", () => {
+  bgChanger();
+});

@@ -5,8 +5,17 @@ const client = require("../configs/db");
 const express = require("express");
 const cors = require("cors");
 const app = express();
+
+const { OAuth2Client } = require("google-auth-library");
+const CLIENT_ID =
+  "459450636110-kjiimp7ejasn59glq1rtm8484pc5rgrn.apps.googleusercontent.com";
+const client_google = new OAuth2Client(CLIENT_ID);
+
 app.use(express.json());
 app.use(cors());
+
+var cookieParser = require("cookie-parser");
+app.use(cookieParser());
 
 exports.signUp = (req, res) => {
   console.log("entered in signup mode");
@@ -108,5 +117,44 @@ exports.signIn = (req, res) => {
       res.status(500).json({
         message: "database error occured!",
       });
+    });
+};
+exports.googleauth = (req, res) => {
+  let token = req.body.token;
+  const email = req.body.email;
+  const firstname = req.body.firstname;
+  const lastname = req.body.lastname;
+  const profilepic = req.body.profilepic;
+  console.log(email, firstname, lastname, profilepic);
+  // console.log(token);
+
+  async function verify() {
+    const ticket = await client_google.verifyIdToken({
+      idToken: token,
+      audience: CLIENT_ID,
+    });
+    const payload = ticket.getPayload();
+    const userid = payload["sub"];
+    console.log(payload);
+  }
+  verify()
+    .then(() => {
+      res.cookie("session-token", token);
+      res.send("success");
+    })
+    .catch(console.error);
+
+  client
+    .query(`SELECT * FROM details WHERE email = '${email}';`)
+    .then((data) => {
+      isValid = data.rows;
+
+      if (isValid.length !== 0) {
+        console.log("user already exists");
+      } else {
+        client.query(
+          `INSERT INTO details (firstname, lastname, email) VALUES  ('${firstname}','${lastname}','${email}');`
+        )
+      }
     });
 };

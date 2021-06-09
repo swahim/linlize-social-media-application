@@ -5,7 +5,7 @@ const client = require("../configs/db");
 const express = require("express");
 const cors = require("cors");
 const app = express();
-
+const imageToBase64 = require("image-to-base64");
 const { OAuth2Client } = require("google-auth-library");
 const CLIENT_ID =
   "459450636110-kjiimp7ejasn59glq1rtm8484pc5rgrn.apps.googleusercontent.com";
@@ -120,6 +120,8 @@ exports.signIn = (req, res) => {
     });
 };
 exports.googleauth = (req, res) => {
+  let imgdata;
+  const mime = "image/jpeg";
   let token = req.body.token;
   const email = req.body.email;
   const firstname = req.body.firstname;
@@ -143,18 +145,26 @@ exports.googleauth = (req, res) => {
       res.send("success");
     })
     .catch(console.error);
+  imageToBase64(profilepic) // Image URL
+    .then((response) => {
+      imgdata = response;
+      console.log(imgdata);
+      // console.log(response); // "iVBORw0KGgoAAAANSwCAIA..."
+      client
+        .query(`SELECT * FROM details WHERE email = '${email}';`)
+        .then((data) => {
+          isValid = data.rows;
 
-  client
-    .query(`SELECT * FROM details WHERE email = '${email}';`)
-    .then((data) => {
-      isValid = data.rows;
-
-      if (isValid.length !== 0) {
-        console.log("user already exists");
-      } else {
-        client.query(
-          `INSERT INTO details (firstname, lastname, email) VALUES  ('${firstname}','${lastname}','${email}');`
-        )
-      }
+          if (isValid.length !== 0) {
+            console.log("user already exists");
+          } else {
+            client.query(
+              `INSERT INTO details (firstname, lastname, email, img, mime) VALUES  ('${firstname}','${lastname}','${email}',bytea('${imgdata}'), '${mime}');`
+            );
+          }
+        });
+    })
+    .catch((error) => {
+      console.log(error); // Logs an error if there was one
     });
 };

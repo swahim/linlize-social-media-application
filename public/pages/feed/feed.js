@@ -1,4 +1,5 @@
-const apiURL = "http://localhost:8000";
+// const apiURL = "http://localhost:8000";
+const apiUrl = "https://still-fortress-53995.herokuapp.com";
 const checkbox = document.querySelector(".checkbox");
 
 checkbox.addEventListener("click", () => {

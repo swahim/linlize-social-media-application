@@ -4,7 +4,8 @@ const container = document.querySelector(".container");
 const body = document.querySelector("body");
 const loginbtn = document.querySelector(".loginButton");
 const signupbtn = document.querySelector(".signupButton");
-const apiUrl = "http://localhost:8000";
+// const apiUrl = "http://localhost:8000";
+const apiUrl = "https://still-fortress-53995.herokuapp.com";
 
 loginbtn.addEventListener("click", (event) => {
   event.preventDefault();

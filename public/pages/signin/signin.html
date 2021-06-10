@@ -125,7 +125,8 @@
         var id_token = googleUser.getAuthResponse().id_token;
         // console.log(id_token);
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "http://localhost:8000/auth/googleauth");
+        // const apiUrl = "https://still-fortress-53995.herokuapp.com";
+        xhr.open("POST", "https://still-fortress-53995.herokuapp.com/auth/googleauth");
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onload = function () {
           const temp = JSON.parse(xhr.responseText);

@@ -104,6 +104,7 @@ exports.signIn = (req, res) => {
             res.status(200).json({
               message: "user signed in successfully",
               token: token,
+              emailid: email,
             });
           } else {
             res.status(400).json({

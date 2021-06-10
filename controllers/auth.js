@@ -141,14 +141,17 @@ exports.googleauth = (req, res) => {
   }
   verify()
     .then(() => {
-      res.cookie("session-token", token);
-      res.send("success");
+      // res.cookie("session-token", token);
+      res.status(200).json({
+        googletoken: token,
+        emailid: email,
+      });
     })
     .catch(console.error);
   imageToBase64(profilepic) // Image URL
     .then((response) => {
       imgdata = response;
-      console.log(imgdata);
+      // console.log(imgdata);
       // console.log(response); // "iVBORw0KGgoAAAANSwCAIA..."
       client
         .query(`SELECT * FROM details WHERE email = '${email}';`)

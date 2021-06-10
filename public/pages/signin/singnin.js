@@ -26,7 +26,7 @@ loginbtn.addEventListener("click", (event) => {
       if (token) {
         alert("Sigin successfull");
         localStorage.setItem("jwt", token);
-        // location.href = "/pages/dashboard/dashboard.html";
+        location.href = "/pages/feed/feed.html";
       } else {
         alert("sign in again");
       }

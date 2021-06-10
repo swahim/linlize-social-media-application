@@ -23,8 +23,8 @@ window.addEventListener("load", () => {
   const preloader = document.querySelector(".section1");
   setTimeout(() => {
     preloader.style.opacity = "0";
-  }, 1000)
-})
+  }, 1000);
+});
 
 // window.addEventListener("load", () => {
 //   const preloader = document.querySelector(".section1");
@@ -69,4 +69,11 @@ const bgChanger = () => {
 
 window.addEventListener("scroll", () => {
   bgChanger();
+});
+window.addEventListener("load", () => {
+  const token = localStorage.getItem("jwt");
+
+  if (token) {
+    location.href = "./pages/feed/feed.html";
+  }
 });

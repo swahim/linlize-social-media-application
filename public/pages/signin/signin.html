@@ -39,7 +39,7 @@
             </div>
             <input type="submit" value="Login" class="btn solid loginButton" />
             <p class="social-text">Or Sign in with Google</p>
-            <div class="g-signin2" data-onsuccess="onSignIn" ></div>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
             <a href="#" onclick="signOut();">Sign out</a>
             <div class="social-media">
               <a href="#" class="social-icon">
@@ -123,25 +123,28 @@
         console.log("Image URL: " + profile.getImageUrl());
         console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
         var id_token = googleUser.getAuthResponse().id_token;
-        console.log(id_token);
+        // console.log(id_token);
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "http://localhost:8000/auth/googleauth");
-        xhr.setRequestHeader(
-          "Content-Type",
-          "application/json"
-        );
+        xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onload = function () {
+          const temp = JSON.parse(xhr.responseText);
           console.log("Signed in as: " + xhr.responseText);
-        };
-        xhr.send(JSON.stringify({
-          token: id_token,
-          email: profile.getEmail(),
-          firstname,
-          lastname,
-          profilepic: profile.getImageUrl(),
-        }));
-      }
+          localStorage.setItem("googleauthtoken", temp.googletoken);
+          localStorage.setItem("emailid", temp.emailid);
 
+          location.href = "/pages/feed/feed.html";
+        };
+        xhr.send(
+          JSON.stringify({
+            token: id_token,
+            email: profile.getEmail(),
+            firstname,
+            lastname,
+            profilepic: profile.getImageUrl(),
+          })
+        );
+      }
     </script>
     <script>
       function signOut() {
@@ -152,7 +155,11 @@
       }
     </script>
 
-    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+    <script
+      src="https://apis.google.com/js/platform.js?onload=renderButton"
+      async
+      defer
+    ></script>
     <script src="./singnin.js"></script>
   </body>
 </html>

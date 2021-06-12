@@ -13,6 +13,73 @@ const client_google = new OAuth2Client(CLIENT_ID);
 
 app.use(express.json());
 app.use(cors());
+<<<<<<< HEAD
+// exports.signUp = (req, res) => {
+//   console.log("entered in signup mode");
+//   const { fullname, email, phonenumber, password, dob} = req.body;
+//   client
+//     .query(`SELECT * FROM details WHERE email = '${email}';`)
+//     .then((data) => {
+//       isValid = data.rows;
+
+//       if (isValid.length !== 0) {
+//         res.status(400).json({
+//           message: "user already exists",
+//         });
+//       } else {
+//         bcrypt.hash(password, 10, (err, hash) => {
+//           if (err) {
+//             res.status(500).json({
+//               message: "internal server error occured",
+//             });
+//           }
+
+//           const user = {
+//             fullname,
+//             email,
+//             phonenumber,
+//             password: hash,
+//             dob,
+//           };
+
+//           client
+//             .query(
+//               `INSERT INTO details (fullname, email, phonenumber, password, dob) VALUES  ('${user.fullname}','${user.email}' , '${user.phonenumber}','${user.password}','${user.dob}');`
+//             )
+//             .then((data) => {
+//               console.log(data);
+//               const token = jwt.sign(
+//                 {
+//                   email: email,
+//                 },
+//                 process.env.SECRET_KEY
+//               );
+
+//               res.status(200).json({
+//                 message: "user added successfully",
+//                 token: token,
+//               });
+//             })
+//             .catch((err) => {
+//               console.log(err);
+//               res.status(500).json({
+//                 message: "Database error occured!",
+//               });
+//             });
+//         });
+//       }
+//     })
+//     .catch((err) => {
+//       res.status(500).json({
+//         message: "Database error occured!!",
+//       });
+//     });
+// };
+
+exports.signUp = (req, res) => {
+  console.log("entered in signup mode");
+  const { fullname, email, password } = req.body;
+=======
 
 var cookieParser = require("cookie-parser");
 app.use(cookieParser());
@@ -20,6 +87,7 @@ app.use(cookieParser());
 exports.signUp = (req, res) => {
   console.log("entered in signup mode");
   const { username, email, password } = req.body;
+>>>>>>> upstream/main
   client
     .query(`SELECT * FROM details WHERE email = '${email}';`)
     .then((data) => {
@@ -38,14 +106,22 @@ exports.signUp = (req, res) => {
           }
 
           const user = {
+<<<<<<< HEAD
+            fullname,
+=======
             username,
+>>>>>>> upstream/main
             email,
             password: hash,
           };
 
           client
             .query(
+<<<<<<< HEAD
+              `INSERT INTO details (fullname, email, password) VALUES  ('${user.fullname}','${user.email}','${user.password}');`
+=======
               `INSERT INTO details (username, email, password) VALUES  ('${user.username}','${user.email}','${user.password}');`
+>>>>>>> upstream/main
             )
             .then((data) => {
               console.log(data);

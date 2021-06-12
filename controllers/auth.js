@@ -5,8 +5,15 @@ const client = require("../configs/db");
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const imageToBase64 = require("image-to-base64");
+const { OAuth2Client } = require("google-auth-library");
+const CLIENT_ID =
+  "459450636110-kjiimp7ejasn59glq1rtm8484pc5rgrn.apps.googleusercontent.com";
+const client_google = new OAuth2Client(CLIENT_ID);
+
 app.use(express.json());
 app.use(cors());
+<<<<<<< HEAD
 // exports.signUp = (req, res) => {
 //   console.log("entered in signup mode");
 //   const { fullname, email, phonenumber, password, dob} = req.body;
@@ -72,6 +79,15 @@ app.use(cors());
 exports.signUp = (req, res) => {
   console.log("entered in signup mode");
   const { fullname, email, password } = req.body;
+=======
+
+var cookieParser = require("cookie-parser");
+app.use(cookieParser());
+
+exports.signUp = (req, res) => {
+  console.log("entered in signup mode");
+  const { username, email, password } = req.body;
+>>>>>>> upstream/main
   client
     .query(`SELECT * FROM details WHERE email = '${email}';`)
     .then((data) => {
@@ -90,14 +106,22 @@ exports.signUp = (req, res) => {
           }
 
           const user = {
+<<<<<<< HEAD
             fullname,
+=======
+            username,
+>>>>>>> upstream/main
             email,
             password: hash,
           };
 
           client
             .query(
+<<<<<<< HEAD
               `INSERT INTO details (fullname, email, password) VALUES  ('${user.fullname}','${user.email}','${user.password}');`
+=======
+              `INSERT INTO details (username, email, password) VALUES  ('${user.username}','${user.email}','${user.password}');`
+>>>>>>> upstream/main
             )
             .then((data) => {
               console.log(data);
@@ -111,6 +135,7 @@ exports.signUp = (req, res) => {
               res.status(200).json({
                 message: "user added successfully",
                 token: token,
+                emailid: email,
               });
             })
             .catch((err) => {
@@ -156,6 +181,7 @@ exports.signIn = (req, res) => {
             res.status(200).json({
               message: "user signed in successfully",
               token: token,
+              emailid: email,
             });
           } else {
             res.status(400).json({
@@ -169,5 +195,57 @@ exports.signIn = (req, res) => {
       res.status(500).json({
         message: "database error occured!",
       });
+    });
+};
+exports.googleauth = (req, res) => {
+  let imgdata;
+  const mime = "image/jpeg";
+  let token = req.body.token;
+  const email = req.body.email;
+  const firstname = req.body.firstname;
+  const lastname = req.body.lastname;
+  const profilepic = req.body.profilepic;
+  console.log(email, firstname, lastname, profilepic);
+  // console.log(token);
+
+  async function verify() {
+    const ticket = await client_google.verifyIdToken({
+      idToken: token,
+      audience: CLIENT_ID,
+    });
+    const payload = ticket.getPayload();
+    const userid = payload["sub"];
+    console.log(payload);
+  }
+  verify()
+    .then(() => {
+      // res.cookie("session-token", token);
+      res.status(200).json({
+        googletoken: token,
+        emailid: email,
+      });
+    })
+    .catch(console.error);
+  imageToBase64(profilepic) // Image URL
+    .then((response) => {
+      imgdata = response;
+      // console.log(imgdata);
+      // console.log(response); // "iVBORw0KGgoAAAANSwCAIA..."
+      client
+        .query(`SELECT * FROM details WHERE email = '${email}';`)
+        .then((data) => {
+          isValid = data.rows;
+
+          if (isValid.length !== 0) {
+            console.log("user already exists");
+          } else {
+            client.query(
+              `INSERT INTO details (firstname, lastname, email, img, mime) VALUES  ('${firstname}','${lastname}','${email}',bytea('${imgdata}'), '${mime}');`
+            );
+          }
+        });
+    })
+    .catch((error) => {
+      console.log(error); // Logs an error if there was one
     });
 };

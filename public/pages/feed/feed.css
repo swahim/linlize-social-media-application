@@ -557,3 +557,123 @@ a {
 .sub:hover {
   background: rgba(4, 142, 188, 0.3);
 }
+
+.viewProfileContainer{
+  position: absolute;
+  background:#ffffff;
+  border: 1px solid rgb(189, 186, 186);
+  border-radius: 14px;
+  width: 60%;
+  opacity: 1;
+  pointer-events: none;
+  height: auto;
+  top: 10%;
+  left: 50%;
+  margin-top: 5%;
+  transform: translateX(-50%);
+  scroll-behavior: smooth;
+  opacity: 0;
+}
+
+.coverPicContainer{
+  height: 12rem;
+  width: auto;
+  display: flex;
+  background-color: rgb(216, 215, 215);
+  border-radius: 14px 14px 0 0;
+  justify-content: center;
+  align-items: center;
+}
+.displayPic{
+  height: 8rem;
+  width: 8rem;
+  margin-top: 8rem;
+  border-radius: 50px;
+  border-color: #eeeeee;
+  
+}
+.nameContainer{
+  height: 4rem;
+  width: auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  font-family: "Merriweather", serif;
+  margin: 2rem;
+}
+.name{
+  font-weight: bolder;
+  font-size: 2rem;
+}
+.tagName{
+  font-size: 1.5rem;
+}
+.linksContainer{
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  font-family: "Merriweather", serif;
+}
+.links{
+  margin-left: 2rem;
+   font-size: 2.5rem;
+   font-weight: bold;
+}
+.social-media-links{
+ display: flex;
+ width: 100%;
+ justify-content: center;
+ align-self:center;
+ flex-direction: row;
+ flex-wrap: wrap;
+ justify-content: space-between;
+ font-size: 6rem;
+ width: auto;
+ cursor:pointer;
+}
+.social-media-link {
+    width: 5rem;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content:space-around;
+    margin: 0 1rem;
+    text-decoration: none;
+    color: #fff;
+    font-size: 3rem;
+    position: relative;
+    border-radius: 0.5rem;
+    content: "";
+    background: linear-gradient(
+        45deg,
+        rgba(36, 92, 247, 0.7) 0%, 
+        rgba(43, 39, 236, 0.3) 49%, 
+        rgba(79, 10, 241, 0.5) 50%);
+}
+.postContainer{
+  height: auto;
+  width: auto;
+  margin-bottom: 2rem;
+}
+
+.yourPosts{
+   margin-left: 2rem;
+   font-size: 2.5rem;
+   font-weight: bold;
+   font-family: "Merriweather", serif;
+}
+.posts{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 1rem;
+}
+.post{
+  background-color: rgb(206, 165, 165);
+  font-size: 20rem;
+  height: 48 rem;
+  width: 48rem;
+  text-align: center;
+  margin: 1rem;
+}

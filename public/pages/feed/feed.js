@@ -89,6 +89,10 @@ const profileImageTopBarContainer = document.querySelector(
 profileImageTopBarContainer.addEventListener("click", () => {
   const dropDownContainer = document.querySelector(".dropDownContainer");
   dropDownContainer.classList.toggle("visible");
+   const viewProfile = document.getElementById("1");
+    viewProfile.addEventListener("click",() => {
+        const viewProfileDialog = document.querySelector(".viewProfileContainer");
+        viewProfileDialog.style.opacity = 1;
 });
 
 // logOut.addEventListener("click", () => {

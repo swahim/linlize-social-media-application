@@ -10,6 +10,6 @@ app.use(cors());
 router.post("/newprofilepic" ,newprofilepic);
 router.post("/getpics" ,verifyToken, getpics);
 router.get("/profile/:username", profile);
-router.post("/createnewpost", verifyToken, createnewpost);
+router.post("/createnewpost", createnewpost);
 
 module.exports = router;

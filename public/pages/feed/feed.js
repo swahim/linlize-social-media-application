@@ -9,6 +9,44 @@ const body = document.querySelector("body");
 const sharePostButton = document.querySelector(".startPostButton");
 const cross = document.querySelector(".fa-times");
 // const logOut = document.querySelector(".LogOut");
+let image_compressed = "";
+
+async function handleImageUpload(event) {
+  event.preventDefault();
+  console.log(event);
+  // const email = event.target[0].value;
+  const content = event.target[0].value;
+  const imageFile = event.target[1].files[0];
+  const name = event.target[1].files[0].name;
+  // console.log(email,name);
+  console.log(content, name);
+  console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
+  const options = {
+    maxSizeMB: 0.04,
+    maxWidthOrHeight: 300,
+    useWebWorker: true,
+  };
+
+  try {
+    const compressedFile = await imageCompression(imageFile, options);
+    console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
+    compressedFile.name = name;
+    uploadToServer(compressedFile, content, name);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function uploadToServer(file, content, name) {
+  var formData = new FormData();
+  formData.append("content", content);
+  formData.append("image", file, name);
+  return fetch("http://localhost:8000/posts/createnewpost", {
+    method: "POST",
+    body: formData,
+  });
+}
+
 checkbox.addEventListener("click", () => {
   document.body.classList.toggle("dark");
 });
@@ -28,12 +66,7 @@ likeIcon.addEventListener("click", () => {
 });
 window.addEventListener("load", () => {
   body.classList.add("visible");
-  document.querySelector(".nameBackend").innerHTML ="Sohan Bandary";
-  const publish = document.querySelector(".publish");
-  publish.addEventListener("click", (e) => {
-    e.preventDefault();
-    console.log(document.querySelector(".CaptionPopUp").value);
-  });
+  document.querySelector(".nameBackend").innerHTML = "Sohan Bandary";
 
   // const token = localStorage.getItem("jwt");
   // const googleauthtoken = localStorage.getItem("googleauthtoken");
@@ -73,6 +106,9 @@ sharePostButton.addEventListener("click", () => {
   popUp.classList.add("visible");
   navBar.classList.add("afterPopUp");
   container.classList.add("afterPopUp");
+
+  const submit_profile = document.querySelector("#image_submit");
+  submit_profile.addEventListener("submit", handleImageUpload);
 });
 cross.addEventListener("click", () => {
   const navBar = document.querySelector("nav");

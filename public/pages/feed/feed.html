@@ -12,6 +12,11 @@
       src="https://kit.fontawesome.com/e2bcd14811.js"
       crossorigin="anonymous"
     ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/browser-image-compression@1.0.13/dist/browser-image-compression.js"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
   </head>
   <body>
     <div class="dropDownContainer">
@@ -170,7 +175,11 @@
       <div class="footerPopUp">
         <div class="leftPopUp">
           <form id="image_submit">
-            <input type="text" class="CaptionPopUp" placeholder="Want to write Something?">
+            <input
+              type="text"
+              class="CaptionPopUp"
+              placeholder="Want to write Something?"
+            />
             <input type="file" accept="image/*" name="pic" />
             <input type="submit" class="publish" value="Upload a file" />
           </form>

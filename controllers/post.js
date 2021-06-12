@@ -126,4 +126,5 @@ exports.profile = (req, res) => {
 
 exports.createnewpost = (req, res) => {
   console.log("in create new post");
+  console.log(req.body.content);
 };

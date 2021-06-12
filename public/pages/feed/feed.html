@@ -166,18 +166,15 @@
         </div>
         <h1 class="nameBackend">Test Human</h1>
       </div>
-      <input
-        type="text"
-        class="CaptionPopUp"
-        placeholder="Want to write something?"
-      />
+
       <div class="footerPopUp">
         <div class="leftPopUp">
-          <i class="fas fa-images"></i>
-          <input type="file" name="pic" placeholder="Add Image"/>
-          <h2>Add Image</h2>
+          <form id="image_submit">
+            <input type="text" class="CaptionPopUp" placeholder="Want to write Something?">
+            <input type="file" accept="image/*" name="pic" />
+            <input type="submit" class="publish" value="Upload a file" />
+          </form>
         </div>
-        <button type="submit" class="publish">Publish</button>
       </div>
     </div>
     <script>

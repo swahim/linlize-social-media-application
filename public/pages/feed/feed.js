@@ -28,11 +28,10 @@ likeIcon.addEventListener("click", () => {
 });
 window.addEventListener("load", () => {
   body.classList.add("visible");
+  document.querySelector(".nameBackend").innerHTML ="Sohan Bandary";
   const publish = document.querySelector(".publish");
   publish.addEventListener("click", (e) => {
     e.preventDefault();
-    const name = (document.querySelector(".nameBackend").innerHTML =
-      "Sohan Bandary");
     console.log(document.querySelector(".CaptionPopUp").value);
   });
 

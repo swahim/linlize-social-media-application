@@ -25,15 +25,15 @@ body.dark {
 .visible {
   opacity: 1;
 }
-body.dark .dropDownContainer{
+body.dark .dropDownContainer {
   background: #303841;
   color: white;
   border: 1px solid grey;
 }
-body.dark .sub{
+body.dark .sub {
   color: white;
 }
-body.dark .sub:hover{
+body.dark .sub:hover {
   background: #00adb5;
 }
 body.dark .DisplayPost {
@@ -91,7 +91,7 @@ nav {
   padding: 0.5%;
   border-bottom: 1px solid rgba(180, 180, 180, 1);
   transition: background 0.2s linear;
-  transition : all 0.5s linear;
+  transition: all 0.5s linear;
 }
 .leftTopBar {
   height: 100%;
@@ -190,7 +190,7 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition : all 0.5s linear;
+  transition: all 0.5s linear;
 }
 .mainContainer {
   width: 70%;
@@ -228,9 +228,7 @@ nav {
   border-radius: 14px;
   transition: background 0.2s linear;
 }
-::-webkit-scrollbar {
-  /* display: none; */
-}
+
 .textContainer {
   display: flex;
   align-items: center;
@@ -416,9 +414,9 @@ nav {
   transform: translateY(-50%);
   margin-top: 5%;
   transform: translateX(-50%);
-  transition : opacity 0.5s linear;
+  transition: opacity 0.5s linear;
 }
-.popUpMakeAPostContainer.visible{
+.popUpMakeAPostContainer.visible {
   opacity: 1;
   pointer-events: all;
 }
@@ -491,52 +489,53 @@ nav {
   align-items: center;
   justify-content: space-between;
 }
-.afterPopUp{
+.afterPopUp {
   pointer-events: none;
-  filter :opacity(0.3);
-  transition : all 0.5s linear;
+  filter: opacity(0.3);
+  transition: all 0.5s linear;
 }
-.dropDownContainer{
+
+.dropDownContainer {
   position: absolute;
-  border : 1px solid rgba(180, 180, 180, 1);
-  border-radius :14px;
+  border: 1px solid rgba(180, 180, 180, 1);
+  border-radius: 14px;
   height: 150px;
   width: 220px;
   padding: 1%;
   right: 18.5%;
-  top : 8.5%;
+  top: 8.5%;
   display: flex;
   flex-direction: column;
   align-items: space-evenly;
   justify-content: space-evenly;
-  background : white;
+  background: white;
   box-shadow: 0px 0px 10px 1px grey;
   opacity: 0;
   pointer-events: none;
   z-index: 10;
   transition: all 0.5s linear;
 }
-.dropDownContainer.visible{
+.dropDownContainer.visible {
   pointer-events: all;
   opacity: 1;
 }
-.sub{
+.sub {
   display: flex;
   font-family: "Merriweather", serif;
-  font-size : 1.3rem;
+  font-size: 1.3rem;
   align-items: center;
   cursor: pointer;
   padding: 4%;
-  border-radius : 14px;
+  border-radius: 14px;
   padding-left: 5%;
 }
-a{
+a {
   text-decoration: none;
   color: black;
 }
-.text{
+.text {
   margin-left: 6%;
 }
-.sub:hover{
-  background : rgba(4, 142, 188, 0.3);
+.sub:hover {
+  background: rgba(4, 142, 188, 0.3);
 }

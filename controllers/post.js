@@ -59,12 +59,11 @@ exports.newprofilepic = (req, res) => {
 };
 
 exports.getpics = (req, resp) => {
-  let email = req.body.email;
-  console.log(email);
+  console.log(req.email);
   let image = "";
   let mime = "";
   client
-    .query(`SELECT img, mime FROM details WHERE email = '${email}'`)
+    .query(`SELECT img, mime FROM details WHERE email = '${req.email}'`)
     .then((res) => {
       image = res.rows[0].img;
       mime = res.rows[0].mime;
@@ -74,7 +73,10 @@ exports.getpics = (req, resp) => {
         data: `data:${mime};base64,${image}`,
       });
     })
-    .catch((e) => resp.send("User Not Found"));
+    .catch((e) => resp.status(500).json({
+      message: "user not found",
+      error: e,
+    }));
   // let img_length = 0;
   // let bg_images = [];
   // let mime =[];
@@ -95,11 +97,10 @@ exports.getpics = (req, resp) => {
   //   .catch(e => console.error(e.stack));
 };
 exports.profile = (req, res) => {
-  const username = req.params.username;
   let image = "";
   let mime = "";
   client
-    .query(`SELECT * FROM details WHERE username='${username}';`)
+    .query(`SELECT * FROM details WHERE email='${req.email}';`)
     .then((data) => {
       userData = data.rows;
       image = data.rows[0].img;
@@ -121,4 +122,8 @@ exports.profile = (req, res) => {
         });
       }
     });
+};
+
+exports.createnewpost = (req, res) => {
+  console.log("in create new post");
 };

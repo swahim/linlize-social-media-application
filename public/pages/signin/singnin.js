@@ -4,8 +4,8 @@ const container = document.querySelector(".container");
 const body = document.querySelector("body");
 const loginbtn = document.querySelector(".loginButton");
 const signupbtn = document.querySelector(".signupButton");
-// const apiUrl = "http://localhost:8000";
-const apiUrl = "https://still-fortress-53995.herokuapp.com";
+const apiUrl = "http://localhost:8000";
+// const apiUrl = "https://still-fortress-53995.herokuapp.com";
 
 loginbtn.addEventListener("click", (event) => {
   event.preventDefault();
@@ -27,7 +27,7 @@ loginbtn.addEventListener("click", (event) => {
       if (token) {
         alert("Sigin successfull");
         localStorage.setItem("jwt", token);
-        location.href = "/pages/feed/feed.html";
+        // location.href = "/pages/feed/feed.html";
       } else {
         alert("sign in again");
       }

@@ -126,14 +126,12 @@
         // console.log(id_token);
         var xhr = new XMLHttpRequest();
         // const apiUrl = "https://still-fortress-53995.herokuapp.com";
-        xhr.open("POST", "https://still-fortress-53995.herokuapp.com/auth/googleauth");
+        xhr.open("POST", "http://localhost:8000/auth/googleauth");
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onload = function () {
           const temp = JSON.parse(xhr.responseText);
           console.log("Signed in as: " + xhr.responseText);
           localStorage.setItem("googleauthtoken", temp.googletoken);
-          localStorage.setItem("emailid", temp.emailid);
-
           location.href = "/pages/feed/feed.html";
         };
         xhr.send(
@@ -155,7 +153,24 @@
         });
       }
     </script>
+    <script>
+      const logOut = document.querySelector(".LogOut");
 
+      logOut.addEventListener("click", () => {
+        const token = localStorage.getItem("jwt");
+        const googleauthtoken = localStorage.getItem("googleauthtoken");
+        if (token) {
+          localStorage.removeItem("jwt");
+        } else if (googleauthtoken) {
+          localStorage.removeItem("googleauthtoken");
+          var auth2 = gapi.auth2.getAuthInstance();
+          auth2.signOut().then(function () {
+            console.log("User signed out.");
+          });
+        }
+        console.log("clicking on logout");
+      });
+    </script>
     <script
       src="https://apis.google.com/js/platform.js?onload=renderButton"
       async

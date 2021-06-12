@@ -7,30 +7,40 @@ const CLIENT_ID =
 const client_google = new OAuth2Client(CLIENT_ID);
 
 exports.verifyToken = (req, res, next) => {
+  // let token = null;
+  // let googleauthtoken = null;
+  console.log(req.headers);
   let token = req.headers.authorization;
-  const googletoken = req.headers.googleauthtoken;
-  if (token) {
+  let googleauthtoken = req.headers.googleauthtoken;
+  console.log(token, googleauthtoken);
+  if (token !== "null") {
+    console.log("in token");
     jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
       if (err) {
         res.status(500).json({ message: "Server error" });
       } else {
         const userEmail = decoded.email;
         client
-          .query(`SELECT * FROM users WHERE email = '${userEmail}'`)
+          .query(`SELECT * FROM details WHERE email = '${userEmail}'`)
           .then((data) => {
             if (data.rows == null) {
               res.status(400).json({ message: "Sign In first" });
             } else {
+              console.log(userEmail);
               req.email = userEmail;
               next();
             }
           })
           .catch((err) => {
+            console.log(err);
             res.status(500).json({ message: "Data Error" });
           });
       }
     });
-  } else if (googletoken) {
+  } else if (googleauthtoken !== "null") {
+    console.log("in google auth token");
+    let userEmail = "";
+    console.log("in google token");
     token = req.headers.googleauthtoken;
     async function verify() {
       const ticket = await client_google.verifyIdToken({
@@ -38,11 +48,11 @@ exports.verifyToken = (req, res, next) => {
         audience: CLIENT_ID,
       });
       const payload = ticket.getPayload();
-      const userid = payload["sub"];
+      userEmail = payload.email;
     }
     verify()
       .then(() => {
-        console.log("google auth verified");
+        req.email = userEmail;
         next();
       })
       .catch(console.error);

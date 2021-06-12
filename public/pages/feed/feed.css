@@ -1,313 +1,542 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Merriweather&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
-html{
-    font-size: 62.5%;
+html {
+  font-size: 62.5%;
 }
-body{
-    height: 100vh;
-    overflow: scroll;
-    background : rgba(229, 229, 229, 1);
-    transition : background 0.2s linear;
+body {
+  height: 100vh;
+  overflow: scroll;
+  background: rgba(229, 229, 229, 1);
+  transition: background 0.2s linear;
+  transition: opacity 1s ease-in;
+  opacity: 0;
 }
-body.dark{
-    background : #292c35;
-}
-nav{
-    height: 10vh;
-    z-index: 5;
-    position: fixed;
-    width: 100vw;
-    background : white;
-    display: flex;
-    justify-content: space-evenly;
-    padding: 0.5%;
-    border-bottom: 1px solid rgba(180, 180, 180, 1);
-}
-.leftTopBar{
-    height: 100%;
-    /* background :pink; */
-    width: 30%;
-    margin-right: 2%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-.leftTopBar > img{
-    height: 130%;
+body.dark {
+  background: #303841;
+  transition: background 0.2s linear;
 }
 
-.searchDiv{
-    border: 1px solid black;
-    padding: 2%;
-    width: 40%;
-    display: flex;
-    justify-content: space-around;
+.visible {
+  opacity: 1;
 }
-.searchDiv > input{
-    background : transparent;
-    border: none;
-    width: 70%;
-    font-size: 1.5rem;
+body.dark .dropDownContainer{
+  background: #303841;
+  color: white;
+  border: 1px solid grey;
 }
-.searchDiv > input:focus{
-    outline : none;
-    border: none;
+body.dark .sub{
+  color: white;
 }
-.searchDiv > img{
-    height: 2rem;
+body.dark .sub:hover{
+  background: #00adb5;
 }
-.label{
-    height: 27px;
-    width: 60px;
-    border-radius: 50px;
-    position: relative;
-    background-color : black;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+body.dark .DisplayPost {
+  background: #393e46;
+  color: white;
+  border: 1px solid grey;
 }
-.fa-moon{
-    color: #f1c40f;
-    font-size: 1.5rem;
+body.dark .MakeAPost {
+  background: #393e46;
+  color: white;
+  border: 1px solid grey;
 }
-.fa-sun{
-    color: #f39c12;
-    font-size: 1.5rem;
+body.dark .right {
+  background: #393e46;
+  color: white;
+  border: 1px solid grey;
 }
-.toggle{
-    background: white;
-    height: 24px;
-    width : 24px;
-    position: absolute;
-    border-radius : 50%;
-    top : 2px;
-    left: 2px;
-    transition: transform 0.2s linear;
+body.dark .startPostButton {
+  background: #00adb5;
 }
-.checkbox{
-    display: none;
+body.dark .startPostButton:hover {
+  background: none;
+  color: white;
+  border: 1px solid #00adb5;
+  transition: background 0.2s linear;
 }
-.checkbox:checked + .label .toggle{
-    transform : translateX(32px);
+body.dark nav {
+  background: #eeeeee;
 }
-.rightTopBar > img{
-    height: 40%;
+/* body.dark .popUpMakeAPostContainer{
+  background: #303841;
+  color: white;
+  border: 1px solid grey;
 }
-.rightTopBar{
-    /* background : grey; */
-    width: 30%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+body.dark .publish{
+  background: #00adb5;
 }
-.profileImageTopBarContainer{
-    /* background : black; */
-    border: 1px solid black;
-    height: 5rem;
-    width: 5rem;
-    border-radius: 50%;
-    padding: 0.3%;
+body.dark .publish:hover{
+  background: none;
+  color: white;
+  border: 1px solid #00adb5;
+  transition: background 0.2s linear;
 }
-.profileImageTopBarContainer > img{
-    height: 100%;
-    border-radius: 50%;
+body.dark .CaptionPopUp{
+  color: white;
+} */
+nav {
+  height: 10vh;
+  z-index: 5;
+  position: fixed;
+  width: 100vw;
+  background: white;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0.5%;
+  border-bottom: 1px solid rgba(180, 180, 180, 1);
+  transition: background 0.2s linear;
+  transition : all 0.5s linear;
 }
-.superContainer{
-    width: 100vw;
-    height: 90vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.leftTopBar {
+  height: 100%;
+  /* background :pink; */
+  width: 30%;
+  margin-right: 2%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
-.mainContainer{
-    width: 70%;
-    display: flex;
-    height: 100%;
-    padding-left: 1%;
-    margin-top: 15%;
-}
-.left{
-    height: auto;
-    width: 50%;
-}
-.MakeAPost{
-    width: 100%;
-    background : white;
-    height: 20%;
-    border: 1px solid rgba(180, 180, 180, 1);
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    padding: 2%;
-}
-.DisplayPost{
-    width: 100%;
-    margin-top: 2%;
-    height: 70%;
-    background : white;
-    border: 1px solid rgba(180, 180, 180, 1);
-    border-radius: 14px;
-}
-::-webkit-scrollbar{
-    display: none;
-}
-.textContainer{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: space-around;
-    margin-left: 20%;
-    height: 90%;
-    font-family: 'Montserrat', sans-serif;
-    width: 40%;
-    text-align: center;
-}
-.makePostProfileImage{
-    align-self: flex-start;
-    margin-top: 2%;
-    margin-left: 4%;
-    height: 6rem;
-    width: 6rem;
-}
-.textContainer > p{
-    font-size: 2.2rem;
-}
-.startPostButton{
-    padding: 3%;
-    cursor: pointer;
-    background : rgba(4, 142, 188, 0.5);
-    border: 1px solid white;
-    width: 70%;
-    color: white;
-    padding-top: 5%;
-    padding-bottom: 5%;
-    border-radius: 22.5px;
-    font-size: 1.5rem;
-    transition: all 0.2s ease;
-}
-.startPostButton:hover{
-    background : transparent;
-    border: 1px solid rgba(4, 142, 188, 0.8);
-    color: black;
-}
-.navDisplayPost{
-    /* background : grey; */
-    padding : 1.5%;
-    display: flex;
-    align-items: center;
+.leftTopBar > img {
+  height: 130%;
 }
 
-.ProfileDescription{
-    display: flex;
-    padding: 1%;
-    width: 30%;
-    height: 80%;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-top : 2%;
-    margin-left: 2%;
-    font-family: 'Open Sans', sans-serif;
+.searchDiv {
+  border: 1px solid black;
+  padding: 2%;
+  width: 40%;
+  display: flex;
+  justify-content: space-around;
 }
-.ProfileDescription > h1{
-    font-size: 2rem;
+.searchDiv > input {
+  background: transparent;
+  border: none;
+  width: 70%;
+  font-size: 1.5rem;
+}
+.searchDiv > input:focus {
+  outline: none;
+  border: none;
+}
+.searchDiv > img {
+  height: 2rem;
+}
+.label {
+  height: 27px;
+  width: 60px;
+  border-radius: 50px;
+  position: relative;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.fa-moon {
+  color: #f1c40f;
+  font-size: 1.5rem;
+}
+.fa-sun {
+  color: #f39c12;
+  font-size: 1.5rem;
+}
+.toggle {
+  background: white;
+  height: 24px;
+  width: 24px;
+  position: absolute;
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s linear;
+}
+.checkbox {
+  display: none;
+}
+.checkbox:checked + .label .toggle {
+  transform: translateX(32px);
+}
+.rightTopBar > img {
+  height: 40%;
+}
+.rightTopBar {
+  /* background : grey; */
+  width: 30%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.profileImageTopBarContainer {
+  /* background : black; */
+  border: 1px solid black;
+  height: 5rem;
+  width: 5rem;
+  border-radius: 50%;
+  padding: 0.3%;
+  cursor: pointer;
+}
+.profileImageTopBarContainer > img {
+  height: 100%;
+  border-radius: 50%;
+}
+.superContainer {
+  width: 100vw;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition : all 0.5s linear;
+}
+.mainContainer {
+  width: 70%;
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
+  padding-left: 1%;
+  padding-right: 3.5%;
+  margin-top: 15%;
+}
+.left {
+  height: auto;
+  width: 50%;
+}
+.MakeAPost {
+  width: 100%;
+  background: white;
+  overflow: auto;
+  height: 15rem;
+  /* height: 20%; */
+  border: 1px solid rgba(180, 180, 180, 1);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  padding: 2%;
+  transition: background 0.2s linear;
+}
+.DisplayPost {
+  width: 100%;
+  margin-top: 2%;
+  overflow: auto;
+  height: 60rem;
+  background: white;
+  border: 1px solid rgba(180, 180, 180, 1);
+  border-radius: 14px;
+  transition: background 0.2s linear;
+}
+::-webkit-scrollbar {
+  /* display: none; */
+}
+.textContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-left: 20%;
+  height: 90%;
+  font-family: "Montserrat", sans-serif;
+  width: 40%;
+  text-align: center;
+}
+.makePostProfileImage {
+  align-self: flex-start;
+  margin-top: 2%;
+  margin-left: 4%;
+  height: 6rem;
+  width: 6rem;
+}
+.textContainer > p {
+  font-size: 2.2rem;
+}
+.startPostButton {
+  padding: 3%;
+  cursor: pointer;
+  background: rgba(4, 142, 188, 0.5);
+  border: 1px solid white;
+  width: 70%;
+  color: white;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  border-radius: 22.5px;
+  font-size: 1.5rem;
+  transition: all 0.2s ease;
+  transition: background 0.2s linear;
+}
+.startPostButton:hover {
+  background: transparent;
+  border: 1px solid rgba(4, 142, 188, 0.8);
+  color: black;
+}
+.navDisplayPost {
+  /* background : grey; */
+  padding: 1.5%;
+  display: flex;
+  align-items: center;
 }
 
-.ProfileDescription > p{
-    font-size: 1.3rem;
+.ProfileDescription {
+  display: flex;
+  padding: 1%;
+  width: 30%;
+  height: 80%;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 2%;
+  margin-left: 2%;
+  font-family: "Open Sans", sans-serif;
 }
-.PostImageContainer{
-    width: 100%;
-    height: 70%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.PostImageContainer > img{
-    height: 100%;
-}
-.captionContainer{
-    height: fit-content;
-    width: 100%;
-    text-overflow: ellipsis;
-    align-items: center;
-    display: flex;
-    padding: 1%;
-}
-.caption{
-    margin-left: 5%;
-    height: 100%;
-    width: 70%;
-    text-overflow: ellipsis;
-    overflow : hidden;
-    white-space: nowrap;
-    font-family: 'Merriweather', serif;
-    font-size: 1.2rem;
-}
-.readMore{
-    margin-left: 2%;
-    font-family: 'Merriweather', serif;
-    cursor: pointer;
-    color: grey;
-}
-.lineSeperation{
-    width: 90%;
-    margin-top: 2%;
-    transform : translate(5%);
-    height: 1px;
-    background: rgba(128, 128, 128, 0.4);
-    display: flex;
-}
-.likeSection{
-    height: 8%;
-    display: flex;
-    font-family: 'Merriweather', serif;
-    padding : 1%;
-    justify-content: flex-start;
-    align-items: center;
-}
-.like{
-    height: 100%;
-    margin-left: 5%;
-    width: 10%;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    align-items: center;
+.ProfileDescription > h1 {
+  font-size: 2rem;
 }
 
-.fa-lightbulb{
-    font-size: 2.2rem;
+.ProfileDescription > p {
+  font-size: 1.3rem;
 }
-.fa-lightbulb:hover{
-    cursor: pointer;
+.PostImageContainer {
+  width: 100%;
+  height: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.PostImageContainer > img {
+  height: 100%;
+}
+.captionContainer {
+  height: fit-content;
+  width: 100%;
+  text-overflow: ellipsis;
+  align-items: center;
+  display: flex;
+  padding: 1%;
+}
+.caption {
+  margin-left: 5%;
+  height: 100%;
+  width: 70%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: "Merriweather", serif;
+  font-size: 1.2rem;
+}
+.readMore {
+  margin-left: 2%;
+  font-family: "Merriweather", serif;
+  cursor: pointer;
+  color: grey;
+}
+.lineSeperation {
+  width: 90%;
+  margin-top: 2%;
+  transform: translate(5%);
+  height: 1px;
+  background: rgba(128, 128, 128, 0.4);
+  display: flex;
+}
+.likeSection {
+  height: 8%;
+  display: flex;
+  font-family: "Merriweather", serif;
+  padding: 1%;
+  justify-content: flex-start;
+  align-items: center;
+}
+.like {
+  height: 100%;
+  margin-left: 5%;
+  width: 10%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.fa-lightbulb {
+  font-size: 2.2rem;
+}
+.fa-lightbulb:hover {
+  cursor: pointer;
 }
 .like > p {
-    font-size: 1.5rem;
-    color: black;
+  font-size: 1.5rem;
+  color: black;
 }
-.fill{
-    color: #f39c12;
+.fill {
+  color: #f39c12;
 }
-.LikeNumber{
-    font-size: 1.5rem;
+.LikeNumber {
+  font-size: 1.5rem;
 }
-.fa-comment{
-    font-size: 2.2rem;
+.fa-comment {
+  font-size: 2.2rem;
 }
-.commentSection{
-    width: 20%;
-    height: 80%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-left: 10%;
-    font-size: 1.5rem;
-    cursor: pointer;
+.commentSection {
+  width: 20%;
+  height: 80%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-left: 10%;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.right {
+  background: white;
+  border: 1px solid rgba(180, 180, 180, 1);
+  height: 70%;
+  width: 30%;
+  border-radius: 14px;
+  margin-left: 35.5%;
+  padding: 1%;
+  position: fixed;
+  transition: background 0.2s linear;
+}
+.right > h1 {
+  font-family: "Open Sans", sans-serif;
+  margin-left: 5%;
+  margin-top: 2%;
+}
+.popUpMakeAPostContainer {
+  position: absolute;
+  background: white;
+  border: 1px solid rgba(180, 180, 180, 1);
+  border-radius: 14px;
+  padding: 2%;
+  width: 30%;
+  opacity: 0;
+  pointer-events: none;
+  height: 40rem;
+  top: 10%;
+  left: 50%;
+  transform: translateY(-50%);
+  margin-top: 5%;
+  transform: translateX(-50%);
+  transition : opacity 0.5s linear;
+}
+.popUpMakeAPostContainer.visible{
+  opacity: 1;
+  pointer-events: all;
+}
+.PopUpNav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.lineSeperationPopUp {
+  width: 100%;
+  transform: translateX(0);
+}
+.fa-times {
+  font-size: 2.2rem;
+  cursor: pointer;
+  color: grey;
+}
+.healine {
+  display: flex;
+  align-items: center;
+  margin-top: 4%;
+}
+.healine > h1 {
+  font-family: "Open Sans", sans-serif;
+  margin-left: 3%;
+  font-size: 1.5rem;
+}
+.CaptionPopUp {
+  height: 40%;
+  width: 100%;
+  margin-top: 4%;
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+}
+.CaptionPopUp:focus {
+  outline: none;
+}
+.publish {
+  padding: 2.5%;
+  width: 30%;
+  background: rgba(4, 142, 188, 0.5);
+  border: 1px solid white;
+  border-radius: 22.5px;
+  cursor: pointer;
+  transition: all 0.2s linear;
+  color: white;
+  font-family: "Montserrat";
+  font-size: 1.5rem;
+}
+.publish:hover {
+  background: transparent;
+  border: 1px solid rgba(4, 142, 188, 0.8);
+  color: black;
+}
+.footerPopUp {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5%;
+}
+.fa-images {
+  font-size: 2.2rem;
+  cursor: pointer;
+}
+.leftPopUp {
+  display: flex;
+  width: 25%;
+  align-items: center;
+  justify-content: space-between;
+}
+.afterPopUp{
+  pointer-events: none;
+  filter :opacity(0.3);
+  transition : all 0.5s linear;
+}
+.dropDownContainer{
+  position: absolute;
+  border : 1px solid rgba(180, 180, 180, 1);
+  border-radius :14px;
+  height: 150px;
+  width: 220px;
+  padding: 1%;
+  right: 18.5%;
+  top : 8.5%;
+  display: flex;
+  flex-direction: column;
+  align-items: space-evenly;
+  justify-content: space-evenly;
+  background : white;
+  box-shadow: 0px 0px 10px 1px grey;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10;
+  transition: all 0.5s linear;
+}
+.dropDownContainer.visible{
+  pointer-events: all;
+  opacity: 1;
+}
+.sub{
+  display: flex;
+  font-family: "Merriweather", serif;
+  font-size : 1.3rem;
+  align-items: center;
+  cursor: pointer;
+  padding: 4%;
+  border-radius : 14px;
+  padding-left: 5%;
+}
+a{
+  text-decoration: none;
+  color: black;
+}
+.text{
+  margin-left: 6%;
+}
+.sub:hover{
+  background : rgba(4, 142, 188, 0.3);
 }

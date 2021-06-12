@@ -468,6 +468,17 @@ nav {
   font-family: "Montserrat";
   font-size: 1.5rem;
 }
+.arrow{
+  background : white;
+  border-top : 1px solid rgba(180, 180, 180, 1);
+  border-left : 1px solid rgba(180, 180, 180, 1);
+  width: 1.1rem;
+  height: 1.1rem;
+  position: absolute;
+  top: -6px;
+  transform : rotate(45deg);
+  right: 15px;
+}
 .publish:hover {
   background: transparent;
   border: 1px solid rgba(4, 142, 188, 0.8);
@@ -516,7 +527,7 @@ nav {
   align-items: space-evenly;
   justify-content: space-evenly;
   background: white;
-  box-shadow: 0px 0px 10px 1px grey;
+  /* box-shadow: 0px 0px 10px 1px grey; */
   opacity: 0;
   pointer-events: none;
   z-index: 10;

@@ -1,5 +1,5 @@
-const apiURL = "http://localhost:8000";
-// const apiURL = "https://still-fortress-53995.herokuapp.com";
+// const apiURL = "http://localhost:8000";
+const apiURL = "https://still-fortress-53995.herokuapp.com";
 const checkbox = document.querySelector(".checkbox");
 const likeIcon = document.querySelector(".likeIcon");
 let clicked = false;

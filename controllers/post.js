@@ -62,12 +62,15 @@ exports.getpics = (req, resp) => {
   console.log(req.email);
   let image = "";
   let mime = "";
-  let firstname="", lastname="";
+  let firstname = "",
+    lastname = "";
   client
-    .query(`SELECT firstname, lastname, img, mime FROM details WHERE email = '${req.email}'`)
+    .query(
+      `SELECT firstname, lastname, img, mime FROM details WHERE email = '${req.email}'`
+    )
     .then((res) => {
       firstname = res.rows[0].firstname;
-      lastname=res.rows[0].lastname;
+      lastname = res.rows[0].lastname;
       image = res.rows[0].img;
       mime = res.rows[0].mime;
       resp.status(200).json({
@@ -165,4 +168,9 @@ exports.createnewpost = (req, res) => {
       message: "image not found",
     });
   }
+};
+
+exports.getallposts = (req, resp) => {
+
+
 };

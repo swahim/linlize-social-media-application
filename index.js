@@ -52,4 +52,3 @@ client.connect((err) => {
     console.log("Connected to database!");
   }
 });
-

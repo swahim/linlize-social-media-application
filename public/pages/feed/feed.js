@@ -8,6 +8,8 @@ const Likes = document.querySelector(".LikeNumber");
 const body = document.querySelector("body");
 const sharePostButton = document.querySelector(".startPostButton");
 const cross = document.querySelector(".fa-times");
+const token = localStorage.getItem("jwt");
+const googleauthtoken = localStorage.getItem("googleauthtoken");
 // const logOut = document.querySelector(".LogOut");
 let image_compressed = "";
 
@@ -38,13 +40,23 @@ async function handleImageUpload(event) {
 }
 
 function uploadToServer(file, content, name) {
+  console.log(content);
   var formData = new FormData();
-  formData.append("content", content);
   formData.append("image", file, name);
-  return fetch("http://localhost:8000/posts/createnewpost", {
+  formData.append("content", content);
+  console.log(file, content, name);
+  fetch(`${apiURL}/posts/createnewpost`, {
     method: "POST",
+    headers: {
+      authorization: token,
+      googleauthtoken: googleauthtoken,
+    },
     body: formData,
-  });
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    });
 }
 
 checkbox.addEventListener("click", () => {
@@ -66,37 +78,36 @@ likeIcon.addEventListener("click", () => {
 });
 window.addEventListener("load", () => {
   body.classList.add("visible");
-  document.querySelector(".nameBackend").innerHTML = "Sohan Bandary";
+  const fullname=document.querySelector(".nameBackend");
 
-  // const token = localStorage.getItem("jwt");
-  // const googleauthtoken = localStorage.getItem("googleauthtoken");
-  // if (token === null && googleauthtoken === null) {
-  //   location.href = "/pages/signin/signin.html";
-  // } else {
-  //   const token = localStorage.getItem("jwt");
-  //   const googleauthtoken = localStorage.getItem("googleauthtoken");
-  //   fetch(`${apiURL}/posts/getpics`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       authorization: token,
-  //       googleauthtoken: googleauthtoken,
-  //     },
-  //   })
-  //     .then((resp) => resp.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       const img = document.querySelectorAll(".profileImageBackend");
-  //       var i;
-  //       for (i = 0; i < img.length; i++) {
-  //         img[i].src = data.data;
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       alert("Error Fetching data");
-  //       console.log(err);
-  //     });
-  // }
+  const token = localStorage.getItem("jwt");
+  const googleauthtoken = localStorage.getItem("googleauthtoken");
+  if (token === null && googleauthtoken === null) {
+    location.href = "/pages/signin/signin.html";
+  } else {
+    fetch(`${apiURL}/posts/getpics`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: token,
+        googleauthtoken: googleauthtoken,
+      },
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        console.log(data);
+        fullname.innerHTML=data.firstname+" "+data.lastname;
+        const img = document.querySelectorAll(".profileImageBackend");
+        var i;
+        for (i = 0; i < img.length; i++) {
+          img[i].src = data.data;
+        }
+      })
+      .catch((err) => {
+        alert("Error Fetching data");
+        console.log(err);
+      });
+  }
 });
 
 sharePostButton.addEventListener("click", () => {

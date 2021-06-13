@@ -62,21 +62,28 @@ exports.getpics = (req, resp) => {
   console.log(req.email);
   let image = "";
   let mime = "";
+  let firstname="", lastname="";
   client
-    .query(`SELECT img, mime FROM details WHERE email = '${req.email}'`)
+    .query(`SELECT firstname, lastname, img, mime FROM details WHERE email = '${req.email}'`)
     .then((res) => {
+      firstname = res.rows[0].firstname;
+      lastname=res.rows[0].lastname;
       image = res.rows[0].img;
       mime = res.rows[0].mime;
       resp.status(200).json({
         message: "image fetched successfully",
         //  data: `<img src='data:${mime};base64,${image}'>`
         data: `data:${mime};base64,${image}`,
+        firstname: firstname,
+        lastname: lastname,
       });
     })
-    .catch((e) => resp.status(500).json({
-      message: "user not found",
-      error: e,
-    }));
+    .catch((e) =>
+      resp.status(500).json({
+        message: "user not found",
+        error: e,
+      })
+    );
   // let img_length = 0;
   // let bg_images = [];
   // let mime =[];
@@ -126,5 +133,36 @@ exports.profile = (req, res) => {
 
 exports.createnewpost = (req, res) => {
   console.log("in create new post");
-  console.log(req.body.content);
+  // console.log(req.body);
+  // const data = req.files.image;
+  // console.log(data);
+  // console.log(req.headers);
+  // console.log(req.email);
+  // console.log(req.body.content);
+  // res.status(200).json({
+  //   message: "phew!!"
+  // })
+
+  // console.log("email, " + req.email);
+  // console.log(req.headers);
+  const data = req.files.image;
+  const imgdata = data.data.toString("base64");
+  const mime = data.mimetype;
+  if (data) {
+    client
+      .query(
+        `INSERT INTO posts (email, content, img, mime) VALUES  ('${req.email}', '${req.body.content}', bytea('${imgdata}'), '${mime}');`
+      )
+      .catch((err) => {
+        console.log(err);
+      });
+    res.status(200).json({
+      message: "image added successfully",
+      // data: req.files.pic,
+    });
+  } else {
+    res.status(400).json({
+      message: "image not found",
+    });
+  }
 };

@@ -115,13 +115,13 @@
         var profile = googleUser.getBasicProfile();
         let firstname = profile.kV;
         let lastname = profile.fT;
-        console.log(profile.fT);
-        console.log(profile.kV);
-        console.log(profile);
-        console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead.
-        console.log("Name: " + profile.getName());
-        console.log("Image URL: " + profile.getImageUrl());
-        console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
+        // console.log(profile.fT);
+        // console.log(profile.kV);
+        // console.log(profile);
+        // console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        // console.log("Name: " + profile.getName());
+        // console.log("Image URL: " + profile.getImageUrl());
+        // console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
         var id_token = googleUser.getAuthResponse().id_token;
         // console.log(id_token);
         var xhr = new XMLHttpRequest();
@@ -130,9 +130,9 @@
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onload = function () {
           const temp = JSON.parse(xhr.responseText);
-          console.log("Signed in as: " + xhr.responseText);
+          // console.log("Signed in as: " + xhr.responseText);
           localStorage.setItem("googleauthtoken", temp.googletoken);
-          location.href = "/pages/feed/feed.html";
+          // location.href = "/pages/feed/feed.html";
         };
         xhr.send(
           JSON.stringify({

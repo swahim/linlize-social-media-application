@@ -9,10 +9,11 @@ const client_google = new OAuth2Client(CLIENT_ID);
 exports.verifyToken = (req, res, next) => {
   // let token = null;
   // let googleauthtoken = null;
-  console.log(req.headers);
+  // console.log(req.headers);
   let token = req.headers.authorization;
   let googleauthtoken = req.headers.googleauthtoken;
-  console.log(token, googleauthtoken);
+  // console.log(token, googleauthtoken);
+  // console.log(req.headers);
   if (token !== "null") {
     console.log("in token");
     jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
@@ -26,8 +27,9 @@ exports.verifyToken = (req, res, next) => {
             if (data.rows == null) {
               res.status(400).json({ message: "Sign In first" });
             } else {
+              console.log("in normal auth");
               console.log(userEmail);
-              req.email = userEmail;
+              // req.email = userEmail;
               next();
             }
           })
@@ -38,9 +40,7 @@ exports.verifyToken = (req, res, next) => {
       }
     });
   } else if (googleauthtoken !== "null") {
-    console.log("in google auth token");
     let userEmail = "";
-    console.log("in google token");
     token = req.headers.googleauthtoken;
     async function verify() {
       const ticket = await client_google.verifyIdToken({
@@ -55,6 +55,9 @@ exports.verifyToken = (req, res, next) => {
         req.email = userEmail;
         next();
       })
-      .catch(console.error);
+      .catch(err => {
+        console.log(err);
+        next(err);
+      });
   }
 };

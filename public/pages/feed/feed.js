@@ -85,6 +85,8 @@ window.addEventListener("load", () => {
   if (token === null && googleauthtoken === null) {
     location.href = "/pages/signin/signin.html";
   } else {
+    const token = localStorage.getItem("jwt");
+    const googleauthtoken = localStorage.getItem("googleauthtoken");
     fetch(`${apiURL}/posts/getpics`, {
       method: "POST",
       headers: {

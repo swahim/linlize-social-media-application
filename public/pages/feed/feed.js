@@ -56,6 +56,12 @@ function uploadToServer(file, content, name) {
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
+      const navBar = document.querySelector("nav");
+      const container = document.querySelector(".superContainer");
+      const popUp = document.querySelector(".popUpMakeAPostContainer");
+      popUp.classList.remove("visible");
+      navBar.classList.remove("afterPopUp");
+      container.classList.remove("afterPopUp");
     });
 }
 
@@ -78,7 +84,7 @@ likeIcon.addEventListener("click", () => {
 });
 window.addEventListener("load", () => {
   body.classList.add("visible");
-  const fullname=document.querySelector(".nameBackend");
+  const fullname = document.querySelector(".nameBackend");
 
   const token = localStorage.getItem("jwt");
   const googleauthtoken = localStorage.getItem("googleauthtoken");
@@ -98,7 +104,7 @@ window.addEventListener("load", () => {
       .then((resp) => resp.json())
       .then((data) => {
         console.log(data);
-        fullname.innerHTML=data.firstname+" "+data.lastname;
+        fullname.innerHTML = data.firstname + " " + data.lastname;
         const img = document.querySelectorAll(".profileImageBackend");
         var i;
         for (i = 0; i < img.length; i++) {

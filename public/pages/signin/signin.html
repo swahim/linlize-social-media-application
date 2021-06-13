@@ -39,7 +39,12 @@
             </div>
             <input type="submit" value="Login" class="btn solid loginButton" />
             <p class="social-text">Or Sign in with Google</p>
-            <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" data-width="150px"></div>
+            <div
+              class="g-signin2"
+              data-onsuccess="onSignIn"
+              data-theme="dark"
+              data-width="150px"
+            ></div>
             <!-- <a href="#" onclick="signOut();">Sign out</a> -->
             <!-- <div class="social-media">
               <a data-onsuccess="onSignIn" class="social-icon">
@@ -132,7 +137,7 @@
           const temp = JSON.parse(xhr.responseText);
           // console.log("Signed in as: " + xhr.responseText);
           localStorage.setItem("googleauthtoken", temp.googletoken);
-          // location.href = "/pages/feed/feed.html";
+          location.href = "/pages/feed/feed.html";
         };
         xhr.send(
           JSON.stringify({

@@ -172,5 +172,9 @@ exports.createnewpost = (req, res) => {
 
 exports.getallposts = (req, resp) => {
 
-
+  client
+  .query(`SELECT email, content, img FROM posts;`)
+  .then((data) => {
+    res.send(data);
+  });
 };

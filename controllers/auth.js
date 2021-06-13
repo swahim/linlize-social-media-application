@@ -13,7 +13,6 @@ const client_google = new OAuth2Client(CLIENT_ID);
 
 app.use(express.json());
 app.use(cors());
-<<<<<<< HEAD
 // exports.signUp = (req, res) => {
 //   console.log("entered in signup mode");
 //   const { fullname, email, phonenumber, password, dob} = req.body;
@@ -79,15 +78,6 @@ app.use(cors());
 exports.signUp = (req, res) => {
   console.log("entered in signup mode");
   const { fullname, email, password } = req.body;
-=======
-
-var cookieParser = require("cookie-parser");
-app.use(cookieParser());
-
-exports.signUp = (req, res) => {
-  console.log("entered in signup mode");
-  const { username, email, password } = req.body;
->>>>>>> upstream/main
   client
     .query(`SELECT * FROM details WHERE email = '${email}';`)
     .then((data) => {
@@ -106,22 +96,14 @@ exports.signUp = (req, res) => {
           }
 
           const user = {
-<<<<<<< HEAD
             fullname,
-=======
-            username,
->>>>>>> upstream/main
             email,
             password: hash,
           };
 
           client
             .query(
-<<<<<<< HEAD
               `INSERT INTO details (fullname, email, password) VALUES  ('${user.fullname}','${user.email}','${user.password}');`
-=======
-              `INSERT INTO details (username, email, password) VALUES  ('${user.username}','${user.email}','${user.password}');`
->>>>>>> upstream/main
             )
             .then((data) => {
               console.log(data);

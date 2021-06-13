@@ -33,6 +33,9 @@ body.dark .dropDownContainer {
 body.dark .sub {
   color: white;
 }
+body.dark .arrow {
+  background: #303841;
+}
 body.dark .sub:hover {
   background: #00adb5;
 }
@@ -59,6 +62,9 @@ body.dark .startPostButton:hover {
   color: white;
   border: 1px solid #00adb5;
   transition: background 0.2s linear;
+}
+body.dark .makePostProfileImage{
+  border: 1px solid white;
 }
 body.dark nav {
   background: #eeeeee;
@@ -246,6 +252,7 @@ nav {
   margin-left: 4%;
   height: 6rem;
   width: 6rem;
+  transition: all 0.2s linear;
 }
 .textContainer > p {
   font-size: 2.2rem;
@@ -386,7 +393,7 @@ nav {
 .right {
   background: white;
   border: 1px solid rgba(180, 180, 180, 1);
-  height: 70%;
+  height: 70rem;
   width: 30%;
   border-radius: 14px;
   margin-left: 35.5%;
@@ -478,6 +485,7 @@ nav {
   top: -6px;
   transform : rotate(45deg);
   right: 15px;
+  transition: all 0.2s linear;
 }
 .publish:hover {
   background: transparent;
@@ -531,7 +539,7 @@ nav {
   opacity: 0;
   pointer-events: none;
   z-index: 10;
-  transition: all 0.5s linear;
+  transition: all 0.2s linear;
 }
 .dropDownContainer.visible {
   pointer-events: all;

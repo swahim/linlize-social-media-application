@@ -154,7 +154,7 @@ exports.createnewpost = (req, res) => {
   if (data) {
     client
       .query(
-        `INSERT INTO posts (email, content, img, mime) VALUES  ('${req.email}', '${req.body.content}', bytea('${imgdata}'), '${mime}');`
+        `INSERT INTO posts (email, content, postsimg, postsmime) VALUES  ('${req.email}', '${req.body.content}', bytea('${imgdata}'), '${mime}');`
       )
       .catch((err) => {
         console.log(err);
@@ -171,10 +171,21 @@ exports.createnewpost = (req, res) => {
 };
 
 exports.getallposts = (req, resp) => {
-
+  let temp=[];
   client
-  .query(`SELECT email, content, img FROM posts;`)
-  .then((data) => {
-    res.send(data);
+  .query(`SELECT posts.email, content, firstname, lastname, posts.postsimg, posts.postsmime, img, mime from posts INNER JOIN details ON posts.email=details.email;`)
+  .then((res) => {
+    res.rows.forEach((data) => {
+      let innertemp={
+        "email": data.email,
+        "firstname": data.firstname,
+        "lastname": data.lastname,
+        "content": data.content,
+        "profilepic": "data:"+data.mime+";base64,"+data.img,
+        "postspic": "data:"+data.postsmime+";base64,"+data.postsimg,
+      };
+      temp.push(innertemp);
+    })
+    resp.status(200).json({temp});
   });
 };

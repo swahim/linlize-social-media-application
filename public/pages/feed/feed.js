@@ -215,6 +215,7 @@ async function myposts() {
 
         const caption = document.createElement("div");
         caption.className = "caption";
+        caption.innerHTML=`${obj.content}`;
         captionContainer.appendChild(caption);
 
         const readMore = document.createElement("div");

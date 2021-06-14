@@ -10,7 +10,7 @@ const sharePostButton = document.querySelector(".startPostButton");
 const cross = document.querySelector(".fa-times");
 const token = localStorage.getItem("jwt");
 const googleauthtoken = localStorage.getItem("googleauthtoken");
-// const logOut = document.querySelector(".LogOut");
+const logOut = document.querySelector(".LogOut");
 let image_compressed = "";
 
 async function handleImageUpload(event) {
@@ -84,38 +84,38 @@ likeIcon.addEventListener("click", () => {
 });
 window.addEventListener("load", () => {
   body.classList.add("visible");
-    const fullname = document.querySelector(".nameBackend");
+  const fullname = document.querySelector(".nameBackend");
 
+  const token = localStorage.getItem("jwt");
+  const googleauthtoken = localStorage.getItem("googleauthtoken");
+  if (token === null && googleauthtoken === null) {
+    location.href = "/pages/signin/signin.html";
+  } else {
     const token = localStorage.getItem("jwt");
     const googleauthtoken = localStorage.getItem("googleauthtoken");
-    if (token === null && googleauthtoken === null) {
-      location.href = "/pages/signin/signin.html";
-    } else {
-      const token = localStorage.getItem("jwt");
-      const googleauthtoken = localStorage.getItem("googleauthtoken");
-      fetch(`${apiURL}/posts/getpics`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: token,
-          googleauthtoken: googleauthtoken,
-        },
+    fetch(`${apiURL}/posts/getpics`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: token,
+        googleauthtoken: googleauthtoken,
+      },
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        console.log(data);
+        fullname.innerHTML = data.firstname + " " + data.lastname;
+        const img = document.querySelectorAll(".profileImageBackend");
+        var i;
+        for (i = 0; i < img.length; i++) {
+          img[i].src = data.data;
+        }
       })
-        .then((resp) => resp.json())
-        .then((data) => {
-          console.log(data);
-          fullname.innerHTML = data.firstname + " " + data.lastname;
-          const img = document.querySelectorAll(".profileImageBackend");
-          var i;
-          for (i = 0; i < img.length; i++) {
-            img[i].src = data.data;
-          }
-        })
-        .catch((err) => {
-          alert("Error Fetching data");
-          console.log(err);
-        });
-    }
+      .catch((err) => {
+        alert("Error Fetching data");
+        console.log(err);
+      });
+  }
 });
 
 sharePostButton.addEventListener("click", () => {
@@ -146,20 +146,18 @@ profileImageTopBarContainer.addEventListener("click", () => {
   dropDownContainer.classList.toggle("visible");
 });
 
-// logOut.addEventListener("click", () => {
-//   console.log("clicking on logout");
-//   const token = localStorage.getItem("jwt");
-//   const googleauthtoken = localStorage.getItem("googleauthtoken");
-//   if (token) {
-//     localStorage.removeItem("jwt");
-//   } else if (googleauthtoken) {
-//     localStorage.removeItem("googleauthtoken");
-//     var auth2 = gapi.auth2.getAuthInstance();
-//     auth2.signOut().then(function () {
-//       console.log("User signed out.");
-//     });
-//   }
-// });
+logOut.addEventListener("click", () => {
+  console.log("clicking on logout");
+  const token = localStorage.getItem("jwt");
+  const googleauthtoken = localStorage.getItem("googleauthtoken");
+  if (token) {
+    localStorage.removeItem("jwt");
+    location.href = "/pages/signin/signin.html";
+  } else if (googleauthtoken) {
+    location.href = "/pages/signin/signin.html";
+    localStorage.removeItem("googleauthtoken");
+  }
+});
 
 async function myposts() {
   fetch(`${apiURL}/posts/getallposts`, {
@@ -183,7 +181,6 @@ async function myposts() {
         profilePic.className =
           "profileImageTopBarContainer makePostProfileImage displayPostProfileImage";
 
-        
         navDisplayPost.append(profilePic);
 
         const ProfileDescription = document.createElement("div");
@@ -191,9 +188,9 @@ async function myposts() {
 
         const profileName = document.createElement("h1");
         profileName.className = "profileName";
-        profileName.innerHTML =" Sohan bro"
+        profileName.innerHTML = " Sohan bro";
         ProfileDescription.appendChild(profileName);
-        ProfileDescription.innerHTML =`<h1>${obj.firstname} ${obj.lastname}</h1>`
+        ProfileDescription.innerHTML = `<h1>${obj.firstname} ${obj.lastname}</h1>`;
 
         ProfileDescription.innerHTML += `<p>Founder | Amazon</p>`;
 
@@ -201,21 +198,20 @@ async function myposts() {
         const img = document.createElement("img");
         profilePic.append(img);
 
-        
         // PostImageContainer
         const PostImageContainer = document.createElement("div");
         PostImageContainer.className = "PostImageContainer";
 
         const img2 = document.createElement("img");
         PostImageContainer.append(img2);
-        img2.src=obj.postspic;
+        img2.src = obj.postspic;
 
         const captionContainer = document.createElement("div");
         captionContainer.className = "captionContainer";
 
         const caption = document.createElement("div");
         caption.className = "caption";
-        caption.innerHTML=`${obj.content}`;
+        caption.innerHTML = `${obj.content}`;
         captionContainer.appendChild(caption);
 
         const readMore = document.createElement("div");
@@ -256,7 +252,7 @@ async function myposts() {
         displayPost.append(likeSection);
         left.append(displayPost);
 
-        img.src=obj.profilepic;
+        img.src = obj.profilepic;
       });
     });
   // const left = document.querySelector(".left");

@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="./completeProfile.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Edit Linkize Profile | Linkize</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/browser-image-compression@1.0.13/dist/browser-image-compression.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
   </head>
   <body>
     <nav>
@@ -52,7 +54,13 @@
                     <div class="profileImageTopBarContainer">
                         <img class="profileImageBackend" src="../../images/Icon.png" />
                       </div>
-                      <div class="UplaodNewPhoto">Uplaod New Photo</div>
+                      <div class="UplaodNewPhoto">
+                        <form id="image_submit">
+                        <input type="file" accept="image/*" name="pic" id="uploadBox"/>
+                        <input type="submit" class="publish" value="Save Changes" />
+                        </form>
+                      </div>
+                      
                   </div>
               <div class="name">
                 <div class="firstName displayName">
@@ -61,11 +69,11 @@
                 </div>
                 <div class="lastName displayName">
                     Last Name :
-                    <input class="firstNameInput" type="text" placeholder="Last Name">
+                    <input class="lastNameInput" type="text" placeholder="Last Name">
                 </div>
               </div>
-              <div class="displayName">Where are you based?</div>
-              <input class="regionTextBox" type="text" placeholder="eg. Mumbai, Maharashtra">
+              <div class="displayName">Phone number</div>
+              <input class="regionTextBox phoneNumber" type="number" placeholder="phone number">
               <div class="Bio">Your Bio</div>
               <Textarea class="writeBio" placeholder="Write you bio"></Textarea>
             </div>
@@ -80,9 +88,9 @@
               </div>
               <div class="right right2">
                 <div class="company">Company/Insitution <span>*</span></div>
-                <input type="text" class="regionTextBox rightInputBox" placeholder="e.g. Amazon, ABV-IIITM">
+                <input type="text" class="regionTextBox rightInputBox companyName" placeholder="e.g. Amazon, ABV-IIITM">
                 <div class="company designation">Designation <span>*</span></div>
-                <input type="text" class="regionTextBox rightInputBox" placeholder="e.g. Founder, Manager, Student">
+                <input type="text" class="regionTextBox rightInputBox designationName" placeholder="e.g. Founder, Manager, Student">
             </div>
         </div>
         <div class="lineSeperation"></div>
@@ -98,9 +106,10 @@
             <select class="genderList">
               <option value="male">Male</option>
               <option value="female">Female
+              <option value="others">Others</option>
             </select>
             <div class="company designation">Birthday</div>
-            <input type="date" class="regionTextBox" placeholder="YYYY-MM-DD">
+            <input type="date" class="regionTextBox birthday" placeholder="YYYY-MM-DD">
         </div>
         </div>
         <div class="submitContainer">
@@ -111,5 +120,4 @@
     </div>
   </body>
   <script src="./completeProfile.js"></script>
-  <script src="../feed/feed.js"></script>
 </html>

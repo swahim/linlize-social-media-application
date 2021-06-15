@@ -3,12 +3,13 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const socket=require("socket.io");
+const socket = require("socket.io");
 const client = require("./configs/db");
 const port = process.env.PORT || 8000;
 
 const authRoutes = require("./routes/auth");
 const postRoutes = require("./routes/post");
+const detailsRoutes = require("./routes/details");
 const fileUploader = require("express-fileupload");
 app.use(fileUploader());
 app.use(express.json());
@@ -23,14 +24,14 @@ app.listen(port, () => {
 });
 
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + '/public/index.html');
+  res.sendFile(__dirname + "/public/index.html");
 });
 app.use("/auth", authRoutes);
 app.use("/posts", postRoutes);
+app.use("/details", detailsRoutes);
 
 //static files
-app.use(express.static('public'));
-
+app.use(express.static("public"));
 
 // //socket setup
 // var io=socket(server);

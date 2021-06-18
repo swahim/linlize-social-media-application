@@ -1,6 +1,3 @@
-const apiURL = "http://localhost:8000";
-// const apiURL = "https://still-fortress-53995.herokuapp.com";
-
 const token = localStorage.getItem("jwt");
 const googleauthtoken = localStorage.getItem("googleauthtoken");
 
@@ -26,7 +23,7 @@ window.addEventListener("load", () =>{
     if (token === null && googleauthtoken === null) {
         location.href = "/pages/signin/signin.html";
       } else {
-        fetch(`${apiURL}/details/getdetails`, {
+        fetch(`/details/getdetails`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -99,7 +96,7 @@ async function handleImageUpload(event) {
     formData.append("birthday", birthday.value);
     console.log(formData);
 
-    fetch(`${apiURL}/details/updatedetails`, {
+    fetch(`/details/updatedetails`, {
       method: "POST",
       headers: {
         authorization: token,

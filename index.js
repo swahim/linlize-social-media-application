@@ -10,6 +10,9 @@ const port = process.env.PORT || 8000;
 const authRoutes = require("./routes/auth");
 const postRoutes = require("./routes/post");
 const detailsRoutes = require("./routes/details");
+
+const passportSetup = require('./configs/passport-setup');
+const passport=require('passport');
 const fileUploader = require("express-fileupload");
 app.use(fileUploader());
 app.use(express.json());
@@ -23,9 +26,12 @@ app.listen(port, () => {
   console.log("On port 8000!");
 });
 
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/public/index.html");
-});
+// app.get("/", (req, res) => {
+//   res.sendFile(__dirname + "/public/index.html");
+// });
+
+app.use(passport.initialize());
+app.use(passport.session());
 app.use("/auth", authRoutes);
 app.use("/posts", postRoutes);
 app.use("/details", detailsRoutes);

@@ -1,5 +1,3 @@
-// const apiURL = "http://localhost:8000";
-const apiURL = "https://still-fortress-53995.herokuapp.com";
 const checkbox = document.querySelector(".checkbox");
 const likeIcon = document.querySelector(".likeIcon");
 let clicked = false;
@@ -45,7 +43,7 @@ function uploadToServer(file, content, name) {
   formData.append("image", file, name);
   formData.append("content", content);
   console.log(file, content, name);
-  fetch(`${apiURL}/posts/createnewpost`, {
+  fetch(`/posts/createnewpost`, {
     method: "POST",
     headers: {
       authorization: token,
@@ -84,38 +82,38 @@ likeIcon.addEventListener("click", () => {
 });
 window.addEventListener("load", () => {
   body.classList.add("visible");
-  const fullname = document.querySelector(".nameBackend");
+  // const fullname = document.querySelector(".nameBackend");
 
-  const token = localStorage.getItem("jwt");
-  const googleauthtoken = localStorage.getItem("googleauthtoken");
-  if (token === null && googleauthtoken === null) {
-    location.href = "/pages/signin/signin.html";
-  } else {
-    const token = localStorage.getItem("jwt");
-    const googleauthtoken = localStorage.getItem("googleauthtoken");
-    fetch(`${apiURL}/posts/getpics`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: token,
-        googleauthtoken: googleauthtoken,
-      },
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        console.log(data);
-        fullname.innerHTML = data.firstname + " " + data.lastname;
-        const img = document.querySelectorAll(".profileImageBackend");
-        var i;
-        for (i = 0; i < img.length; i++) {
-          img[i].src = data.data;
-        }
-      })
-      .catch((err) => {
-        alert("Error Fetching data");
-        console.log(err);
-      });
-  }
+  // const token = localStorage.getItem("jwt");
+  // const googleauthtoken = localStorage.getItem("googleauthtoken");
+  // if (token === null && googleauthtoken === null) {
+  //   location.href = "/pages/signin/signin.html";
+  // } else {
+  //   const token = localStorage.getItem("jwt");
+  //   const googleauthtoken = localStorage.getItem("googleauthtoken");
+  //   fetch(`/posts/getpics`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       authorization: token,
+  //       googleauthtoken: googleauthtoken,
+  //     },
+  //   })
+  //     .then((resp) => resp.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       fullname.innerHTML = data.firstname + " " + data.lastname;
+  //       const img = document.querySelectorAll(".profileImageBackend");
+  //       var i;
+  //       for (i = 0; i < img.length; i++) {
+  //         img[i].src = data.data;
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       alert("Error Fetching data");
+  //       console.log(err);
+  //     });
+  // }
 });
 
 sharePostButton.addEventListener("click", () => {
@@ -160,7 +158,7 @@ logOut.addEventListener("click", () => {
 });
 
 async function myposts() {
-  fetch(`${apiURL}/posts/getallposts`, {
+  fetch(`/posts/getallposts`, {
     method: "GET",
   })
     .then((resp) => resp.json())
@@ -332,4 +330,4 @@ async function myposts() {
   // displayPost.append(likeSection);
   // left.append(displayPost);
 }
-myposts();
+// myposts();

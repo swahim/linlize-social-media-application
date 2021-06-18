@@ -4,11 +4,6 @@
     <meta charset="UTF-8" />
     <link rel="icon" href="../../images/Icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <meta
-      name="google-signin-client_id"
-      content="459450636110-kjiimp7ejasn59glq1rtm8484pc5rgrn.apps.googleusercontent.com"
-    />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script
@@ -45,6 +40,11 @@
               data-theme="dark"
               data-width="150px"
             ></div>
+            <div class="social-media">
+              <a href="http://localhost:8000/auth/google" class="social-icon">
+                <i class="fab fa-google"></i>
+              </a>
+            </div>
             <!-- <a href="#" onclick="signOut();">Sign out</a> -->
             <!-- <div class="social-media">
               <a data-onsuccess="onSignIn" class="social-icon">
@@ -80,11 +80,11 @@
             </div>
             <input type="submit" class="btn signupButton" value="Sign up" />
             <p class="social-text">Or Sign up with social platforms</p>
-            <!-- <div class="social-media">
+            <div class="social-media">
               <a href="#" class="social-icon">
                 <i class="fab fa-google"></i>
               </a>
-            </div> -->
+            </div>
           </form>
         </div>
       </div>
@@ -115,76 +115,6 @@
         </div>
       </div>
     </div>
-    <script>
-      function onSignIn(googleUser) {
-        var profile = googleUser.getBasicProfile();
-        let firstname = profile.kV;
-        let lastname = profile.fT;
-        // console.log(profile.fT);
-        // console.log(profile.kV);
-        // console.log(profile);
-        // console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead.
-        // console.log("Name: " + profile.getName());
-        // console.log("Image URL: " + profile.getImageUrl());
-        // console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
-        var id_token = googleUser.getAuthResponse().id_token;
-        // console.log(id_token);
-        var xhr = new XMLHttpRequest();
-        // xhr.open("POST", "http://localhost:8000/auth/googleauth");
-        xhr.open("POST", "https://still-fortress-53995.herokuapp.com/auth/googleauth");
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.onload = function () {
-          const temp = JSON.parse(xhr.responseText);
-          // console.log("Signed in as: " + xhr.responseText);
-          localStorage.setItem("googleauthtoken", temp.googletoken);
-          var auth2 = gapi.auth2.getAuthInstance();
-          auth2.signOut().then(function () {
-            console.log("User signed out.");
-          });
-          location.href = "/pages/feed/feed.html";
-        };
-        xhr.send(
-          JSON.stringify({
-            token: id_token,
-            email: profile.getEmail(),
-            firstname,
-            lastname,
-            profilepic: profile.getImageUrl(),
-          })
-        );
-      }
-    </script>
-    <script>
-      function signOut() {
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function () {
-          console.log("User signed out.");
-        });
-      }
-    </script>
-    <script>
-      const logOut = document.querySelector(".LogOut");
-
-      logOut.addEventListener("click", () => {
-        const token = localStorage.getItem("jwt");
-        const googleauthtoken = localStorage.getItem("googleauthtoken");
-        if (token) {
-          localStorage.removeItem("jwt");
-        } else if (googleauthtoken) {
-          localStorage.removeItem("googleauthtoken");
-          var auth2 = gapi.auth2.getAuthInstance();
-          auth2.signOut().then(function () {
-            console.log("User signed out.");
-          });
-        }
-        console.log("clicking on logout");
-      });
-    </script>
-    <script
-      src="https://apis.google.com/js/platform.js?onload=renderButton"
-      async
-      defer
-    ></script>
     <script src="./singnin.js"></script>
   </body>
 </html>

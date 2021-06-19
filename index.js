@@ -26,9 +26,10 @@ app.listen(port, () => {
   console.log("On port 8000!");
 });
 
-// app.get("/", (req, res) => {
-//   res.sendFile(__dirname + "/public/index.html");
-// });
+app.get("/", (req, res) => {
+  // res.redirect("/pages/landing")
+  res.sendFile(__dirname + "/public/index.html");
+});
 
 app.use(passport.initialize());
 app.use(passport.session());

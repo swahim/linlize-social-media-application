@@ -47,6 +47,7 @@ function uploadToServer(file, content, name) {
     method: "POST",
     headers: {
       authorization: token,
+      googleauthtoken: googleauthtoken,
     },
     body: formData,
   })
@@ -81,36 +82,38 @@ likeIcon.addEventListener("click", () => {
 });
 window.addEventListener("load", () => {
   body.classList.add("visible");
-  const fullname = document.querySelector(".nameBackend");
+  // const fullname = document.querySelector(".nameBackend");
 
-  const token = localStorage.getItem("jwt");
-  const googleauthtoken = localStorage.getItem("googleauthtoken");
-  if (token === null && googleauthtoken === null) {
-    location.href = "/pages/signin/signin.html";
-  } else {
-    const token = localStorage.getItem("jwt");
-    fetch(`/posts/getpics`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: token,
-      },
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        console.log(data);
-        fullname.innerHTML = data.firstname + " " + data.lastname;
-        const img = document.querySelectorAll(".profileImageBackend");
-        var i;
-        for (i = 0; i < img.length; i++) {
-          img[i].src = data.data;
-        }
-      })
-      .catch((err) => {
-        alert("Error Fetching data");
-        console.log(err);
-      });
-  }
+  // const token = localStorage.getItem("jwt");
+  // const googleauthtoken = localStorage.getItem("googleauthtoken");
+  // if (token === null && googleauthtoken === null) {
+  //   location.href = "/pages/signin/signin.html";
+  // } else {
+  //   const token = localStorage.getItem("jwt");
+  //   const googleauthtoken = localStorage.getItem("googleauthtoken");
+  //   fetch(`/posts/getpics`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       authorization: token,
+  //       googleauthtoken: googleauthtoken,
+  //     },
+  //   })
+  //     .then((resp) => resp.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       fullname.innerHTML = data.firstname + " " + data.lastname;
+  //       const img = document.querySelectorAll(".profileImageBackend");
+  //       var i;
+  //       for (i = 0; i < img.length; i++) {
+  //         img[i].src = data.data;
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       alert("Error Fetching data");
+  //       console.log(err);
+  //     });
+  // }
 });
 
 sharePostButton.addEventListener("click", () => {
@@ -327,4 +330,4 @@ async function myposts() {
   // displayPost.append(likeSection);
   // left.append(displayPost);
 }
-myposts();
+// myposts();

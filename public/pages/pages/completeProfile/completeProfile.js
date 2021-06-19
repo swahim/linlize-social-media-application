@@ -28,6 +28,7 @@ window.addEventListener("load", () =>{
           headers: {
             "Content-Type": "application/json",
             authorization: token,
+            googleauthtoken: googleauthtoken,
           },
         })
           .then((resp) => resp.json())
@@ -99,6 +100,7 @@ async function handleImageUpload(event) {
       method: "POST",
       headers: {
         authorization: token,
+        googleauthtoken: googleauthtoken,
       },
       body: formData,
     })
@@ -125,10 +127,11 @@ function uploadToServer(file, name) {
   formData.append("gender", gender.value);
   formData.append("birthday", birthday.value);
   console.log(formData);
-  fetch(`/details/updatedetails`, {
+  fetch(`${apiURL}/details/updatedetails`, {
     method: "POST",
     headers: {
       authorization: token,
+      googleauthtoken: googleauthtoken,
     },
     body: formData,
   })

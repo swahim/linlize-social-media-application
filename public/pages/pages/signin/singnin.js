@@ -4,7 +4,7 @@ const container = document.querySelector(".container");
 const body = document.querySelector("body");
 const loginbtn = document.querySelector(".loginButton");
 const signupbtn = document.querySelector(".signupButton");
-// const apiUrl = "http://localhost:8000";
+const apiUrl = "http://localhost:8000";
 // const apiUrl = "https://still-fortress-53995.herokuapp.com";
 
 loginbtn.addEventListener("click", (event) => {
@@ -13,7 +13,7 @@ loginbtn.addEventListener("click", (event) => {
   const password = document.querySelector(".passwordSignIn").value;
   console.log(email, password);
 
-  fetch(`/auth/signin`, {
+  fetch(`${apiUrl}/auth/signin`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -27,7 +27,7 @@ loginbtn.addEventListener("click", (event) => {
       if (token) {
         alert("Sigin successfull");
         localStorage.setItem("jwt", token);
-        location.href = "/pages/feed/";
+        location.href = "/pages/feed/feed.html";
       } else {
         alert("sign in again");
       }
@@ -59,17 +59,17 @@ signupbtn.addEventListener("click", (event) => {
   const confirmPassword = document.querySelector(
     ".confirmPasswordSignUp"
   ).value;
-  // console.log(username, email, password, confirmPassword);
+  console.log(username, email, password, confirmPassword);
   if (password !== confirmPassword) {
     alert("Password doesn't match");
     return;
   } else {
-    fetch(`/auth/signup`, {
+    fetch(`${apiUrl}/auth/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ username, email, password }),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -78,7 +78,6 @@ signupbtn.addEventListener("click", (event) => {
         if (token) {
           alert("SignUp successfull");
           localStorage.setItem("jwt", token);
-          location.href = "/pages/completeProfile/";
         } else {
           alert("sign up again");
         }

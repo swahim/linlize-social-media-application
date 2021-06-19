@@ -1,0 +1,344 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Merriweather&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  font-size: 62.5%;
+}
+body.dark {
+  background: #303841;
+}
+body {
+  transition: all 0.2s linear;
+  height: 130vh;
+  overflow: scroll;
+  background: rgba(229, 229, 229, 1);
+}
+.visible {
+  opacity: 1;
+}
+body.dark nav {
+  background: #eeeeee;
+}
+body.dark .textNav{
+  color: white;
+}
+body.dark .profileContainer{
+  background: #393e46;
+}
+body.dark .heading{
+  color: white;
+}
+body.dark .description{
+  color: rgb(160, 163, 165);
+}
+body.dark .card{
+  color: white;
+}
+body.dark .UplaodNewPhoto{
+  background: #00adb5;
+  color: black;
+}
+body.dark .UplaodNewPhoto:hover{
+  background: none;
+  color: white;
+  border: 1px solid #00adb5;
+}
+body.dark select{
+  background : white;
+}
+nav {
+  height: 10vh;
+  z-index: 5;
+  position: fixed;
+  width: 100vw;
+  background: white;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0.5%;
+  border-bottom: 1px solid rgba(180, 180, 180, 1);
+  transition: background 0.2s linear;
+  transition: all 0.5s linear;
+}
+.leftTopBar {
+  height: 100%;
+  width: 20%;
+  margin-right: 2%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.leftTopBar > img {
+  height: 130%;
+}
+
+/* .searchDiv {
+  border: 1px solid black;
+  padding: 2%;
+  width: 40%;
+  display: flex;
+  justify-content: space-around;
+}
+.searchDiv > input {
+  background: transparent;
+  border: none;
+  width: 70%;
+  font-size: 1.5rem;
+}
+.searchDiv > input:focus {
+  outline: none;
+  border: none;
+}
+.searchDiv > img {
+  height: 2rem;
+} */
+.label {
+  height: 27px;
+  width: 60px;
+  border-radius: 50px;
+  position: relative;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.fa-moon {
+  color: #f1c40f;
+  font-size: 1.5rem;
+}
+.fa-sun {
+  color: #f39c12;
+  font-size: 1.5rem;
+}
+.toggle {
+  background: white;
+  height: 24px;
+  width: 24px;
+  position: absolute;
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s linear;
+}
+.checkbox {
+  display: none;
+}
+.checkbox:checked + .label .toggle {
+  transform: translateX(32px);
+}
+.rightTopBar > img {
+  height: 40%;
+}
+.rightTopBar {
+  /* background : grey; */
+  width: 30%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.profileImageTopBarContainer {
+  /* background : black; */
+  border: 1px solid black;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5rem;
+  border-radius: 50%;
+  padding: 0.3%;
+}
+.profileImageTopBarContainer > img {
+  height: 100%;
+  border-radius: 50%;
+}
+.superContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.mainContainer {
+  width: 60%;
+  height: 100%;
+  padding-left: 3.3%;
+  padding-right: 2.6%;
+}
+.navBarContainer {
+  margin-top: 10%;
+  height: 10%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.textNav {
+  font-family: "Montserrat", sans-serif;
+  font-size: 3rem;
+  color: #022e57;
+  margin-top: 3%;
+  transition: all 0.2s linear;
+}
+.profileContainer {
+  height: fit-content;
+  background-color: white;
+  width: 100%;
+  margin-top: 3%;
+  border: 1px solid rgba(180, 180, 180, 1);
+  border-radius: 5px;
+  padding: 2%;
+  transition: all 0.2s linear;
+}
+.card {
+  width: 100%;
+  height: fit-content;
+  margin-top: 1%;
+  display: flex;
+  transition: all 0.2s linear;
+}
+.left {
+  width: 30%;
+  font-family: "Merriweather", serif;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.heading {
+  font-size: 1.5rem;
+  font-weight: bold;
+  transition: all 0.2s linear;
+}
+.description {
+  font-size: 1rem;
+  color: rgb(102, 102, 102);
+  margin-top: 5%;
+  transition: all 0.2s linear;
+}
+.right {
+  width: 80%;
+  margin-left: 10%;
+  font-family: "Merriweather", serif;
+}
+.name {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  /* margin-top: 1%; */
+  margin-top: 5%;
+}
+.displayName {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+}
+input {
+  padding: 3%;
+  border: 1px solid rgba(180, 180, 180, 1);
+  border-radius: 5px;
+  font-size: 1.5rem;
+}
+input:focus,
+textarea:focus {
+  outline: none;
+  border: 1px solid;
+  box-shadow: 0px 0px 5px 1px grey;
+}
+.firstNameInput,
+.lastNameInput,
+.Bio,
+.designation {
+  margin-top: 5%;
+  font-size: 1.5rem;
+}
+.editPhotoContainer {
+  width: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.UplaodNewPhoto {
+  padding: 3%;
+  text-align: center;
+  width: 18rem;
+  font-size: 1.5rem;
+  border-radius: 5px;
+  border: 1px solid rgba(105, 143, 156, 0.8);
+  cursor: pointer;
+  transition: all 0.2s linear;
+}
+.UplaodNewPhoto:hover {
+  background: rgba(4, 142, 188, 0.8);
+  color: white;
+}
+.regionTextBox {
+  padding: 1.5%;
+  margin-top: 2%;
+  width: 40%;
+}
+.displayName {
+  margin-top: 5%;
+}
+textarea {
+  padding: 1%;
+  font-size: 1.5rem;
+  border: 1px solid rgba(180, 180, 180, 1);
+  border-radius: 5px;
+  margin-top: 2%;
+  resize: vertical;
+  width: 40rem;
+}
+.lineSeperation {
+  width: 100%;
+  margin-top: 5%;
+  height: 1px;
+  background: rgba(128, 128, 128, 0.4);
+  display: flex;
+}
+.right2 {
+  /* background: rgba(229, 229, 229, 1); */
+  border-radius: 5px;
+  padding: 1%;
+}
+.company {
+  font-size: 1.5rem;
+}
+span {
+  color: grey;
+}
+.rightInputBox {
+  width: 30rem;
+}
+.card2 {
+  margin-top: 2%;
+}
+.Optional{
+  color: red;
+}
+select{
+  font-size: 1.5rem;
+  width: 15rem;
+  height: 3rem;
+  background-color: transparent;
+  display: block;
+  margin-top: 2%;
+  transition: all 0.2s linear;
+  cursor: pointer;
+}
+select:focus{
+  outline: none;
+}
+.submitContainer{
+  width: 100%;
+  display : flex;
+  justify-content: flex-end;
+  margin-top: 5%;
+}
+.submit{
+  padding : 1%;  
+}

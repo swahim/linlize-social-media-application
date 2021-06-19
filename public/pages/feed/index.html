@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="icon" href="../../images/Icon.png" />
+    <meta charset="UTF-8" />
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="./feed.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feed | Linkize</title>
+    <script
+      src="https://kit.fontawesome.com/e2bcd14811.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/browser-image-compression@1.0.13/dist/browser-image-compression.js"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
+  </head>
+  <body>
+    <div class="dropDownContainer">
+      <div class="arrow"></div>
+      <a href="#"
+        ><div class="sub viewProfile">
+          <i class="fas fa-street-view"></i>
+          <div class="text">View Profile</div>
+        </div></a
+      >
+      <a href="../completeProfile"
+        ><div class="sub completeProfile">
+          <i class="far fa-user-circle"></i>
+          <div class="text">Complete Your Profile</div>
+        </div></a
+      >
+      <a href="#"
+        ><div class="sub LogOut">
+          <i class="fas fa-sign-out-alt"></i>
+          <div class="text logOut">Log Out</div>
+        </div></a
+      >
+    </div>
+    <nav>
+      <div class="leftTopBar">
+        <img src="../../images/LINKIZE.png" />
+        <div class="searchDiv">
+          <input type="text" placeholder="Search" />
+          <img src="../../images/searchIcon.png" />
+        </div>
+      </div>
+      <div class="rightTopBar">
+        <input type="checkbox" class="checkbox" id="checkbox" />
+        <label for="checkbox" class="label">
+          <i class="fas fa-moon"></i>
+          <i class="fas fa-sun"></i>
+          <div class="toggle"></div>
+        </label>
+        <img src="../../images/home.png" />
+        <div class="profileImageTopBarContainer profileImageBackend">
+          <img class="profileImageBackend" src="../../images/Icon.png" />
+        </div>
+      </div>
+    </nav>
+    <div class="superContainer">
+      <div class="mainContainer">
+        <div class="left">
+          <div class="MakeAPost">
+            <div class="profileImageTopBarContainer makePostProfileImage">
+              <img class="profileImageBackend" src="../../images/Icon.png" />
+            </div>
+            <div class="textContainer">
+              <p>Have something in mind?</p>
+              <button class="startPostButton" type="button">
+                Share It Now!
+              </button>
+            </div>
+          </div>
+          <div class="DisplayPost temp">
+            <div class="navDisplayPost">
+              <div
+                class="
+                  profileImageTopBarContainer
+                  makePostProfileImage
+                  displayPostProfileImage
+                "
+              >
+                <img src="../../images/Icon.png" />
+              </div>
+              <div class="ProfileDescription">
+                <h1 class="profileName">Test Human</h1>
+                <p>Founder | Amazon</p>
+              </div>
+            </div>
+            <div class="PostImageContainer">
+              <img src="../../images/sign in.png" />
+            </div>
+            <div class="captionContainer">
+              <div class="caption">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Dolores, impedit ut doloremque ea pariatur iusto aspernatur
+                dolorem consequuntur ipsum nisi.
+              </div>
+              <div class="readMore">..Read More</div>
+            </div>
+            <div class="lineSeperation"></div>
+            <div class="likeSection">
+              <div class="like">
+                <span class="likeIcon"><i class="far fa-lightbulb"></i></span>
+                <div class="LikeNumber">0</div>
+              </div>
+              <div class="commentSection">
+                <i class="far fa-comment"></i>
+                <p>Comment</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="right">
+          <h1>Your Chats</h1>
+          <div class="lineSeperation"></div>
+        </div>
+      </div>
+    </div>
+    <div class="popUpMakeAPostContainer">
+      <div class="PopUpNav">
+        <h1>Create A Post</h1>
+        <i class="fas fa-times"></i>
+      </div>
+      <div class="lineSeperation lineSeperationPopUp"></div>
+      <div class="healine">
+        <div class="profileImageTopBarContainer popUpProfileImage">
+          <img class="profileImageBackend" src="../../images/Icon.png" />
+        </div>
+        <h1 class="nameBackend">Test Human</h1>
+      </div>
+
+      <div class="footerPopUp">
+          <form id="image_submit">
+            <input type="text" class="CaptionPopUp" placeholder="Want to write Something?">
+            <div class="imageAndButtonContainer">
+              <input type="file" accept="image/*" name="pic" />
+              <input type="submit" class="publish" value="Upload a file" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="./feed.js"></script>
+</html>

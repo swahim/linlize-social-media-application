@@ -29,7 +29,6 @@ exports.signUp = (req, res) => {
           }
 
           const user = {
-            fullname,
             email,
             password: hash,
           };
@@ -50,7 +49,6 @@ exports.signUp = (req, res) => {
               res.status(200).json({
                 message: "user added successfully",
                 token: token,
-                emailid: email,
               });
             })
             .catch((err) => {

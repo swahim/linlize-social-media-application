@@ -85,32 +85,32 @@ window.addEventListener("load", () => {
 
   const token = localStorage.getItem("jwt");
   const googleauthtoken = localStorage.getItem("googleauthtoken");
-  if (token === null && googleauthtoken === null) {
-    location.href = "/pages/signin/signin.html";
-  } else {
-    const token = localStorage.getItem("jwt");
-    fetch(`/posts/getpics`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: token,
-      },
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        console.log(data);
-        fullname.innerHTML = data.firstname + " " + data.lastname;
-        const img = document.querySelectorAll(".profileImageBackend");
-        var i;
-        for (i = 0; i < img.length; i++) {
-          img[i].src = data.data;
-        }
-      })
-      .catch((err) => {
-        alert("Error Fetching data");
-        console.log(err);
-      });
-  }
+  // if (token === null && googleauthtoken === null) {
+  //   location.href = "/pages/signin/signin.html";
+  // } else {
+  //   const token = localStorage.getItem("jwt");
+  //   fetch(`/posts/getpics`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       authorization: token,
+  //     },
+  //   })
+  //     .then((resp) => resp.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       fullname.innerHTML = data.firstname + " " + data.lastname;
+  //       const img = document.querySelectorAll(".profileImageBackend");
+  //       var i;
+  //       for (i = 0; i < img.length; i++) {
+  //         img[i].src = data.data;
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       alert("Error Fetching data");
+  //       console.log(err);
+  //     });
+  // }
 });
 
 sharePostButton.addEventListener("click", () => {

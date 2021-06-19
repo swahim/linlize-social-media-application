@@ -74,6 +74,6 @@ window.addEventListener("load", () => {
   const token = localStorage.getItem("jwt");
 
   if (token) {
-    location.href = "./pages/feed/feed.html";
+    location.href = "./pages/feed/index.html";
   }
 });

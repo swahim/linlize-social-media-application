@@ -26,6 +26,8 @@ app.listen(port, () => {
   console.log("On port 8000!");
 });
 
+app.use(express.static("public"));
+
 app.get("/", (req, res) => {
   // res.redirect("/pages/landing")
   res.sendFile(__dirname + "/public/index.html");
@@ -38,7 +40,6 @@ app.use("/posts", postRoutes);
 app.use("/details", detailsRoutes);
 
 //static files
-app.use(express.static("public"));
 
 // //socket setup
 // var io=socket(server);
@@ -53,10 +54,10 @@ app.use(express.static("public"));
 //     socket.broadcast.emit('typing',data)
 //   })
 // })
-client.connect((err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("Connected to database!");
-  }
-});
+// client.connect((err) => {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log("Connected to database!");
+//   }
+// });

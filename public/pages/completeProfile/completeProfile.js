@@ -18,40 +18,58 @@ let image_compressed = "";
 const submit_profile = document.querySelector("#image_submit");
 submit_profile.addEventListener("submit", handleImageUpload);
 
-window.addEventListener("load", () =>{
+function getCookie(name) {
+  function escape(s) {
+    return s.replace(/([.*+?\^$(){}|\[\]\/\\])/g, "\\$1");
+  }
+  var match = document.cookie.match(
+    RegExp("(?:^|;\\s*)" + escape(name) + "=([^;]*)")
+  );
+  return match ? match[1] : null;
+}
 
-    if (token === null && googleauthtoken === null) {
-        location.href = "/pages/signin/signin.html";
-      } else {
-        fetch(`/details/getdetails`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            authorization: token,
-          },
-        })
-          .then((resp) => resp.json())
-          .then((data) => {
-            console.log(data);
-            for (i = 0; i < profilePic.length; i++) {
-              profilePic[i].src = data.data;
-            }
-            firstName.value=data.firstname;
-            lastName.value=data.lastname;
-            phoneNumber.value=data.phonenumber
-            writeBio.value=data.bio;
-            companyName.value=data.company;
-            designationName.value=data.designation
-            gender.value=data.gender
-            birthday.value=data.dob;
-          })
-          .catch((err) => {
-            alert("Error Fetching data");
-            console.log(err);
-          });
-      }
+function getToken() {
+  if (localStorage.getItem("jwt")) {
+    return localStorage.getItem("jwt");
+  } else {
+    return getCookie("linkize");
+  }
+}
 
-})
+window.addEventListener("load", () => {
+  const token = getToken();
+
+  if (token === null) {
+    location.href = "/pages/signin/";
+  } else {
+    fetch(`/details/getdetails`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: token,
+      },
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        console.log(data);
+        for (i = 0; i < profilePic.length; i++) {
+          profilePic[i].src = data.data;
+        }
+        firstName.value = data.firstname;
+        lastName.value = data.lastname;
+        phoneNumber.value = data.phonenumber;
+        writeBio.value = data.bio;
+        companyName.value = data.company;
+        designationName.value = data.designation;
+        gender.value = data.gender;
+        birthday.value = data.dob;
+      })
+      .catch((err) => {
+        alert("Error Fetching data");
+        console.log(err);
+      });
+  }
+});
 
 async function handleImageUpload(event) {
   event.preventDefault();
@@ -135,6 +153,7 @@ function uploadToServer(file, name) {
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
+      location.href("/pages/feed/");
     });
 }
 // submit.addEventListener("click", (e) =>{

@@ -11,8 +11,8 @@ const authRoutes = require("./routes/auth");
 const postRoutes = require("./routes/post");
 const detailsRoutes = require("./routes/details");
 
-const passportSetup = require('./configs/passport-setup');
-const passport=require('passport');
+const passportSetup = require("./configs/passport-setup");
+const passport = require("passport");
 const fileUploader = require("express-fileupload");
 app.use(fileUploader());
 app.use(express.json());
@@ -30,7 +30,8 @@ app.use(express.static("public"));
 
 app.get("/", (req, res) => {
   // res.redirect("/pages/landing")
-  res.sendFile(__dirname + "/public/index.html");
+  // res.sendFile(__dirname + "/public/index.html");
+  res.redirect("/pages");
 });
 
 app.use(passport.initialize());
@@ -41,23 +42,20 @@ app.use("/details", detailsRoutes);
 
 //static files
 
-// //socket setup
-// var io=socket(server);
-// io.on('connection', function(socket){
-//   console.log("made socket connection");
-
-//   socket.on('chat',function(data){
-//     io.sockets.emit('chat',data);
-//   });
-
-//   socket.on('typing',function(data){
-//     socket.broadcast.emit('typing',data)
-//   })
-// })
-// client.connect((err) => {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     console.log("Connected to database!");
-//   }
-// });
+//socket setup
+const io = require("socket.io")(3000, {
+  cors: {
+    origin: ["http://127.0.0.1:5500"],
+  },
+});
+io.on("connection", function (socket) {
+  console.log("made socket connection");
+  console.log(socket.id);
+});
+client.connect((err) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("Connected to database!");
+  }
+});

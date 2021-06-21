@@ -7,6 +7,8 @@ const {
   profile,
   createnewpost,
   getallposts,
+  updatelike,
+  updatedislike,
 } = require("../controllers/post");
 const { verifyToken } = require("../middlewares/verifyToken");
 const app = express();
@@ -18,4 +20,6 @@ router.post("/getpics", verifyToken, getpics);
 router.get("/profile/:username", profile);
 router.post("/createnewpost", verifyToken, createnewpost);
 router.get("/getallposts", getallposts);
+router.put("/updatelike", updatelike);
+router.put("/updatedislike", updatedislike);
 module.exports = router;

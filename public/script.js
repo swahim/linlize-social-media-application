@@ -70,10 +70,29 @@ const bgChanger = () => {
 window.addEventListener("scroll", () => {
   bgChanger();
 });
+
+function getCookie(name) {
+  function escape(s) {
+    return s.replace(/([.*+?\^$(){}|\[\]\/\\])/g, "\\$1");
+  }
+  var match = document.cookie.match(
+    RegExp("(?:^|;\\s*)" + escape(name) + "=([^;]*)")
+  );
+  return match ? match[1] : null;
+}
+
+function getToken() {
+  if (localStorage.getItem("jwt")) {
+    return localStorage.getItem("jwt");
+  } else {
+    return getCookie("linkize");
+  }
+}
+
 window.addEventListener("load", () => {
-  const token = localStorage.getItem("jwt");
+  const token = getToken();
 
   if (token) {
-    location.href = "./pages/feed/index.html";
+    location.href = "/pages/feed/";
   }
 });

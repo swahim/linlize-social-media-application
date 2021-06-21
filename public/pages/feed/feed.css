@@ -63,7 +63,7 @@ body.dark .startPostButton:hover {
   border: 1px solid #00adb5;
   transition: background 0.2s linear;
 }
-body.dark .makePostProfileImage{
+body.dark .makePostProfileImage {
   border: 1px solid white;
 }
 body.dark nav {
@@ -476,15 +476,15 @@ nav {
   font-family: "Montserrat";
   font-size: 1.5rem;
 }
-.arrow{
-  background : white;
-  border-top : 1px solid rgba(180, 180, 180, 1);
-  border-left : 1px solid rgba(180, 180, 180, 1);
+.arrow {
+  background: white;
+  border-top: 1px solid rgba(180, 180, 180, 1);
+  border-left: 1px solid rgba(180, 180, 180, 1);
   width: 1.1rem;
   height: 1.1rem;
   position: absolute;
   top: -6px;
-  transform : rotate(45deg);
+  transform: rotate(45deg);
   right: 15px;
   transition: all 0.2s linear;
 }
@@ -566,6 +566,6 @@ a {
 .sub:hover {
   background: rgba(4, 142, 188, 0.3);
 }
-.temp{
+.temp {
   display: none;
 }

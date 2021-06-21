@@ -59,7 +59,6 @@ exports.newprofilepic = (req, res) => {
 };
 
 exports.getpics = (req, resp) => {
-  console.log(req.email);
   let image = "";
   let mime = "";
   let firstname = "",
@@ -73,38 +72,21 @@ exports.getpics = (req, resp) => {
       lastname = res.rows[0].lastname;
       image = res.rows[0].img;
       mime = res.rows[0].mime;
+      console.log("data:" + mime + ";base64," + image);
       resp.status(200).json({
         message: "image fetched successfully",
-        //  data: `<img src='data:${mime};base64,${image}'>`
-        data: `data:${mime};base64,${image}`,
+         data: `data:${mime};base64,${image}`,
+        // data: "data:" + mime + ";base64," + image,
         firstname: firstname,
         lastname: lastname,
       });
     })
-    .catch((e) =>
+    .catch((err) => {
+      console.log(err);
       resp.status(500).json({
-        message: "user not found",
-        error: e,
-      })
-    );
-  // let img_length = 0;
-  // let bg_images = [];
-  // let mime =[];
-  // client
-  //   .query('SELECT img, mime FROM profilepic WHERE')
-
-  //   .then((res) => {
-  //   img_length = res.rows.length;
-  //   res.rows.forEach((data) => {
-  //     bg_images.push(data.img);
-
-  //     mime.push((data.mime).toString('base64'));
-  //   });
-  //   console.log(bg_images);
-  //   console.log(img_length)
-  //   resp.render('img', {img_length:img_length , mime:mime, image:bg_images});
-  //   })
-  //   .catch(e => console.error(e.stack));
+        message: "server error occured",
+      });
+    });
 };
 exports.profile = (req, res) => {
   let image = "";
@@ -136,18 +118,6 @@ exports.profile = (req, res) => {
 
 exports.createnewpost = (req, res) => {
   console.log("in create new post");
-  // console.log(req.body);
-  // const data = req.files.image;
-  // console.log(data);
-  // console.log(req.headers);
-  // console.log(req.email);
-  // console.log(req.body.content);
-  // res.status(200).json({
-  //   message: "phew!!"
-  // })
-
-  // console.log("email, " + req.email);
-  // console.log(req.headers);
   const data = req.files.image;
   const imgdata = data.data.toString("base64");
   const mime = data.mimetype;
@@ -171,21 +141,39 @@ exports.createnewpost = (req, res) => {
 };
 
 exports.getallposts = (req, resp) => {
-  let temp=[];
+  let temp = [];
   client
-  .query(`SELECT posts.email, content, firstname, lastname, posts.postsimg, posts.postsmime, img, mime from posts INNER JOIN details ON posts.email=details.email;`)
-  .then((res) => {
-    res.rows.forEach((data) => {
-      let innertemp={
-        "email": data.email,
-        "firstname": data.firstname,
-        "lastname": data.lastname,
-        "content": data.content,
-        "profilepic": "data:"+data.mime+";base64,"+data.img,
-        "postspic": "data:"+data.postsmime+";base64,"+data.postsimg,
-      };
-      temp.push(innertemp);
-    })
-    resp.status(200).json({temp});
-  });
+    .query(
+      `SELECT postid, likes, posts.email, content, firstname, lastname, company, designation, posts.postsimg, posts.postsmime, img, mime from posts INNER JOIN details ON posts.email=details.email;`
+    )
+    .then((res) => {
+      res.rows.forEach((data) => {
+        let innertemp = {
+          postid: data.postid,
+          email: data.email,
+          firstname: data.firstname,
+          lastname: data.lastname,
+          company: data.company,
+          designation: data.designation,
+          content: data.content,
+          likes: data.likes,
+          profilepic: "data:" + data.mime + ";base64," + data.img,
+          postspic: "data:" + data.postsmime + ";base64," + data.postsimg,
+        };
+        temp.push(innertemp);
+      });
+      resp.status(200).json({ temp });
+    });
+};
+
+exports.updatelike = (req, res) => {
+  client.query(
+    `UPDATE posts SET likes = array_append(likes, '${req.email}') WHERE postid='${req.postid}';`
+  );
+};
+
+exports.updatedislike = (req, res) => {
+  client.query(
+    `UPDATE posts SET likes = array_remove(likes, '${req.email}') WHERE postid='${req.postid}';`
+  );
 };

@@ -11,6 +11,24 @@ const googleauthtoken = localStorage.getItem("googleauthtoken");
 const logOut = document.querySelector(".LogOut");
 let image_compressed = "";
 
+function getCookie(name) {
+  function escape(s) {
+    return s.replace(/([.*+?\^$(){}|\[\]\/\\])/g, "\\$1");
+  }
+  var match = document.cookie.match(
+    RegExp("(?:^|;\\s*)" + escape(name) + "=([^;]*)")
+  );
+  return match ? match[1] : null;
+}
+
+function getToken() {
+  if (localStorage.getItem("jwt")) {
+    return localStorage.getItem("jwt");
+  } else {
+    return getCookie("linkize");
+  }
+}
+
 async function handleImageUpload(event) {
   event.preventDefault();
   console.log(event);
@@ -39,6 +57,8 @@ async function handleImageUpload(event) {
 
 function uploadToServer(file, content, name) {
   console.log(content);
+  const token = getToken();
+
   var formData = new FormData();
   formData.append("image", file, name);
   formData.append("content", content);
@@ -83,34 +103,33 @@ window.addEventListener("load", () => {
   body.classList.add("visible");
   const fullname = document.querySelector(".nameBackend");
 
-  const token = localStorage.getItem("jwt");
-  const googleauthtoken = localStorage.getItem("googleauthtoken");
-  // if (token === null && googleauthtoken === null) {
-  //   location.href = "/pages/signin/signin.html";
-  // } else {
-  //   const token = localStorage.getItem("jwt");
-  //   fetch(`/posts/getpics`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       authorization: token,
-  //     },
-  //   })
-  //     .then((resp) => resp.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       fullname.innerHTML = data.firstname + " " + data.lastname;
-  //       const img = document.querySelectorAll(".profileImageBackend");
-  //       var i;
-  //       for (i = 0; i < img.length; i++) {
-  //         img[i].src = data.data;
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       alert("Error Fetching data");
-  //       console.log(err);
-  //     });
-  // }
+  const token = getToken();
+  console.log(token);
+  if (token === null) {
+    location.href = "/pages/signin";
+  } else {
+    fetch(`/posts/getpics`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: token,
+      },
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        console.log(data);
+        fullname.innerHTML = data.firstname + " " + data.lastname;
+        const img = document.querySelectorAll(".profileImageBackend");
+        var i;
+        for (i = 0; i < img.length; i++) {
+          img[i].src = data.data;
+        }
+      })
+      .catch((err) => {
+        alert("Error Fetching data");
+        console.log(err);
+      });
+  }
 });
 
 sharePostButton.addEventListener("click", () => {
@@ -143,14 +162,10 @@ profileImageTopBarContainer.addEventListener("click", () => {
 
 logOut.addEventListener("click", () => {
   console.log("clicking on logout");
-  const token = localStorage.getItem("jwt");
-  const googleauthtoken = localStorage.getItem("googleauthtoken");
+  console.log(token);
   if (token) {
     localStorage.removeItem("jwt");
-    location.href = "/pages/signin/signin.html";
-  } else if (googleauthtoken) {
-    location.href = "/pages/signin/signin.html";
-    localStorage.removeItem("googleauthtoken");
+    location.href = "/pages/signin";
   }
 });
 
@@ -161,6 +176,7 @@ async function myposts() {
     .then((resp) => resp.json())
     .then((data) => {
       console.log(data.temp);
+      console.log(data.temp[0].likes.length);
       const xyz = data.temp;
       xyz.forEach((obj) => {
         // console.log(obj.firstname);
@@ -187,7 +203,7 @@ async function myposts() {
         ProfileDescription.appendChild(profileName);
         ProfileDescription.innerHTML = `<h1>${obj.firstname} ${obj.lastname}</h1>`;
 
-        ProfileDescription.innerHTML += `<p>Founder | Amazon</p>`;
+        ProfileDescription.innerHTML += `<p>${obj.designation} | ${obj.company}</p>`;
 
         navDisplayPost.append(ProfileDescription);
         const img = document.createElement("img");
@@ -224,12 +240,18 @@ async function myposts() {
 
         const likeIcon = document.createElement("span");
         likeIcon.className = "likeIcon";
-        likeIcon.innerHTML = `<i class="far fa-lightbulb"></i>`;
+        const likes = obj.likes;
+        const tempEmail = obj.email;
+        if (likes.includes(tempEmail)) {
+          likeIcon.innerHTML = `<i class="far fa-lightbulb fill ${obj.postid} ${likes.length}"></i>`;
+        } else {
+          likeIcon.innerHTML = `<i class="far fa-lightbulb ${obj.postid} ${likes.length}"></i>`;
+        }
         like.appendChild(likeIcon);
 
         const LikeNumber = document.createElement("div");
         LikeNumber.className = "LikeNumber";
-        LikeNumber.innerText = "0";
+        LikeNumber.innerText = obj.likes.length;
         like.appendChild(LikeNumber);
 
         const commentSection = document.createElement("div");
@@ -250,81 +272,19 @@ async function myposts() {
         img.src = obj.profilepic;
       });
     });
-  // const left = document.querySelector(".left");
-
-  // const displayPost = document.createElement("div");
-  // displayPost.className = "DisplayPost";
-
-  // const navDisplayPost = document.createElement("div");
-  // navDisplayPost.className = "navDisplayPost";
-
-  // const profilePic = document.createElement("div");
-  // profilePic.className =
-  //   "profileImageTopBarContainer makePostProfileImage displayPostProfileImage";
-  // navDisplayPost.append(profilePic);
-
-  // const ProfileDescription = document.createElement("div");
-  // ProfileDescription.className = "ProfileDescription";
-
-  // const profileName = document.createElement("h1");
-  // profileName.className = "profileName";
-  // ProfileDescription.appendChild(profileName);
-  // ProfileDescription.innerHTML = `Founder | Amazon`;
-
-  // navDisplayPost.append(ProfileDescription);
-  // const img = document.createElement("img");
-  // profilePic.append(img);
-
-  // // PostImageContainer
-  // const PostImageContainer = document.createElement("div");
-  // PostImageContainer.className = "PostImageContainer";
-
-  // const img2 = document.createElement("img");
-  // PostImageContainer.append(img2);
-
-  // const captionContainer = document.createElement("div");
-  // captionContainer.className = "captionContainer";
-
-  // const caption = document.createElement("div");
-  // caption.className = "caption";
-  // captionContainer.appendChild(caption);
-
-  // const readMore = document.createElement("div");
-  // readMore.className = "readMore";
-  // captionContainer.appendChild(readMore);
-
-  // const lineSeperation = document.createElement("div");
-  // lineSeperation.className = "lineSeperation";
-
-  // const likeSection = document.createElement("div");
-  // likeSection.className = "likeSection";
-
-  // const like = document.createElement("div");
-  // like.className = "like";
-
-  // const likeIcon = document.createElement("span");
-  // likeIcon.className = "likeIcon";
-  // likeIcon.innerHTML = `<i class="far fa-lightbulb"></i>`;
-  // like.appendChild(likeIcon);
-
-  // const LikeNumber = document.createElement("div");
-  // LikeNumber.className = "LikeNumber";
-  // LikeNumber.innerText = "0";
-  // like.appendChild(LikeNumber);
-
-  // const commentSection = document.createElement("div");
-  // commentSection.className = "commentSection";
-  // commentSection.innerHTML = `<i class="far fa-comment"></i>`;
-
-  // likeSection.appendChild(like);
-
-  // likeSection.appendChild(commentSection);
-
-  // displayPost.append(navDisplayPost);
-  // displayPost.append(PostImageContainer);
-  // displayPost.append(captionContainer);
-  // displayPost.append(lineSeperation);
-  // displayPost.append(likeSection);
-  // left.append(displayPost);
 }
 myposts();
+likeIcon.addEventListener("click", () => {
+  console.log("clicking on like");
+  // if (!clicked) {
+  //   clicked = true;
+  //   likeIcon.innerHTML = `<i class="fas fa-lightbulb fill"></i>`;
+  //   count++;
+  //   Likes.innerHTML = `${count}`;
+  // } else {
+  //   clicked = false;
+  //   likeIcon.innerHTML = `<i class="far fa-lightbulb"></i>`;
+  //   count--;
+  //   Likes.innerHTML = `${count}`;
+  // }
+});

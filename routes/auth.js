@@ -9,7 +9,7 @@ const passport = require("passport");
 const imageToBase64 = require("image-to-base64");
 const client = require("../configs/db");
 const cookieParser = require("cookie-parser");
-const path = require('path');
+const path = require("path");
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
@@ -39,62 +39,55 @@ router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
   const email = req.user.emails[0].value;
   console.log(email);
   console.log("current directory: ", __dirname);
-  console.log(path.resolve(path.join(__dirname, "..", "public", "pages", "feed")));
-  res.sendFile(path.join(__dirname, "..", "public", "pages", "feed"));
+  console.log(
+    path.resolve(path.join(__dirname, "..", "public", "pages", "feed"))
+  );
 
-  // client
-  //   .query(`SELECT * FROM details WHERE email = '${email}';`)
-  //   .then((data) => {
-  //     isValid = data.rows;
+  client
+    .query(`SELECT * FROM details WHERE email = '${email}';`)
+    .then((data) => {
+      isValid = data.rows;
 
-  //     if (isValid.length !== 0) {
-  //       // user already exists
-  //       const token = jwt.sign(
-  //         {
-  //           email: email,
-  //         },
-  //         process.env.SECRET_KEY
-  //       );
-  //       res.cookie("linkzie", token, {
-  //         expires: new Date(Date.now() + 900000),
-  //       });
-  //       // res.sendFile(__dirname + "./public/feed");
-  //       const path = require("path");
-  //       console.log(path.resolve("public/pages/feed/index.html"));
+      if (isValid.length !== 0) {
+        // user already exists
+        const token = jwt.sign(
+          {
+            email: email,
+          },
+          process.env.SECRET_KEY
+        );
+        res.cookie("linkize", token, {
+          expires: new Date(Date.now() + 900000),
+        });
+        const path = require("path");
+        res.redirect("/pages/feed");
+      } else {
+        // user logged in with google for first time
 
-  //       res.sendFile(path.resolve("public/pages/feed/index.html"));
-  //       // res.redirect("http://localhost:8000/pages/feed");
-  //     } else {
-  //       // user logged in with google for first time
-
-  //       // converting profilepic to base64 and then storing it in imgdata
-  //       let imgdata;
-  //       const mime = "image/jpeg";
-  //       imageToBase64(profilepic).then((response) => {
-  //         imgdata = response;
-  //       });
-  //       client.query(
-  //         `INSERT INTO details (firstname, lastname, email, img, mime) VALUES  ('${firstname}','${lastname}','${email}',bytea('${imgdata}'), '${mime}');`
-  //       );
-  //       const token = jwt.sign(
-  //         {
-  //           email: email,
-  //         },
-  //         process.env.SECRET_KEY
-  //       );
-  //       res.cookie("linkzie", token, {
-  //         expires: new Date(Date.now() + 900000),
-  //       });
-  //       const path = require("path");
-  //       console.log(path.resolve("public/pages/feed"));
-  //       res.sendFile(path.resolve("public/pages/feed"));
-  //       // res.redirect(`http://127.0.0.1:5500/pages/feed?token=${token}`);
-
-  //       // res.redirect("http://127.0.0.1:5500/pages/feed?token=");
-  //       // res.setHeader('linkzie', token);
-  //       // res.redirect("/pages/feed");
-  //     }
-  //   });
+        // converting profilepic to base64 and then storing it in imgdata
+        let imgdata;
+        const mime = "image/jpeg";
+        imageToBase64(profilepic).then((response) => {
+          imgdata = response;
+        });
+        client.query(
+          `INSERT INTO details (firstname, lastname, email, img, mime) VALUES  ('${firstname}','${lastname}','${email}',bytea('${imgdata}'), '${mime}');`
+        );
+        const token = jwt.sign(
+          {
+            email: email,
+          },
+          process.env.SECRET_KEY
+        );
+        res.cookie("linkize", token, {
+          expires: new Date(Date.now() + 900000),
+        });
+        const path = require("path");
+        console.log(path.resolve("public/pages/feed"));
+        res.sendFile(path.resolve("public/pages/feed"));
+        res.redirect("/pages/feed");
+      }
+    });
 });
 router.get("/cookie-testing", (req, res) => {
   console.log(req.cookies);

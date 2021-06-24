@@ -36,19 +36,15 @@ router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
   const firstname = req.user.name.familyName;
   const lastname = req.user.name.givenName;
   const profilepic = req.user.photos[0].value;
+  console.log(profilepic);
   const email = req.user.emails[0].value;
-  console.log(email);
-  console.log("current directory: ", __dirname);
-  console.log(
-    path.resolve(path.join(__dirname, "..", "public", "pages", "feed"))
-  );
-
   client
     .query(`SELECT * FROM details WHERE email = '${email}';`)
     .then((data) => {
       isValid = data.rows;
 
       if (isValid.length !== 0) {
+        console.log("in user already exists");
         // user already exists
         const token = jwt.sign(
           {
@@ -59,33 +55,35 @@ router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
         res.cookie("linkize", token, {
           expires: new Date(Date.now() + 900000),
         });
-        const path = require("path");
         res.redirect("/pages/feed");
       } else {
+        console.log("in user logged in with google for first time");
         // user logged in with google for first time
 
         // converting profilepic to base64 and then storing it in imgdata
         let imgdata;
         const mime = "image/jpeg";
-        imageToBase64(profilepic).then((response) => {
-          imgdata = response;
-        });
-        client.query(
-          `INSERT INTO details (firstname, lastname, email, img, mime) VALUES  ('${firstname}','${lastname}','${email}',bytea('${imgdata}'), '${mime}');`
-        );
-        const token = jwt.sign(
-          {
-            email: email,
-          },
-          process.env.SECRET_KEY
-        );
-        res.cookie("linkize", token, {
-          expires: new Date(Date.now() + 900000),
-        });
-        const path = require("path");
-        console.log(path.resolve("public/pages/feed"));
-        res.sendFile(path.resolve("public/pages/feed"));
-        res.redirect("/pages/feed");
+        imageToBase64(profilepic)
+          .then((response) => {
+            imgdata = response;
+            console.log(imgdata);
+            client.query(
+              `INSERT INTO details (firstname, lastname, email, img, mime) VALUES  ('${firstname}','${lastname}','${email}',bytea('${imgdata}'), '${mime}');`
+            );
+            const token = jwt.sign(
+              {
+                email: email,
+              },
+              process.env.SECRET_KEY
+            );
+            res.cookie("linkize", token, {
+              expires: new Date(Date.now() + 900000),
+            });
+            res.redirect("/pages/feed");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       }
     });
 });
@@ -99,8 +97,8 @@ router.get(
 router.get(
   "/facebook/callback",
   passport.authenticate("facebook", {
-    successRedirect: "http://127.0.0.1:5500/pages/feed",
-    failureRedirect: "http://127.0.0.1:5500/pages/signin",
+    successRedirect: "/pages/feed",
+    failureRedirect: "/pages/signin",
   }),
   (req, res) => {
     res.cookie("test2", "test2");

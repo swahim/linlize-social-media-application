@@ -59,6 +59,7 @@ exports.newprofilepic = (req, res) => {
 };
 
 exports.getpics = (req, resp) => {
+  console.log(req.email);
   let image = "";
   let mime = "";
   let firstname = "",
@@ -68,6 +69,7 @@ exports.getpics = (req, resp) => {
       `SELECT firstname, lastname, img, mime FROM details WHERE email = '${req.email}'`
     )
     .then((res) => {
+      console.log(res);
       firstname = res.rows[0].firstname;
       lastname = res.rows[0].lastname;
       image = res.rows[0].img;

@@ -162,10 +162,16 @@ profileImageTopBarContainer.addEventListener("click", () => {
 
 logOut.addEventListener("click", () => {
   console.log("clicking on logout");
+  const cookie = getCookie("linkize");
+  const token = localStorage.getItem("jwt");
+
   console.log(token);
   if (token) {
     localStorage.removeItem("jwt");
     location.href = "/pages/signin";
+  } else {
+    document.cookie = "linkize=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+    location.href = "/pages/signin"
   }
 });
 
@@ -200,7 +206,7 @@ async function myposts() {
         profileName.className = "profileName";
         profileName.innerHTML = " Sohan bro";
         ProfileDescription.appendChild(profileName);
-        ProfileDescription.innerHTML = `<h1>${obj.firstname} ${obj.lastname}</h1>`;
+        ProfileDescription.innerHTML = `<a href="../viewProfile/?user=${obj.email}"><h1>${obj.firstname} ${obj.lastname}</h1></a>`;
 
         ProfileDescription.innerHTML += `<p>${obj.designation} | ${obj.company}</p>`;
 
@@ -235,16 +241,16 @@ async function myposts() {
         likeSection.className = "likeSection";
 
         const like = document.createElement("div");
-        like.className = "like";
+        like.className = "like likeBtn";
 
         const likeIcon = document.createElement("span");
         likeIcon.className = "likeIcon";
         const likes = obj.likes;
         const tempEmail = obj.email;
         if (likes.includes(tempEmail)) {
-          likeIcon.innerHTML = `<i class="fas fa-lightbulb fill postid=${obj.postid} likes=${likes.length} likeBtn"></i>`;
+          likeIcon.innerHTML = `<i class="fas fa-lightbulb fill postid=${obj.postid} likes=${likes.length}"></i>`;
         } else {
-          likeIcon.innerHTML = `<i class="far fa-lightbulb postid=${obj.postid} likes=${likes.length} likeBtn"></i>`;
+          likeIcon.innerHTML = `<i class="far fa-lightbulb postid=${obj.postid} likes=${likes.length}"></i>`;
         }
         like.appendChild(likeIcon);
 
@@ -274,12 +280,20 @@ async function myposts() {
 
         img.src = obj.profilepic;
       });
-      const likeBtn = document.querySelector(".likeBtn");
-      likeBtn.addEventListener("click", (event) => {
-        console.log(event.target);
-        var temp= event.target;
-        console.log(temp);
-      });
+      const likeBtn = document.querySelectorAll(".likeBtn");
+      for (var i = 0; i < likeBtn.length; i++) {
+        likeBtn[i].addEventListener("click", (event) => {
+          var temp = event.target.className.split(" ");
+          for (var j = 0; j < temp.length; j++) {
+            if (temp[j].startsWith("postid")) {
+              console.log(temp[j].split("=")[1]);
+            }
+            if (temp[j].startsWith("likes")) {
+              console.log(temp[j].split("=")[1]);
+            }
+          }
+        });
+      }
     });
 }
 myposts();
@@ -295,4 +309,4 @@ Hamburger.addEventListener("click", () => {
   Link2.classList.toggle("fade");
   Link3.classList.toggle("fade");
   Link4.classList.toggle("fade");
-})
+});

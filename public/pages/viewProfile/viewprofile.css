@@ -1,0 +1,352 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Merriweather&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body{
+  background-color: #d8d8d8;
+}
+html {
+  font-size: 62.5%;
+}
+.viewProfileContainer{
+  position: absolute;
+  background:#ffffff;
+  border: 1px solid rgb(255, 254, 254);
+  border-radius: 14px;
+  height: auto;
+  width: 60%;
+  margin-top: 4rem;
+  margin-left: 20%;
+  scroll-behavior: smooth;
+}
+
+.coverPicContainer{
+  height: 12rem;
+  width: auto;
+  display: flex;
+  background-image:linear-gradient(to bottom,#0e81f3,#6660fa);
+  border-radius: 14px 14px 0 0;
+  justify-content: center;
+  align-items: center;
+}
+.displayPic{
+  height: 9rem;
+  width: 9rem;
+  margin-top: 8rem;
+  border-radius: 50px;
+  border: 3px solid white;
+  
+}
+.nameContainer{
+  height: 4rem;
+  width: auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  font-family: "Merriweather", serif;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+.name{
+  font-weight: bolder;
+  font-size: 2rem;
+  margin-top: 3rem;
+}
+.tagName{
+  font-size: 1.5rem;
+}
+.bio{
+    margin: 1rem;
+    font-size: 1.75rem;
+    padding: 1rem;
+    /* width: 90%; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+}
+
+/* .linksContainer{
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  font-family: "Merriweather", serif;
+} */
+/* .links{
+  margin-left: 2rem;
+   font-size: 2.5rem;
+   font-weight: bold;
+} */
+/* .social-media-links{
+ display: flex;
+ width: 100%;
+ justify-content: center;
+ align-self:center;
+ flex-direction: row;
+ flex-wrap: wrap;
+ justify-content: space-between;
+ font-size: 6rem;
+ width: auto;
+ cursor:pointer;
+} */
+/* .social-media-link {
+    width: 5rem;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content:space-around;
+    margin: 0 1rem;
+    text-decoration: none;
+    color: #fff;
+    font-size: 3rem;
+    position: relative;
+    border-radius: 0.5rem;
+    content: "";
+    background: linear-gradient(
+        45deg,
+        rgba(36, 92, 247, 0.7) 0%, 
+        rgba(43, 39, 236, 0.3) 49%, 
+        rgba(79, 10, 241, 0.5) 50%);
+} */
+.postContainer{
+  height: auto;
+  width: auto;
+  margin-bottom: 2rem;
+}
+
+.yourPosts{
+   margin-left: 2rem;
+   font-size: 2.5rem;
+   font-weight: bold;
+   font-family: "Merriweather", serif;
+   gap: 1rem;
+}
+.posts{
+  margin: 0 auto;
+  max-width: max-content;
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+}
+.post{
+  background-color: #ffffff;
+  margin: 1rem;
+  box-shadow:0 0 8px rgba(0,0,0,0.5);
+}
+.postimg{
+    width: 100%;
+    display: block;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+.caption{
+    margin: 0.5rem;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+}
+.info{
+    margin: 1rem;
+    display:flex;
+    font-size: 2rem;
+    
+}
+.like{
+  display: flex;
+  font-size: 2.5rem;
+}
+.options{
+  display: flex;
+  width: 100%;
+  justify-content:flex-end;
+  opacity: 0;
+}
+.editPost {
+  margin-right: 2rem;
+  background-color: #ffffff;
+  border-style: none;
+}
+.deletePost {
+  border-style: none;
+}
+i{
+  color: black;
+  font-size: 2rem;
+  cursor: pointer;
+}
+.post:hover .options{
+  opacity: 1;
+}
+/* .dropDownContainer{
+  position: absolute;
+  border : 1px solid rgba(180, 180, 180, 1);
+  border-radius :14px;
+  height:20rem;
+  width: 25rem;
+  display: flex;
+  flex-direction: column;
+  margin-top: 50rem;
+  margin-left: 40vw;
+  align-items: space-between; 
+  justify-content: space-evenly; 
+  background : white;
+  box-shadow: 0px 0px 10px 3px rgb(182, 182, 182);
+  opacity: 1;
+  cursor: pointer;
+  pointer-events: none; 
+  z-index: 10;
+  transition: all 0.5s linear;
+  opacity: 0;
+}
+a{
+  text-decoration: none;
+  color: black;
+}
+
+.sub{
+  display: flex;
+  font-family: "Merriweather", serif;
+  font-size : 1.5rem;
+  text-align: center;
+  justify-content: flex-start;
+  cursor: pointer;
+  margin-top:1.75rem;
+  margin-left:2rem;
+  margin-right:2rem;
+  border-radius : 14px;
+  padding: 1.15rem;
+}
+.sub>i{
+  font-size: 2rem;
+}
+.text{
+  margin-left: 10%;
+}
+.sub:hover{
+  background : rgba(4, 142, 188, 0.3);
+} */
+
+.editContainer {
+  position: absolute;
+  background: white;
+  border: 1px solid rgba(180, 180, 180, 1);
+  border-radius: 14px;
+  padding: 2%;
+  width: 50%;
+  pointer-events: all;
+  height: auto;
+  top: 30%;
+  left: 50%;
+  transform: translateY(-50%);
+  margin-top: 5%;
+  transform: translateX(-50%);
+  transition : opacity 0.5s linear;
+  /* opacity: 0; */
+
+}
+.editContainer.visible{
+  opacity: 1;
+  pointer-events: all;
+  z-index: 999;
+
+}
+.PopUpNav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+hr{
+  height: 0.3rem;
+  background-color: black;
+}
+.editprofileicon{
+  height: 5rem;
+  border-radius: 50px;
+}
+.fa-times {
+  font-size: 2.2rem;
+  cursor: pointer;
+  color: grey;
+}
+.healine {
+  display: flex;
+  align-items: center;
+  margin-top: 4%;
+}
+.healine > h1 {
+  font-family: "Open Sans", sans-serif;
+  margin-left: 3%;
+  font-size: 1.5rem;
+}
+.postimage{
+  margin-top: 1rem;
+  height: auto;
+  width: 100%;
+}
+.CaptionPopUp {
+  height: auto;
+  width: 100%;
+  margin-top: 1rem;
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+  border: 2px solid red;
+}
+.CaptionPopUp:focus {
+  outline: none;
+}
+.publish {
+  padding: 2.5%;
+  width: 30%;
+  background: rgba(4, 142, 188, 0.5);
+  border: 1px solid white;
+  border-radius: 22.5px;
+  cursor: pointer;
+  transition: all 0.2s linear;
+  color: white;
+  font-family: "Montserrat";
+  font-size: 1.5rem;
+}
+.publish:hover {
+  background: transparent;
+  border: 1px solid rgba(4, 142, 188, 0.8);
+  color: black;
+}
+.footerPopUp {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5%;
+}
+.fa-images {
+  font-size: 2.2rem;
+  cursor: pointer;
+}
+.leftPopUp {
+  display: flex;
+  width: 25%;
+  align-items: center;
+  justify-content: space-between;
+}
+.afterPopUp{
+  pointer-events: none;
+  filter :opacity(0.3);
+  transition : all 0.5s linear;
+}
+@media screen and (max-width: 550px) {
+
+html{
+  font-size: 50%;
+}
+  .posts{
+  margin: 0 auto;
+  max-width: max-content;
+  display: grid;
+  grid-template-columns: repeat(1,1fr);
+}
+}

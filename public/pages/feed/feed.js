@@ -176,7 +176,6 @@ async function myposts() {
     .then((resp) => resp.json())
     .then((data) => {
       console.log(data.temp);
-      console.log(data.temp[0].likes.length);
       const xyz = data.temp;
       xyz.forEach((obj) => {
         // console.log(obj.firstname);
@@ -243,15 +242,19 @@ async function myposts() {
         const likes = obj.likes;
         const tempEmail = obj.email;
         if (likes.includes(tempEmail)) {
-          likeIcon.innerHTML = `<i class="far fa-lightbulb fill ${obj.postid} ${likes.length}"></i>`;
+          likeIcon.innerHTML = `<i class="fas fa-lightbulb fill postid=${obj.postid} likes=${likes.length} likeBtn"></i>`;
         } else {
-          likeIcon.innerHTML = `<i class="far fa-lightbulb ${obj.postid} ${likes.length}"></i>`;
+          likeIcon.innerHTML = `<i class="far fa-lightbulb postid=${obj.postid} likes=${likes.length} likeBtn"></i>`;
         }
         like.appendChild(likeIcon);
 
         const LikeNumber = document.createElement("div");
         LikeNumber.className = "LikeNumber";
-        LikeNumber.innerText = obj.likes.length;
+        if (obj.likes.length > 0) {
+          LikeNumber.innerText = obj.likes.length;
+        } else {
+          LikeNumber.innerText = 0;
+        }
         like.appendChild(LikeNumber);
 
         const commentSection = document.createElement("div");
@@ -271,20 +274,25 @@ async function myposts() {
 
         img.src = obj.profilepic;
       });
+      const likeBtn = document.querySelector(".likeBtn");
+      likeBtn.addEventListener("click", (event) => {
+        console.log(event.target);
+        var temp= event.target;
+        console.log(temp);
+      });
     });
 }
 myposts();
-likeIcon.addEventListener("click", () => {
-  console.log("clicking on like");
-  // if (!clicked) {
-  //   clicked = true;
-  //   likeIcon.innerHTML = `<i class="fas fa-lightbulb fill"></i>`;
-  //   count++;
-  //   Likes.innerHTML = `${count}`;
-  // } else {
-  //   clicked = false;
-  //   likeIcon.innerHTML = `<i class="far fa-lightbulb"></i>`;
-  //   count--;
-  //   Likes.innerHTML = `${count}`;
-  // }
-});
+const HamburgerMenuLinks = document.querySelector(".HamburgerMenuLinks");
+const Hamburger = document.querySelector(".HamLine");
+const Links = document.querySelector(".Links");
+const Link2 = document.querySelector(".Link2");
+const Link3 = document.querySelector(".Link3");
+const Link4 = document.querySelector(".Link4");
+Hamburger.addEventListener("click", () => {
+  HamburgerMenuLinks.classList.toggle("open");
+  Links.classList.toggle("fade");
+  Link2.classList.toggle("fade");
+  Link3.classList.toggle("fade");
+  Link4.classList.toggle("fade");
+})

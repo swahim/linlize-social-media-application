@@ -10,7 +10,7 @@ html {
   font-size: 62.5%;
 }
 body {
-  height: 100vh;
+  height: 120vh;
   overflow: scroll;
   background: rgba(229, 229, 229, 1);
   transition: background 0.2s linear;
@@ -29,6 +29,9 @@ body.dark .dropDownContainer {
   background: #303841;
   color: white;
   border: 1px solid grey;
+}
+body.dark .HamburgerMenuLinks{
+  background: #00adb5;
 }
 body.dark .sub {
   color: white;
@@ -93,6 +96,7 @@ nav {
   width: 100vw;
   background: white;
   display: flex;
+  align-items: center;
   justify-content: space-evenly;
   padding: 0.5%;
   border-bottom: 1px solid rgba(180, 180, 180, 1);
@@ -101,15 +105,14 @@ nav {
 }
 .leftTopBar {
   height: 100%;
-  /* background :pink; */
   width: 30%;
-  margin-right: 2%;
+  margin-left: 3%;
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 .leftTopBar > img {
-  height: 130%;
+  height: 150%;
 }
 
 .searchDiv {
@@ -118,6 +121,7 @@ nav {
   width: 40%;
   display: flex;
   justify-content: space-around;
+  align-items: center;
 }
 .searchDiv > input {
   background: transparent;
@@ -167,13 +171,14 @@ nav {
   transform: translateX(32px);
 }
 .rightTopBar > img {
-  height: 40%;
+  height: 50%;
+  cursor: pointer;
 }
 .rightTopBar {
-  /* background : grey; */
-  width: 30%;
+  width: 20%;
   height: 100%;
   display: flex;
+  margin-right: 4%;
   align-items: center;
   justify-content: space-evenly;
 }
@@ -183,13 +188,13 @@ nav {
   height: 5rem;
   width: 5rem;
   border-radius: 50%;
-  /* padding: 0.3%; */
+  padding: 0.3%;
   cursor: pointer;
 }
 .profileImageTopBarContainer > img {
   height: 100%;
-  width: 100%;
   border-radius: 50%;
+  width: 100%;
 }
 .superContainer {
   width: 100vw;
@@ -225,11 +230,18 @@ nav {
   padding: 2%;
   transition: background 0.2s linear;
 }
+.HamburgerMenuLinks {
+  display: none;
+}
+.rightTopBarHamburger {
+  display: none;
+  pointer-events: none;
+}
 .DisplayPost {
   width: 100%;
   margin-top: 2%;
   overflow: auto;
-  height: 60rem;
+  height: 75rem;
   background: white;
   border: 1px solid rgba(180, 180, 180, 1);
   border-radius: 14px;
@@ -258,6 +270,10 @@ nav {
 .textContainer > p {
   font-size: 2.2rem;
 }
+
+.displayPostProfileImage {
+  width: 7rem;
+}
 .startPostButton {
   padding: 3%;
   cursor: pointer;
@@ -283,11 +299,13 @@ nav {
   display: flex;
   align-items: center;
 }
-
+.DisplayPost::-webkit-scrollbar {
+  display: none;
+}
 .ProfileDescription {
   display: flex;
   padding: 1%;
-  width: 30%;
+  width: 90%;
   height: 80%;
   flex-direction: column;
   align-items: flex-start;
@@ -310,7 +328,9 @@ nav {
   justify-content: center;
 }
 .PostImageContainer > img {
+  width: 100%;
   height: 100%;
+  width: 100%;
 }
 .captionContainer {
   height: fit-content;
@@ -318,12 +338,15 @@ nav {
   text-overflow: ellipsis;
   align-items: center;
   display: flex;
+  /* background-color: blue; */
+  margin-top: 5%;
   padding: 1%;
 }
 .caption {
   margin-left: 5%;
-  height: 100%;
+  height: fit-content;
   width: 70%;
+  /* background : yellow; */
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -348,13 +371,12 @@ nav {
   height: 8%;
   display: flex;
   font-family: "Merriweather", serif;
-  padding: 1%;
-  justify-content: flex-start;
+  justify-content: space-around;
   align-items: center;
+
 }
 .like {
   height: 100%;
-  margin-left: 5%;
   width: 10%;
   display: flex;
   justify-content: space-around;
@@ -387,7 +409,6 @@ nav {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-left: 10%;
   font-size: 1.5rem;
   cursor: pointer;
 }
@@ -529,7 +550,7 @@ nav {
   height: 150px;
   width: 220px;
   padding: 1%;
-  right: 18.5%;
+  right: 19.3%;
   top: 8.5%;
   display: flex;
   flex-direction: column;
@@ -566,6 +587,378 @@ a {
 .sub:hover {
   background: rgba(4, 142, 188, 0.3);
 }
-.temp {
-  display: none;
+
+/*  
+Making Responsive */
+@media screen and (max-width: 1472px) {
+  nav {
+    height: 8rem;
+  }
+  .dropDownContainer {
+    right: 18.8%;
+    top: 9.5%;
+  }
+  .textContainer {
+    width: 50%;
+    margin-left: 14%;
+  }
+  .searchDiv {
+    height: 60%;
+  }
+  .rightTopBar > img {
+    height: 70%;
+  }
+}
+@media screen and (max-width: 1370px) {
+  html {
+    font-size: 55%;
+  }
+  .DisplayPost {
+    height: 65rem;
+  }
+  .dropDownContainer {
+    top: 8%;
+  }
+  .leftTopBar > img {
+    height: 10rem;
+  }
+  .fa-moon {
+    font-size: 1.7rem;
+  }
+  .fa-sun {
+    font-size: 1.7rem;
+  }
+  .rightTopBar > img {
+    height: 60%;
+  }
+}
+@media screen and (max-width: 1150px) {
+  html {
+    font-size: 50%;
+  }
+  .dropDownContainer {
+    right: 18%;
+  }
+  .label {
+    height: 23px;
+    width: 55px;
+  }
+  .toggle {
+    height: 20px;
+    width: 20px;
+  }
+}
+
+@media screen and (max-width: 975px) {
+  .DisplayPost {
+    height: 60rem;
+  }
+  .dropDownContainer {
+    right: 15%;
+  }
+  /* .navDisplayPost{
+    background : red;
+  } */
+  .displayPostProfileImage {
+    height: 5rem;
+    width: 5.9rem;
+  }
+  .textContainer > p {
+    font-size: 2rem;
+  }
+  .leftTopBar {
+    width: 40%;
+  }
+  .mainContainer {
+    width: 75%;
+  }
+  .right {
+    margin-left: 42%;
+    height: 60rem;
+  }
+}
+@media screen and (max-width: 940px) {
+  .PostImageContainer {
+    height: 65%;
+  }
+  .DisplayPost {
+    height: 55rem;
+    padding-top: 2%;
+  }
+  .right {
+    width: 35%;
+    margin-left: 38%;
+  }
+  .mainContainer {
+    margin-top: 18%;
+  }
+}
+@media screen and (max-width: 800px) {
+  .leftTopBar {
+    width: 50%;
+    margin-left: -4%;
+  }
+  .rightTopBar {
+    width: 35%;
+    margin-right: -3%;
+  }
+  .mainContainer {
+    justify-content: flex-start;
+    width: 90%;
+    padding-left: 0;
+  }
+  .rightTopBar > img {
+    height: 55%;
+  }
+  .dropDownContainer {
+    right: 10%;
+  }
+  .right {
+    margin-left: 49%;
+    width: 37%;
+  }
+  .left {
+    width: 52%;
+  }
+}
+@media screen and (max-width: 700px) {
+  .mainContainer {
+    margin-top: 25%;
+  }
+}
+@media screen and (max-width: 640px) {
+  .rightTopBar {
+    display: none;
+  }
+  .dropDownContainer {
+    display: none;
+    pointer-events: none;
+  }
+  .searchDiv {
+    height: 60%;
+  }
+  nav {
+    height: 7rem;
+  }
+  .rightTopBarHamburger {
+    display: block;
+    width: 5%;
+    height: 40%;
+    /* background : grey; */
+    align-self: center;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    pointer-events: all;
+    cursor: pointer;
+    margin-right: 5%;
+  }
+  .HamLine {
+    background: black;
+    width: 20px;
+    height: 3px;
+  }
+
+  .leftTopBar {
+    justify-self: flex-start;
+    width: 80%;
+    margin-left: -2%;
+  }
+  nav {
+    justify-content: space-between;
+  }
+  .mainContainer {
+    margin-left: 3%;
+  }
+  .right,
+  .DisplayPost {
+    height: 50rem;
+  }
+  .leftTopBar > img {
+    height: 11rem;
+  }
+  .right > h1 {
+    margin-top: 5%;
+  }
+  .right {
+    width: 39%;
+  }
+  .likeSection {
+    margin-top: 2.5%;
+  }
+  .HamburgerMenuLinks {
+    background: rgba(4, 142, 188, 1);
+    display: block;
+    position: fixed;
+    z-index: 5;
+    overflow: hidden;
+    height: 110rem;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    font-size: 2.5rem;
+    justify-content: space-evenly;
+    align-items: center;
+    clip-path: circle(100px at 95% -14%);
+    -webkit-clip-path: circle(100px at 95% -14%);
+    transition: all 1s ease-out;
+  }
+  .HamburgerMenuLinks.open {
+    clip-path: circle(100px at 95% -14%);
+    -webkit-clip-path: circle(1100px at 95% -14%);
+  }
+  .HamburgerMenuLinks > a {
+    width: 70%;
+    text-align: center;
+  }
+
+  .Links {
+    color: white;
+    cursor: pointer;
+  }
+  .links:hover {
+    background-color: #005a8d;
+    padding: 4%;
+    border-radius: 14px;
+  }
+
+  .leftTopBar {
+    width: 60%;
+    justify-content: flex-end;
+  }
+  .leftTopBar > img {
+    margin-right: 22%;
+  }
+  .Links {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  .Link2,
+  .Link3,
+  .Link4 {
+    opacity: 0;
+  }
+  .fade {
+    opacity: 1;
+  }
+  .likeSection{
+    margin-top: 2%;
+  }
+}
+@media screen and (max-width: 620px){
+  html{
+    font-size: 45%;
+  }
+  nav{
+    height: 8rem;
+  }
+  .fa-moon, .fa-sun{
+    font-size: 2rem;
+  }
+}
+@media screen and (max-width: 500px){
+  html{
+    font-size: 40%;
+  }
+  .label{
+    height: 20px;
+    width: 45px;
+  }
+  .toggle{
+    height: 17px;
+    width: 17px;
+  }
+  .checkbox:checked + .label .toggle {
+    transform: translateX(24px);
+  }
+  .HamburgerMenuLinks{
+    height: 100vh;
+  }
+  .textContainer{
+    width: 60%;
+    margin-left: 6%;
+  }
+  .mainContainer{
+    width: 95vw;
+    margin-left: 0;
+  }
+  .left{
+    width: 53%;
+  }
+  .right{
+    width: 45%;
+    margin-left: 50%;
+  }
+}
+@media screen and (max-width: 450px){
+  .HamburgerMenuLinks{
+    height: 100vh;
+  }
+  .right{
+    position: relative;
+    margin-left:3.3%;
+    margin-right:0;
+    width: 90%;
+    height: 40rem;
+    overflow: scroll;
+  }
+  .mainContainer{
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: flex-start;
+    padding-bottom: 2%;
+    margin-top: 11rem;
+  }
+  .leftTopBar{
+    margin-left: 2%;
+  }
+  .searchDiv{
+    width: 50%;
+  }
+  .superContainer{
+    flex-wrap: wrap;
+    height: fit-content;
+  }
+  .left{
+    margin-top: 3%;
+    width: 100%;
+  }
+  .MakeAPost{
+    margin-right: 0;
+    width: 90%;
+    margin-left: 7%;
+  }
+  .DisplayPost{
+    width : 90%;
+    margin-left: 7%;
+    height: 80rem;
+  }
+  .startPostButton, .textContainer{
+    font-size: 2rem;
+  }
+  .captionContainer{
+    height: 10%;
+  }
+}
+@media screen and (max-width: 380px){
+  .searchDiv{
+    height: 50%;
+  }
+  .leftTopBar> img {
+    height: 140%;
+  }
+  .right{
+    width: 100%;
+  }
+  .MakeAPost, .DisplayPost{
+    width: 100%;
+    margin-left: 2%;
+  }
+  .captionContainer{
+    height: 6%;
+  }
+  .DisplayPost{
+    height: 70rem;
+  }
 }

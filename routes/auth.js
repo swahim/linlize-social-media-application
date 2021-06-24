@@ -66,7 +66,6 @@ router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
         imageToBase64(profilepic)
           .then((response) => {
             imgdata = response;
-            console.log(imgdata);
             client.query(
               `INSERT INTO details (firstname, lastname, email, img, mime) VALUES  ('${firstname}','${lastname}','${email}',bytea('${imgdata}'), '${mime}');`
             );

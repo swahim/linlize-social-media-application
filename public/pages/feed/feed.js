@@ -171,13 +171,18 @@ logOut.addEventListener("click", () => {
     location.href = "/pages/signin";
   } else {
     document.cookie = "linkize=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
-    location.href = "/pages/signin"
+    location.href = "/pages/signin";
   }
 });
 
 async function myposts() {
+  const token = getToken();
   fetch(`/posts/getallposts`, {
-    method: "GET",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: token,
+    },
   })
     .then((resp) => resp.json())
     .then((data) => {
@@ -206,7 +211,7 @@ async function myposts() {
         profileName.className = "profileName";
         profileName.innerHTML = " Sohan bro";
         ProfileDescription.appendChild(profileName);
-        ProfileDescription.innerHTML = `<a href="../viewProfile/?user=${obj.email}"><h1>${obj.firstname} ${obj.lastname}</h1></a>`;
+        ProfileDescription.innerHTML = `<a href="../viewProfile/?userid=${obj.userid}"><h1>${obj.firstname} ${obj.lastname}</h1></a>`;
 
         ProfileDescription.innerHTML += `<p>${obj.designation} | ${obj.company}</p>`;
 
@@ -246,7 +251,7 @@ async function myposts() {
         const likeIcon = document.createElement("span");
         likeIcon.className = "likeIcon";
         const likes = obj.likes;
-        const tempEmail = obj.email;
+        const tempEmail = obj.logemail;
         if (likes.includes(tempEmail)) {
           likeIcon.innerHTML = `<i class="fas fa-lightbulb fill postid=${obj.postid} likes=${likes.length}"></i>`;
         } else {
@@ -285,12 +290,17 @@ async function myposts() {
         likeBtn[i].addEventListener("click", (event) => {
           var temp = event.target.className.split(" ");
           for (var j = 0; j < temp.length; j++) {
+            var postid, noOfLikes;
             if (temp[j].startsWith("postid")) {
-              console.log(temp[j].split("=")[1]);
+              postid = temp[j].split("=")[1];
+              console.log(postid);
             }
             if (temp[j].startsWith("likes")) {
-              console.log(temp[j].split("=")[1]);
+              noOfLikes = temp[j].split("=")[1];
+              console.log(noOfLikes);
             }
+            document.getElementsByClassName("postid=" + postid).classList.remove("postid="+postid);
+            // console.log(x);
           }
         });
       }

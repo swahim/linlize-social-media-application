@@ -141,16 +141,20 @@ exports.createnewpost = (req, res) => {
 };
 
 exports.getallposts = (req, resp) => {
+  console.log("in get all posts");
+  console.log(req.email);
   let temp = [];
   client
     .query(
-      `SELECT postid, likes, posts.email, content, firstname, lastname, company, designation, posts.postsimg, posts.postsmime, img, mime from posts INNER JOIN details ON posts.email=details.email;`
+      `SELECT postid, likes, userid, posts.email, content, firstname, lastname, company, designation, posts.postsimg, posts.postsmime, img, mime from posts INNER JOIN details ON posts.email=details.email;`
     )
     .then((res) => {
       res.rows.forEach((data) => {
         let innertemp = {
           postid: data.postid,
+          userid: data.userid,
           email: data.email,
+          logemail: req.email,
           firstname: data.firstname,
           lastname: data.lastname,
           company: data.company,

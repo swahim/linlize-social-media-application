@@ -206,7 +206,6 @@ a{
   text-decoration: none;
   color: black;
 }
-
 .sub{
   display: flex;
   font-family: "Merriweather", serif;
@@ -237,7 +236,7 @@ a{
   border-radius: 14px;
   padding: 2%;
   width: 50%;
-  pointer-events: all;
+  pointer-events: none;
   height: auto;
   top: 30%;
   left: 50%;
@@ -245,14 +244,15 @@ a{
   margin-top: 5%;
   transform: translateX(-50%);
   transition : opacity 0.5s linear;
-  /* opacity: 0; */
+  opacity: 0;
 
+}
+.editPost{
+  background  :red;
 }
 .editContainer.visible{
   opacity: 1;
   pointer-events: all;
-  z-index: 999;
-
 }
 .PopUpNav {
   width: 100%;
@@ -260,6 +260,7 @@ a{
   justify-content: space-between;
   align-items: center;
 }
+
 hr{
   height: 0.3rem;
   background-color: black;
@@ -272,6 +273,7 @@ hr{
   font-size: 2.2rem;
   cursor: pointer;
   color: grey;
+
 }
 .healine {
   display: flex;

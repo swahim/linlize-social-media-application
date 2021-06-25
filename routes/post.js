@@ -19,7 +19,7 @@ router.post("/newprofilepic", newprofilepic);
 router.post("/getpics", verifyToken, getpics);
 router.get("/profile/:username", profile);
 router.post("/createnewpost", verifyToken, createnewpost);
-router.get("/getallposts", getallposts);
+router.post("/getallposts", verifyToken, getallposts);
 router.put("/updatelike", updatelike);
 router.put("/updatedislike", updatedislike);
 module.exports = router;

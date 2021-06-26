@@ -70,10 +70,12 @@ exports.getpics = (req, resp) => {
     )
     .then((res) => {
       // console.log(res);
+
       firstname = res.rows[0].firstname;
       lastname = res.rows[0].lastname;
       image = res.rows[0].img;
       mime = res.rows[0].mime;
+
       // console.log("data:" + mime + ";base64," + image);
       resp.status(200).json({
         message: "image fetched successfully",

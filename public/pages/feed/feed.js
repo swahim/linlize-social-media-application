@@ -246,21 +246,21 @@ async function myposts() {
         likeSection.className = "likeSection";
 
         const like = document.createElement("div");
-        like.className = "like likeBtn";
+        like.className = "like";
 
         const likeIcon = document.createElement("span");
         likeIcon.className = "likeIcon";
         const likes = obj.likes;
         const tempEmail = obj.logemail;
         if (likes.includes(tempEmail)) {
-          likeIcon.innerHTML = `<i class="fas fa-lightbulb fill postid=${obj.postid} likes=${likes.length}"></i>`;
+          likeIcon.innerHTML = `<i class="fas fa-lightbulb fill"></i>`;
         } else {
-          likeIcon.innerHTML = `<i class="far fa-lightbulb postid=${obj.postid} likes=${likes.length}"></i>`;
+          likeIcon.innerHTML = `<i class="far fa-lightbulb"></i>`;
         }
         like.appendChild(likeIcon);
 
         const LikeNumber = document.createElement("div");
-        LikeNumber.className = "LikeNumber";
+        LikeNumber.className = `LikeNumber likeBtn postid=${obj.postid} likes=${likes.length}`;
         if (obj.likes.length > 0) {
           LikeNumber.innerText = obj.likes.length;
         } else {
@@ -289,8 +289,8 @@ async function myposts() {
       for (var i = 0; i < likeBtn.length; i++) {
         likeBtn[i].addEventListener("click", (event) => {
           var temp = event.target.className.split(" ");
+          var postid, noOfLikes;
           for (var j = 0; j < temp.length; j++) {
-            var postid, noOfLikes;
             if (temp[j].startsWith("postid")) {
               postid = temp[j].split("=")[1];
               console.log(postid);
@@ -299,9 +299,11 @@ async function myposts() {
               noOfLikes = temp[j].split("=")[1];
               console.log(noOfLikes);
             }
-            document.getElementsByClassName("postid=" + postid).classList.remove("postid="+postid);
             // console.log(x);
           }
+          console.log(postid);
+          console.log(document.getElementsByClassName("postid="+postid)[0].innerText);
+          document.getElementsByClassName("postid="+postid)[0].innerText+=1;
         });
       }
     });

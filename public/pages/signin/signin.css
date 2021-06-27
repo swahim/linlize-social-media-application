@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Merriweather&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -10,13 +10,104 @@ body,
 input {
   font-family: "Poppins", sans-serif;
 }
-body{
+body {
   opacity: 0;
   transition: opacity 1s ease-in;
 }
-.visible{
+.visible {
   opacity: 1;
 }
+
+/* Pop Up for success */
+.popupPasswordMatch,
+.popupSignUpSuccess,
+.popupServerError,
+.popupSignInSuccess,
+.popupWrongPassword,
+.popupFailure {
+  width: 30%;
+  height: 40%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  background: white;
+  /* background : grey; */
+  border-radius: 14px;
+  text-align: center;
+  padding: 2%;
+  display: flex;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  flex-direction: column;
+  justify-content: space-evenly;
+  opacity: 0;
+}
+.popupSignUpSuccess.visible {
+  opacity: 1;
+}
+.popupPasswordMatch.visible {
+  opacity: 1;
+}
+.popupServerError.visible{
+  opacity: 1;
+}
+.popupSignInSuccess.visible {
+  opacity: 1;
+}
+.popupWrongPassword.visible {
+  opacity: 1;;
+}
+.icon,
+.iconFailure {
+  border: 2px solid #34f234;
+  height: 3rem;
+  width: 3rem;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+.iconFailure {
+  border: 2px solid red;
+}
+.fa-check {
+  color: #34f234;
+  font-size: 1.5rem;
+}
+.failureCross {
+  font-size: 1.5rem;
+  color: red;
+}
+.sucessTop,
+.sucessTopFailure {
+  color: black;
+  font-size: 1.5rem;
+  width: 100%;
+  font-weight: bold;
+}
+.message {
+  font-family: "Merriweather", serif;
+}
+.dismissButton {
+  background: black;
+  border: 1px solid white;
+  padding: 3%;
+  width: 30%;
+  cursor: pointer;
+  color: white;
+  font-size: 1rem;
+  margin-top: 2%;
+  transition: all 0.2s ease;
+}
+.dismissButton:hover {
+  background: white;
+  color: black;
+  border: 1px solid black;
+}
+/* .. */
+
 .container {
   position: relative;
   width: 100%;
@@ -82,7 +173,7 @@ form.sign-in-form {
   grid-template-columns: 15% 85%;
   padding: 0 0.4rem;
   position: relative;
-  box-shadow: 0 2px 5px  rgba(0, 0, 0, 0.6);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
 }
 
 .input-field i {
@@ -152,7 +243,7 @@ form.sign-in-form {
   margin: 10px 0;
   cursor: pointer;
   transition: 0.5s;
-  box-shadow: 0 2px 5px  rgba(0, 0, 0, 0.6);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
 }
 
 .btn:hover {
@@ -176,14 +267,13 @@ form.sign-in-form {
   top: -10%;
   right: 48%;
   transform: translateY(-50%);
-  background:#8ab6d6;
+  background: #8ab6d6;
   transition: 1.8s ease-in-out;
   border-radius: 50%;
   z-index: 6;
 }
 
 .image {
-  
   width: 70%;
   transition: transform 1.1s ease-in-out;
   transition-delay: 0.4s;
@@ -202,11 +292,12 @@ form.sign-in-form {
   pointer-events: all;
   padding: 3rem 17% 2rem 12%;
 }
-h3, p{
+h3,
+p {
   color: black;
 }
-h3{
-  margin-top:3%;
+h3 {
+  margin-top: 3%;
 }
 
 .right-panel {
@@ -254,12 +345,14 @@ h3{
   transform: translate(100%, -50%);
   right: 52%;
 }
-#sign-up-btn, #sign-in-btn{
+#sign-up-btn,
+#sign-in-btn {
   margin-top: 3%;
   color: black;
   border: 1.5px solid black;
 }
-#sign-up-btn:hover, #sign-in-btn:hover{
+#sign-up-btn:hover,
+#sign-in-btn:hover {
   border: 3px solid #fbe0c4;
   color: #fbe0c4;
 }

@@ -15,6 +15,71 @@
     <title>Sign in & Sign up Form</title>
   </head>
   <body>
+    <!-- Pop up message for password doesn't match-->
+    <div class="popupPasswordMatch">
+      <div class="iconFailure">
+        <i class="fas fa-times failureCross"></i>
+      </div>
+      <div class="sucessTopFailure">Sign Up UnSuccessfull !!!</div>
+      <div class="messageFailure">Password does not match...</div>
+      <div class="dismissFailure">
+        <button class="dismissButton dismissPasswordMatch">Dismiss</button>
+      </div>
+    </div>
+    <!-- .. -->
+    <!-- Pop up message for success-->
+    <div class="popupSignUpSuccess">
+      <div class="icon">
+        <i class="fa fa-check"></i>
+      </div>
+      <div class="sucessTop">Sign Up Successfull !!!</div>
+      <div class="message">We hope you leave with some great ideas :)</div>
+      <div class="dismiss">
+        <button type="button" class="dismissButton continueSignUpSuccess">
+          Continue
+        </button>
+      </div>
+    </div>
+    <!-- .. -->
+    <!-- Pop up message for server error occureed-->
+    <div class="popupServerError">
+      <div class="iconFailure">
+        <i class="fas fa-times failureCross"></i>
+      </div>
+      <div class="sucessTopFailure">OOPs server error occured!!!</div>
+      <div class="messageFailure">Please try again later...</div>
+      <div class="dismissFailure">
+        <button class="dismissButton dismissServerError">Dismiss</button>
+      </div>
+    </div>
+    <!-- .. -->
+    <!-- Pop up message for sign in success-->
+    <div class="popupSignInSuccess">
+      <div class="icon">
+        <i class="fa fa-check"></i>
+      </div>
+      <div class="sucessTop">Sign In Successfull !!!</div>
+      <div class="message">We hope you leave with some great ideas :)</div>
+      <div class="dismiss">
+        <button type="button" class="dismissButton continueSignInSuccess">
+          Continue
+        </button>
+      </div>
+    </div>
+    <!-- .. -->
+    <!-- Pop up message for wrong password-->
+    <div class="popupWrongPassword">
+      <div class="iconFailure">
+        <i class="fas fa-times failureCross"></i>
+      </div>
+      <div class="sucessTopFailure">Wrong Password!!!</div>
+      <div class="messageFailure">Please try again...</div>
+      <div class="dismissFailure">
+        <button class="dismissButton dismissWrongPassword">Dismiss</button>
+      </div>
+    </div>
+    <!-- .. -->
+
     <div class="container">
       <div class="forms-container">
         <div class="signin-signup">
@@ -120,6 +185,6 @@
         </div>
       </div>
     </div>
-    <script src="./singnin.js"></script>
+    <script src="./signin.js"></script>
   </body>
 </html>

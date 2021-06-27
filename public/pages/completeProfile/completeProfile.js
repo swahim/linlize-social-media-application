@@ -167,3 +167,9 @@ function uploadToServer(file, name) {
 //     console.log(firstName, lastName, phoneNumber, writeBio, companyName, designationName, gender, birthday);
 //     console.log("clicking on submit");
 // })
+
+const homeLogo= document.querySelector(".homeLogo");
+homeLogo.addEventListener("click", (e) =>{
+    location.href = "/pages/feed/";
+  
+})

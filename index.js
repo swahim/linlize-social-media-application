@@ -29,8 +29,6 @@ app.listen(port, () => {
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-  // res.redirect("/pages/landing")
-  // res.sendFile(__dirname + "/public/index.html");
   res.redirect("/pages");
 });
 

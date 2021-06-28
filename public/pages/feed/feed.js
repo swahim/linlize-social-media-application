@@ -21,7 +21,7 @@ function getCookie(name) {
   return match ? match[1] : null;
 }
 
-function getToken() {
+function getToken() {clear
   if (localStorage.getItem("jwt")) {
     return localStorage.getItem("jwt");
   } else {
@@ -123,7 +123,7 @@ window.addEventListener("load", () => {
         if (data.mime === null) {
           var i;
           for (i = 0; i < img.length; i++) {
-            img[i].src = "../../images/Icon.png";
+            img[i].src = "../../images/default-profile-picture1.jpg";
           }
         } else {
           var i;

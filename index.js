@@ -18,13 +18,13 @@ app.use(fileUploader());
 app.use(express.json());
 app.use(cors());
 
-// var server=app.listen(port, () => {
-//   console.log("On port 8000!");
-// });
-
-app.listen(port, () => {
+var server = app.listen(port, () => {
   console.log("On port 8000!");
 });
+
+// app.listen(port, () => {
+//   console.log("On port 8000!");
+// });
 
 app.use(express.static("public"));
 
@@ -38,18 +38,22 @@ app.use("/auth", authRoutes);
 app.use("/posts", postRoutes);
 app.use("/details", detailsRoutes);
 
-//static files
-
 //socket setup
-const io = require("socket.io")(3000, {
-  cors: {
-    origin: ["http://127.0.0.1:5500"],
-  },
-});
+
+var io = socket(server);
+
 io.on("connection", function (socket) {
-  console.log("made socket connection");
-  console.log(socket.id);
+  console.log("made socket connection", socket.id);
+
+  socket.on("chat", (data) => {
+    io.sockets.emit("chat", data);
+  });
+
+  socket.on("typing", (data) =>{
+    socket.broadcast.emit("typing", data);
+  })
 });
+
 client.connect((err) => {
   if (err) {
     console.log(err);

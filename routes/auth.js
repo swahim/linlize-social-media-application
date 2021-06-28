@@ -9,7 +9,6 @@ const passport = require("passport");
 const imageToBase64 = require("image-to-base64");
 const client = require("../configs/db");
 const cookieParser = require("cookie-parser");
-const path = require("path");
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser());

@@ -33,6 +33,7 @@ exports.getdetails = (req, res) => {
           designation: userData[0].designation,
           gender: userData[0].gender,
           dob: userData[0].dob,
+          mime: mime,
           data: `data:${mime};base64,${image}`,
         });
       }

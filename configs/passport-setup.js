@@ -26,12 +26,12 @@ passport.use(new FacebookStrategy({
   profileFields   : ['id','displayName','name','gender','picture.type(large)','emails']
 },
 function(accessToken, refreshToken, profile, cb) {
-  console.log(profile);
-  console.log("after");
-  console.log(profile.name.familyName);
-  console.log(profile.displayName);
-  console.log(profile.photos[0].value);
-  console.log(profile.emails[0].value);
+  // console.log(profile);
+  // console.log("after");
+  // console.log(profile.name.familyName);
+  // console.log(profile.displayName);
+  // console.log(profile.photos[0].value);
+  // console.log(profile.emails[0].value);
   return cb(null, profile);
 }
 ));

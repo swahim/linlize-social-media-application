@@ -52,8 +52,14 @@ window.addEventListener("load", () => {
       .then((resp) => resp.json())
       .then((data) => {
         console.log(data);
-        for (i = 0; i < profilePic.length; i++) {
-          profilePic[i].src = data.data;
+        if (data.mime === null) {
+          for (i = 0; i < profilePic.length; i++) {
+            profilePic[i].src = "../../images/Icon.png";
+          }
+        } else {
+          for (i = 0; i < profilePic.length; i++) {
+            profilePic[i].src = data.data;
+          }
         }
         firstName.value = data.firstname;
         lastName.value = data.lastname;
@@ -161,3 +167,9 @@ function uploadToServer(file, name) {
 //     console.log(firstName, lastName, phoneNumber, writeBio, companyName, designationName, gender, birthday);
 //     console.log("clicking on submit");
 // })
+
+const homeLogo= document.querySelector(".homeLogo");
+homeLogo.addEventListener("click", (e) =>{
+    location.href = "/pages/feed/";
+  
+})

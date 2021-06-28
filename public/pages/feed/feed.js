@@ -120,9 +120,16 @@ window.addEventListener("load", () => {
         console.log(data);
         fullname.innerHTML = data.firstname + " " + data.lastname;
         const img = document.querySelectorAll(".profileImageBackend");
-        var i;
-        for (i = 0; i < img.length; i++) {
-          img[i].src = data.data;
+        if (data.mime === null) {
+          var i;
+          for (i = 0; i < img.length; i++) {
+            img[i].src = "../../images/Icon.png";
+          }
+        } else {
+          var i;
+          for (i = 0; i < img.length; i++) {
+            img[i].src = data.data;
+          }
         }
       })
       .catch((err) => {
@@ -283,7 +290,11 @@ async function myposts() {
         displayPost.append(likeSection);
         left.append(displayPost);
 
-        img.src = obj.profilepic;
+        if (obj.mime === null) {
+          img.src = "../../images/Icon.png";
+        } else {
+          img.src = obj.profilepic;
+        }
       });
       const likeBtn = document.querySelectorAll(".likeBtn");
       for (var i = 0; i < likeBtn.length; i++) {
@@ -302,8 +313,10 @@ async function myposts() {
             // console.log(x);
           }
           console.log(postid);
-          console.log(document.getElementsByClassName("postid="+postid)[0].innerText);
-          document.getElementsByClassName("postid="+postid)[0].innerText+=1;
+          console.log(
+            document.getElementsByClassName("postid=" + postid)[0].innerText
+          );
+          document.getElementsByClassName("postid=" + postid)[0].innerText += 1;
         });
       }
     });

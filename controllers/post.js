@@ -78,6 +78,7 @@ exports.getpics = (req, resp) => {
 
       // console.log("data:" + mime + ";base64," + image);
       resp.status(200).json({
+        mime: mime,
         message: "image fetched successfully",
          data: `data:${mime};base64,${image}`,
         // data: "data:" + mime + ";base64," + image,
@@ -165,6 +166,7 @@ exports.getallposts = (req, resp) => {
           designation: data.designation,
           content: data.content,
           likes: data.likes,
+          mime: data.mime,
           profilepic: "data:" + data.mime + ";base64," + data.img,
           postspic: "data:" + data.postsmime + ";base64," + data.postsimg,
         };

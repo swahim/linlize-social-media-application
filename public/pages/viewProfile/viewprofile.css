@@ -7,348 +7,373 @@
   box-sizing: border-box;
 }
 
-body{
-  background-color: #d8d8d8;
+body {
+  transition: all 0.2s linear;
+  background-color: #f1f1f1;
 }
 html {
   font-size: 62.5%;
 }
-.viewProfileContainer{
-  position: absolute;
-  background:#ffffff;
-  border: 1px solid rgb(255, 254, 254);
-  border-radius: 14px;
-  height: auto;
-  width: 60%;
-  margin-top: 4rem;
-  margin-left: 20%;
-  scroll-behavior: smooth;
+body.dark {
+  background: #303841;
+  color: white;
 }
-
-.coverPicContainer{
-  height: 12rem;
-  width: auto;
+body.dark nav {
+  background: #eeeeee;
+}
+body.dark .postHeading{
+  color: rgb(150, 150, 150);
+}
+body.dark .editProfileButton {
+  background: #00adb5;
+}
+body.dark .editProfileButton:hover {
+  background: none;
+  color: white;
+  border: 1px solid #00adb5;
+  transition: background 0.2s linear;
+}
+nav {
+  height: 10vh;
+  z-index: 5;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  background: white;
   display: flex;
-  background-image:linear-gradient(to bottom,#0e81f3,#6660fa);
-  border-radius: 14px 14px 0 0;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-evenly;
+  padding: 0.5%;
+  border-bottom: 1px solid rgba(180, 180, 180, 1);
+  transition: background 0.2s linear;
+  transition: all 0.5s linear;
 }
-.displayPic{
-  height: 9rem;
-  width: 9rem;
-  margin-top: 8rem;
-  border-radius: 50px;
-  border: 3px solid white;
-  
-}
-.nameContainer{
-  height: 4rem;
-  width: auto;
+.leftTopBar {
+  height: 100%;
+  width: 20%;
+  margin-right: 2%;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  flex-direction: column;
-  font-family: "Merriweather", serif;
-  margin-top: 2.5rem;
-  margin-bottom: 1rem;
 }
-.name{
-  font-weight: bolder;
-  font-size: 2rem;
-  margin-top: 3rem;
+.leftTopBar > img {
+  height: 130%;
 }
-.tagName{
+
+/* .searchDiv {
+  border: 1px solid black;
+  padding: 2%;
+  width: 40%;
+  display: flex;
+  justify-content: space-around;
+}
+.searchDiv > input {
+  background: transparent;
+  border: none;
+  width: 70%;
   font-size: 1.5rem;
 }
-.bio{
-    margin: 1rem;
-    font-size: 1.75rem;
-    padding: 1rem;
-    /* width: 90%; */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-   
+.searchDiv > input:focus {
+  outline: none;
+  border: none;
 }
-
-/* .linksContainer{
-  display: flex;
-  justify-content: space-evenly;
-  flex-direction: column;
-  font-family: "Merriweather", serif;
+.searchDiv > img {
+  height: 2rem;
 } */
-/* .links{
-  margin-left: 2rem;
-   font-size: 2.5rem;
-   font-weight: bold;
-} */
-/* .social-media-links{
- display: flex;
- width: 100%;
- justify-content: center;
- align-self:center;
- flex-direction: row;
- flex-wrap: wrap;
- justify-content: space-between;
- font-size: 6rem;
- width: auto;
- cursor:pointer;
-} */
-/* .social-media-link {
-    width: 5rem;
-    height: 5rem;
-    display: flex;
-    align-items: center;
-    justify-content:space-around;
-    margin: 0 1rem;
-    text-decoration: none;
-    color: #fff;
-    font-size: 3rem;
-    position: relative;
-    border-radius: 0.5rem;
-    content: "";
-    background: linear-gradient(
-        45deg,
-        rgba(36, 92, 247, 0.7) 0%, 
-        rgba(43, 39, 236, 0.3) 49%, 
-        rgba(79, 10, 241, 0.5) 50%);
-} */
-.postContainer{
-  height: auto;
-  width: auto;
-  margin-bottom: 2rem;
-}
-
-.yourPosts{
-   margin-left: 2rem;
-   font-size: 2.5rem;
-   font-weight: bold;
-   font-family: "Merriweather", serif;
-   gap: 1rem;
-}
-.posts{
-  margin: 0 auto;
-  max-width: max-content;
-  display: grid;
-  grid-template-columns: repeat(2,1fr);
-}
-.post{
-  background-color: #ffffff;
-  margin: 1rem;
-  box-shadow:0 0 8px rgba(0,0,0,0.5);
-}
-.postimg{
-    width: 100%;
-    display: block;
-    cursor: pointer;
-    padding: 0.5rem;
-}
-.caption{
-    margin: 0.5rem;
-    font-size: 1.5rem;
-    padding: 0.5rem;
-}
-.info{
-    margin: 1rem;
-    display:flex;
-    font-size: 2rem;
-    
-}
-.like{
+.label {
+  height: 27px;
+  width: 60px;
+  border-radius: 50px;
+  position: relative;
+  background-color: black;
   display: flex;
-  font-size: 2.5rem;
+  align-items: center;
+  justify-content: space-around;
 }
-.options{
-  display: flex;
-  width: 100%;
-  justify-content:flex-end;
-  opacity: 0;
+.fa-moon {
+  color: #f1c40f;
+  font-size: 1.5rem;
 }
-.editPost {
-  margin-right: 2rem;
-  background-color: #ffffff;
-  border-style: none;
+.fa-sun {
+  color: #f39c12;
+  font-size: 1.5rem;
 }
-.deletePost {
-  border-style: none;
-}
-i{
-  color: black;
-  font-size: 2rem;
-  cursor: pointer;
-}
-.post:hover .options{
-  opacity: 1;
-}
-/* .dropDownContainer{
-  position: absolute;
-  border : 1px solid rgba(180, 180, 180, 1);
-  border-radius :14px;
-  height:20rem;
-  width: 25rem;
-  display: flex;
-  flex-direction: column;
-  margin-top: 50rem;
-  margin-left: 40vw;
-  align-items: space-between; 
-  justify-content: space-evenly; 
-  background : white;
-  box-shadow: 0px 0px 10px 3px rgb(182, 182, 182);
-  opacity: 1;
-  cursor: pointer;
-  pointer-events: none; 
-  z-index: 10;
-  transition: all 0.5s linear;
-  opacity: 0;
-}
-a{
-  text-decoration: none;
-  color: black;
-}
-.sub{
-  display: flex;
-  font-family: "Merriweather", serif;
-  font-size : 1.5rem;
-  text-align: center;
-  justify-content: flex-start;
-  cursor: pointer;
-  margin-top:1.75rem;
-  margin-left:2rem;
-  margin-right:2rem;
-  border-radius : 14px;
-  padding: 1.15rem;
-}
-.sub>i{
-  font-size: 2rem;
-}
-.text{
-  margin-left: 10%;
-}
-.sub:hover{
-  background : rgba(4, 142, 188, 0.3);
-} */
-
-.editContainer {
-  position: absolute;
+.toggle {
   background: white;
-  border: 1px solid rgba(180, 180, 180, 1);
-  border-radius: 14px;
+  height: 24px;
+  width: 24px;
+  position: absolute;
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s linear;
+}
+.checkbox {
+  display: none;
+}
+.checkbox:checked + .label .toggle {
+  transform: translateX(32px);
+}
+.rightTopBar > img {
+  height: 40%;
+}
+.rightTopBar {
+  /* background : grey; */
+  width: 30%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.profileImageTopBarContainer {
+  /* background : black; */
+  border: 1px solid black;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5rem;
+  border-radius: 50%;
+  padding: 0.3%;
+}
+.profileImageTopBarContainer > img {
+  height: 100%;
+  border-radius: 50%;
+}
+.superContainer {
+  height: 100rem;
+  margin-top: 8%;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+.homeButton{
+  cursor: pointer;
+}
+.mainContainer {
+  height: 90%;
+  width: 55%;
+}
+.topContainer {
+  height: 40%;
+  display: flex;
+  /* background : rgba(255, 0, 0,0.2); */
+  justify-content: space-evenly;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.5);
+}
+.topLeft {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.bigProfileImage {
+  height: 30%;
+  width: auto;
+  padding: 3%;
+}
+.topRight {
+  display: flex;
+  flex-direction: column;
   padding: 2%;
   width: 50%;
-  pointer-events: none;
-  height: auto;
-  top: 30%;
-  left: 50%;
-  transform: translateY(-50%);
-  margin-top: 5%;
-  transform: translateX(-50%);
-  transition : opacity 0.5s linear;
-  opacity: 0;
+  justify-content: flex-start;
+  font-size: 1.5rem;
+}
+.editProfileButton,
+.name,
+.yourBio {
+  margin-top: 10%;
+}
+.editProfileButton {
+  padding: 2%;
+  width: 35%;
+  border-radius: 10px;
+  color: white;
+  border: 1px solid white;
+  cursor: pointer;
+  background-color: rgba(41, 120, 181, 0.7);
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.5rem;
+  transition: all 0.2s linear;
+}
+.editProfileButton:hover {
+  background-color: transparent;
+  border: 1px solid rgba(41, 120, 181, 1);
+  color: black;
+}
+.username {
+  font-family: "Merriweather", serif;
+  font-size: 2rem;
+  font-weight: 700;
+}
+.name {
+  font-family: "Merriweather", serif;
+  font-weight: 700;
+}
+.yourBio {
+  font-family: "Merriweather", serif;
+  font-size: 1.5rem;
+  width: 100%;
+}
+.bottomContainer {
+  /* background-color: rgba(255, 0, 0,0.2); */
+  height: 50%;
+  margin-top: 1.5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* overflow: scroll; */
+}
+.postHeading {
+  font-size: 1.5rem;
+  font-family: "Merriweather", serif;
+  color: rgba(128, 128, 128, 1);
+  transition: all 0.2s linear;
+}
 
+.displayPostGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+  height: max-content;
+  margin-top: 3%;
+  justify-items: center;
+  gap: 30px 30px;
 }
-.editPost{
-  background  :red;
+.post {
+  height: 30rem;
+  width: 100%;
+  padding: 2%;
 }
-.editContainer.visible{
+.post > img {
+  width: 100%;
+  height: 100%;
+}
+.post:hover {
+  cursor: pointer;
+  background: grey;
+}
+.EditPostPopupContainer {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  background: rgba(148, 148, 148, 0.5);
+  top: 0;
+  left: 0;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s linear;
+}
+.EditPostPopupContainer.visible{
   opacity: 1;
   pointer-events: all;
 }
-.PopUpNav {
-  width: 100%;
+.popUpMainContainer {
+  background: white;
+  width: 50%;
+  height: 60rem;
   display: flex;
-  justify-content: space-between;
+  padding: 1.5%;
+}
+.popUpleft {
+  height: 100%;
+  width: 60%;
+  display: flex;
   align-items: center;
 }
-
-hr{
-  height: 0.3rem;
-  background-color: black;
+.popUpleft > img {
+  width: 100%;
+  height: auto;
 }
-.editprofileicon{
-  height: 5rem;
-  border-radius: 50px;
+.lineSeperation {
+  height: 100%;
+  background: rgba(128, 128, 128, 0.4);
+  width: 1px;
 }
 .fa-times {
-  font-size: 2.2rem;
+  font-size: 5rem;
+  position: absolute;
+  top: 3%;
+  right: 3%;
+  color: white;
   cursor: pointer;
-  color: grey;
-
 }
-.healine {
+.popUpRight {
+  /* background  :rgba(255, 0, 0,0.3); */
+  width: 40%;
+  height: 90%;
   display: flex;
-  align-items: center;
-  margin-top: 4%;
+  flex-direction: column;
 }
-.healine > h1 {
-  font-family: "Open Sans", sans-serif;
+.navPopUpRight {
+  display: flex;
   margin-left: 3%;
+  align-items: center;
+  margin-top: 3%;
+  width: 50%;
+  justify-content: space-around;
+}
+
+.popUpProfileImage {
+  height: 3.5rem;
+  width: 3.5rem;
+}
+.usernamePopUpRight {
   font-size: 1.5rem;
+  font-weight: 700;
+  font-family: "Merriweather", serif;
 }
-.postimage{
-  margin-top: 1rem;
-  height: auto;
+.lineSeperation2 {
   width: 100%;
+  height: 1px;
+  background: rgba(128, 128, 128, 0.4);
+  margin-top: 5%;
 }
-.CaptionPopUp {
-  height: auto;
+.mainPopUpRight {
+  display: flex;
+  margin-top: 5%;
+  margin-left: 5%;
+  height: 70%;
+  /* overflow: scroll; */
+}
+.caption {
+  font-family: "Montserrat", sans-serif;
+  margin-left: 5%;
+  border: 1px solid grey;
+  border-radius: 10px;
   width: 100%;
-  margin-top: 1rem;
-  background-color: transparent;
-  border: none;
+  background: transparent;
   font-size: 1.5rem;
-  border: 2px solid red;
+  overflow: scroll;
+  height: 100%;
 }
-.CaptionPopUp:focus {
+.caption:focus {
   outline: none;
+  border: 1px solid black;
 }
-.publish {
-  padding: 2.5%;
-  width: 30%;
+.caption::-webkit-scrollbar {
+  display: none;
+}
+.saveChangesButton{
+  margin-top: 10%;
+  width: 40%;
+  padding : 2.5%;
+  border-radius: 14px;
   background: rgba(4, 142, 188, 0.5);
   border: 1px solid white;
-  border-radius: 22.5px;
   cursor: pointer;
-  transition: all 0.2s linear;
+  align-self: flex-end;
   color: white;
-  font-family: "Montserrat";
+  transition: all 0.2s linear;
   font-size: 1.5rem;
 }
-.publish:hover {
+.saveChangesButton:hover {
   background: transparent;
   border: 1px solid rgba(4, 142, 188, 0.8);
   color: black;
-}
-.footerPopUp {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 5%;
-}
-.fa-images {
-  font-size: 2.2rem;
-  cursor: pointer;
-}
-.leftPopUp {
-  display: flex;
-  width: 25%;
-  align-items: center;
-  justify-content: space-between;
-}
-.afterPopUp{
-  pointer-events: none;
-  filter :opacity(0.3);
-  transition : all 0.5s linear;
-}
-@media screen and (max-width: 550px) {
-
-html{
-  font-size: 50%;
-}
-  .posts{
-  margin: 0 auto;
-  max-width: max-content;
-  display: grid;
-  grid-template-columns: repeat(1,1fr);
-}
 }

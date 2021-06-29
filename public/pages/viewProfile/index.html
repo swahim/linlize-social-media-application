@@ -5,191 +5,112 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./viewprofile.css" />
-    <title>view profile</title>
+    <title>View Profile</title>
     <script
       src="https://kit.fontawesome.com/e2bcd14811.js"
       crossorigin="anonymous"
     ></script>
   </head>
   <body>
+    <div class="EditPostPopupContainer">
+      <i class="fas fa-times"></i>
+      <div class="popUpMainContainer">
+        <div class="popUpleft">
+          <img class="PostImage" src="../../images/Main Image.png">
+        </div>
+        <div class="lineSeperation"></div>
+        <div class="popUpRight">
+          <div class="navPopUpRight">
+            <div class="profileImageTopBarContainer popUpProfileImage">
+              <img class="profileImageBackend" src="../../images/Icon.png" />
+            </div>
+            <div class="usernamePopUpRight">@username</div>
+
+          </div>
+          <div class="lineSeperation2"></div>
+          <div class="mainPopUpRight">
+            <div class="profileImageTopBarContainer popUpProfileImage">
+              <img class="profileImageBackend" src="../../images/Icon.png" />
+            </div>
+            <input type="text" class="caption"></input>
+          </div>
+          <button type="button" class="saveChangesButton">Save Changes</button>
+        </div> 
+      </div>
+    </div>
+    <nav>
+      <div class="leftTopBar">
+        <img src="../../images/LINKIZE.png" />
+        <!-- <div class="searchDiv">
+            <input type="text" placeholder="Search" />
+            <img src="../../images/searchIcon.png" />
+          </div> -->
+      </div>
+      <div class="rightTopBar">
+        <input type="checkbox" class="checkbox" id="checkbox" />
+        <label for="checkbox" class="label">
+          <i class="fas fa-moon"></i>
+          <i class="fas fa-sun"></i>
+          <div class="toggle"></div>
+        </label>
+        <img class="homeButton" src="../../images/home.png" />
+        <div class="profileImageTopBarContainer profileImageBackend">
+          <img class="profileImageBackend" src="../../images/Icon.png" />
+        </div>
+      </div>
+    </nav>
     <div class="superContainer">
-      <div class="viewProfileContainer">
-        <div class="coverPicContainer">
-          <img src="../../images/Icon.png" class="displayPic" />
-        </div>
-        <div class="nameContainer">
-          <div class="name">TestHuman</div>
-          <div class="tagName">Founder|Zomato</div>
-        </div>
-        <div class="bio">
-          i am an enthusisant learner,explorer Lorem ipsum, dolor sit amet
-          consectetur adipisicing elit. Minus quae provident adipisci ab laborum
-          aliquid inventore dolorum vitae.
-        </div>
-        <!--<div class="linksContainer">
-            <div class="links">Links</div>
-           <div class="social-media-links">
-            <a class="social-media-link facebook" href="#">
-            <i class="fab fa-facebook-f"></i>
-            </a>
-            <a class="social-media-link twitter" href="#">
-            <i class="fab fa-twitter"></i>
-            </a>
-            <a class="social-media-link instagram" href="#">
-            <i class="fab fa-instagram"></i>
-            </a>
-            <a class="social-media-link linkedin" href="#">
-            <i class="fab fa-linkedin"></i>
-            </a>
-           </div>  
-       </div> -->
-        <div class="postContainer">
-          <div class="yourPosts">Your Posts</div>
-          <div class="posts">
-            <div class="post">
-              <img
-                src="https://static2.thegamerimages.com/wordpress/wp-content/uploads/2019/05/Detective-Pikachu-4.jpg"
-                alt=""
-                class="postimg"
-              />
-              <div class="caption">
-                Detective-Pikachu is a cute pokemon i have ever seen in the
-                pokemon series
-              </div>
-              <div class="info">
-                <div class="like">
-                  <i class="far fa-lightbulb"></i>
-                  <div class="num">100</div>
-                </div>
-                <div class="options">
-                  <button class="sub editPost">
-                    <i class="fas fa-edit"></i>
-                  </button>
-                  <button class="sub deletePost">
-                    <i class="fas fa-trash-alt"></i>
-                  </button>
-                </div>
-              </div>
+      <div class="mainContainer">
+        <div class="topContainer">
+          <div class="topLeft">
+            <div class="profileImageTopBarContainer profileImageBackend bigProfileImage">
+              <img class="profileImageBackend" src="../../images/Icon.png" />
             </div>
-            <div class="post" id="post1">
-              <img
-                src="https://static2.thegamerimages.com/wordpress/wp-content/uploads/2019/05/Detective-Pikachu-4.jpg"
-                alt=""
-                class="postimg"
-              />
-              <div class="caption">
-                Detective-Pikachu is a cute pokemon i have ever seen in the
-                pokemon series
-              </div>
-              <div class="info">
-                <div class="like">
-                  <i class="far fa-lightbulb"></i>
-                  <div class="num">100</div>
-                </div>
-                <div class="options">
-                  <button class="sub editPost">
-                    <i class="fas fa-edit"></i>
-                  </button>
-                  <button class="sub deletePost">
-                    <i class="fas fa-trash-alt"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="post">
-              <img
-                src="https://static2.thegamerimages.com/wordpress/wp-content/uploads/2019/05/Detective-Pikachu-4.jpg"
-                alt=""
-                class="postimg"
-              />
-              <div class="caption">
-                Detective-Pikachu is a cute pokemon i have ever seen in the
-                pokemon series
-              </div>
-              <div class="info">
-                <div class="like">
-                  <i class="far fa-lightbulb"></i>
-                  <div class="num">100</div>
-                </div>
-                <div class="options">
-                  <button class="sub editPost">
-                    <i class="fas fa-edit"></i>
-                  </button>
-                  <button class="sub deletePost">
-                    <i class="fas fa-trash-alt"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="post">
-              <img
-                src="https://static2.thegamerimages.com/wordpress/wp-content/uploads/2019/05/Detective-Pikachu-4.jpg"
-                alt=""
-                class="postimg"
-              />
-              <div class="caption">
-                Detective-Pikachu is a cute pokemon i have ever seen in the
-                pokemon series
-              </div>
-              <div class="info">
-                <div class="like">
-                  <i class="far fa-lightbulb"></i>
-                  <div class="num">100</div>
-                </div>
-                <div class="options">
-                  <button class="sub editPost">
-                    <i class="fas fa-edit"></i>
-                  </button>
-                  <button class="sub deletePost">
-                    <i class="fas fa-trash-alt"></i>
-                  </button>
-                </div>
-              </div>
+          </div>
+          <div class="topRight">
+            <div class="username">@Username</div>
+            <button type="button" class="editProfileButton">Edit Profile</button>
+            <div class="name">Swahim Namdev</div>
+            <div class="yourBio">
+              Lorem ipsumtui harum officia quaerat amet repellat qui doloribus at fuga nesciunt culpa tenetur iure ullam quidem dignissimos quam ea necessitatibus explicabo neque. Quidem.
             </div>
           </div>
         </div>
-      </div>
-    </div>
-
-    <!-- <div class="dropDownContainer" id="box1">
-      <a href="#"><div class="sub editPost">
-        <i class="fas fa-edit"></i>
-        <div class="text">Edit Post</div>
-      </div></a>
-      <a href="#"><div class="sub deletePost">
-        <i class="fas fa-trash-alt"></i>
-        <div class="text">Delete Post</div></div></a>
-      <a href="#"><div class="sub close" id="5">
-        <i class="fas fa-window-close"></i>
-        <div class="text">Close</div></div></a>
-    </div> -->
-    <div class="editContainer">
-      <div class="PopUpNav">
-        <h1>Edit Post</h1>
-        <i class="fas fa-times"></i>
-      </div>
-      <div class="lineSeperation lineSeperationPopUp">
-        ,
-        <hr />
-      </div>
-      <div class="healine">
-        <div class="profileImageTopBarContainer popUpProfileImage">
-          <img
-            src="../../images/Icon.png"
-            class="editprofileicon"
-            height="80px"
-          />
+        <div class="bottomContainer">
+          <div class="postHeading">
+            <i class="fas fa-th"></i>
+            POSTS
+          </div>
+          <div class="displayPostGrid">
+            <div class="post">
+              <img class="profileImageBackend" src="../../images/Icon.png" />
+            </div>
+            <div class="post">
+              <img class="profileImageBackend" src="../../images/Icon.png" />
+            </div>
+            <div class="post">
+              <img class="profileImageBackend" src="../../images/Icon.png" />
+            </div>
+            <div class="post">
+              <img class="profileImageBackend" src="../../images/Icon.png" />
+            </div>
+            <div class="post">
+              <img class="profileImageBackend" src="../../images/Icon.png" />
+            </div>
+            <div class="post">
+              <img class="profileImageBackend" src="../../images/Icon.png" />
+            </div>
+            <div class="post">
+              <img class="profileImageBackend" src="../../images/Icon.png" />
+            </div>
+            <div class="post">
+              <img class="profileImageBackend" src="../../images/Icon.png" />
+            </div>
+            <div class="post">
+              <img class="profileImageBackend" src="../../images/Icon.png" />
+            </div>
+          </div>
         </div>
-        <h1>Test Human</h1>
-      </div>
-      <input type="image" class="postimage" alt="img" />
-      <input type="text" class="CaptionPopUp" />
-      <div class="footerPopUp">
-        <div class="leftPopUp">
-          <i class="fas fa-images"></i>
-          <h2>Add Image</h2>
-        </div>
-        <button type="submit" class="publish">Publish</button>
       </div>
     </div>
   </body>

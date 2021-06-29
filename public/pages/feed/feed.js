@@ -21,7 +21,7 @@ function getCookie(name) {
   return match ? match[1] : null;
 }
 
-function getToken() {clear
+function getToken() {
   if (localStorage.getItem("jwt")) {
     return localStorage.getItem("jwt");
   } else {

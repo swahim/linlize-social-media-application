@@ -37,7 +37,13 @@ exports.getdetails = (req, res) => {
           data: `data:${mime};base64,${image}`,
         });
       }
-    });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        message: "database error occured!",
+      })
+    })
 };
 
 exports.updatedetails = (req, res) => {
@@ -80,4 +86,37 @@ exports.updatedetails = (req, res) => {
         });
       });
   }
+};
+
+exports.profile = (req, res) => {
+  const userId = req.params.userid;
+  let userEmail = "";
+  console.log(userId);
+  client
+    .query(`SELECT email FROM details WHERE userid=${userId}`)
+    .then((data) => {
+      userEmail = data.rows[0].email;
+      console.log(userEmail);
+      client
+        .query(
+          // `SELECT firstname, lastname, details.email, bio, company, designation, img, mime, content, postsimg, postsmime, likes  FROM posts INNER JOIN details on posts.email=details.email WHERE details.email='${userEmail}';`
+          `SELECT firstname, lastname, details.email, bio, company, designation, content, likes  FROM posts INNER JOIN details on posts.email=details.email WHERE details.email='${userEmail}';`
+        )
+        .then((data) => {
+          console.log(data);
+          res.status(200).json(data.rows);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(500).json({
+            message: "database error occured!"
+          })
+        })
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        message: "database error occured!!"
+      })
+    })
 };

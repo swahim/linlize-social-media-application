@@ -56,11 +56,20 @@ const name = document.querySelector(".name");
 const yourBio = document.querySelector(".yourBio");
 const profileImageBackend = document.querySelector(".profileImageBackend");
 
+const urlParams = new URLSearchParams(window.location.search);
+const userid = urlParams.get("userid");
+console.log(userid);
 // adding click event listeneer to edit profile button to redirect to complete your profile pages
 editProfileButton.addEventListener("click", () => {
   console.log("clicking on edit profile button");
 });
 
 window.addEventListener("load", () => {
+
+   if(userid===null){
+      location.href = "/pages/feed/";
+
+      //or else display a popup where user doesn't exists :(
+   }
    console.log(username.innerText, name.innerText, yourBio.innerText, profileImageBackend);
 });

@@ -63,10 +63,10 @@ exports.getpics = (req, resp) => {
   let image = "";
   let mime = "";
   let firstname = "",
-    lastname = "";
+    lastname = "", userid="";
   client
     .query(
-      `SELECT firstname, lastname, img, mime FROM details WHERE email = '${req.email}'`
+      `SELECT firstname, lastname, img, mime, userid FROM details WHERE email = '${req.email}'`
     )
     .then((res) => {
       // console.log(res);
@@ -75,7 +75,7 @@ exports.getpics = (req, resp) => {
       lastname = res.rows[0].lastname;
       image = res.rows[0].img;
       mime = res.rows[0].mime;
-
+      userid=res.rows[0].userid;
       // console.log("data:" + mime + ";base64," + image);
       resp.status(200).json({
         mime: mime,
@@ -84,6 +84,7 @@ exports.getpics = (req, resp) => {
         // data: "data:" + mime + ";base64," + image,
         firstname: firstname,
         lastname: lastname,
+        userid: userid,
       });
     })
     .catch((err) => {
@@ -149,7 +150,7 @@ exports.getallposts = (req, resp) => {
   console.log("in get all posts");
   console.log(req.email);
   let temp = [];
-  client
+  client  
     .query(
       `SELECT postid, likes, userid, posts.email, content, firstname, lastname, company, designation, posts.postsimg, posts.postsmime, img, mime from posts INNER JOIN details ON posts.email=details.email;`
     )

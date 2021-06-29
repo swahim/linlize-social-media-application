@@ -30,21 +30,37 @@
 //    editContainerPopUp.classList.remove("visible");
 // })
 checkbox.addEventListener("click", () => {
-   document.body.classList.toggle("dark");
- });
- 
+  document.body.classList.toggle("dark");
+});
+
 const post = document.querySelector(".post");
 post.addEventListener("click", () => {
-   const EditPostPopUp = document.querySelector(".EditPostPopupContainer");
-   const body = document.querySelector("body");
-   EditPostPopUp.classList.add("visible");
-   body.style.overflow = "hidden";
-
-})
+  const EditPostPopUp = document.querySelector(".EditPostPopupContainer");
+  const body = document.querySelector("body");
+  EditPostPopUp.classList.add("visible");
+  body.style.overflow = "hidden";
+});
 const cross = document.querySelector(".fa-times");
 cross.addEventListener("click", () => {
-   const EditPostPopUp = document.querySelector(".EditPostPopupContainer");
-   const body = document.querySelector("body");
-   EditPostPopUp.classList.remove("visible");
-   body.style.overflow = "scroll";
-})
+  const EditPostPopUp = document.querySelector(".EditPostPopupContainer");
+  const body = document.querySelector("body");
+  EditPostPopUp.classList.remove("visible");
+  body.style.overflow = "scroll";
+});
+
+// dom manipulation
+
+const username = document.querySelector(".username");
+const editProfileButton = document.querySelector(".editProfileButton");
+const name = document.querySelector(".name");
+const yourBio = document.querySelector(".yourBio");
+const profileImageBackend = document.querySelector(".profileImageBackend");
+
+// adding click event listeneer to edit profile button to redirect to complete your profile pages
+editProfileButton.addEventListener("click", () => {
+  console.log("clicking on edit profile button");
+});
+
+window.addEventListener("load", () => {
+   console.log(username.innerText, name.innerText, yourBio.innerText, profileImageBackend);
+});

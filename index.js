@@ -64,10 +64,10 @@ io.on("connection", function (socket) {
   });
 });
 
-// client.connect((err) => {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     console.log("Connected to database!");
-//   }
-// });
+client.connect((err) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("Connected to database!");
+  }
+});

@@ -257,7 +257,7 @@ nav {
 .EditPostPopupContainer {
   width: 100vw;
   height: 100vh;
-  position: absolute;
+  position: fixed;
   background: rgba(148, 148, 148, 0.5);
   top: 0;
   left: 0;
@@ -322,11 +322,13 @@ nav {
 .popUpProfileImage {
   height: 3.5rem;
   width: 3.5rem;
+  margin-left: 2.5rem;
 }
 .usernamePopUpRight {
   font-size: 1.5rem;
   font-weight: 700;
   font-family: "Merriweather", serif;
+  margin: 1rem;
 }
 .lineSeperation2 {
   width: 100%;

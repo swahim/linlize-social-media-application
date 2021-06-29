@@ -42,8 +42,8 @@ exports.getdetails = (req, res) => {
       console.log(err);
       res.status(500).json({
         message: "database error occured!",
-      })
-    })
+      });
+    });
 };
 
 exports.updatedetails = (req, res) => {
@@ -90,33 +90,56 @@ exports.updatedetails = (req, res) => {
 
 exports.profile = (req, res) => {
   const userId = req.params.userid;
-  let userEmail = "";
+  let userEmail = "",
+    temp = [];
   console.log(userId);
   client
-    .query(`SELECT email FROM details WHERE userid=${userId}`)
+    .query(
+      `SELECT firstname, lastname, company, designation, img, mime, email FROM details WHERE userid=${userId}`
+    )
     .then((data) => {
       userEmail = data.rows[0].email;
-      console.log(userEmail);
+      data=data.rows[0];
+      console.log(data)
+      let details = {
+        firstname: data.firstname,
+        lastname: data.lastname,
+        email: data.email,
+        company: data.company,
+        designation: data.designation,
+        profilepic: "data:" + data.mime + ";base64," + data.img,
+      };
+      temp.push(details);
       client
         .query(
           // `SELECT firstname, lastname, details.email, bio, company, designation, img, mime, content, postsimg, postsmime, likes  FROM posts INNER JOIN details on posts.email=details.email WHERE details.email='${userEmail}';`
-          `SELECT firstname, lastname, details.email, bio, company, designation, content, likes  FROM posts INNER JOIN details on posts.email=details.email WHERE details.email='${userEmail}';`
+          `SELECT  content, postsimg, postsmime, postid, likes FROM posts WHERE email='${userEmail}';`
         )
         .then((data) => {
-          console.log(data);
-          res.status(200).json(data.rows);
+          let temp2=[]
+          data.rows.forEach((data) => {
+            let posts = {
+              content: data.content,
+              postid: data.postid,
+              likes: data.likes,
+              postspic: "data:" + data.postsmime + ";base64," + data.postsimg,
+            };
+            temp2.push(posts);
+          });
+          temp.push(temp2);
+          res.status(200).json(temp);
         })
         .catch((err) => {
           console.log(err);
           res.status(500).json({
-            message: "database error occured!"
-          })
-        })
+            message: "database error occured!",
+          });
+        });
     })
     .catch((err) => {
       console.log(err);
       res.status(500).json({
-        message: "database error occured!!"
-      })
-    })
+        message: "database error occured!!",
+      });
+    });
 };

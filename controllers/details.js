@@ -93,30 +93,48 @@ exports.profile = (req, res) => {
   let userEmail = "",
     temp = [];
   console.log(userId);
+
   client
     .query(
-      `SELECT firstname, lastname, company, designation, img, mime, email FROM details WHERE userid=${userId}`
+      `SELECT firstname, lastname, company, designation, img, mime, email, bio FROM details WHERE userid='${userId}'`
     )
     .then((data) => {
       userEmail = data.rows[0].email;
-      data=data.rows[0];
-      console.log(data)
+      data = data.rows[0];
       let details = {
         firstname: data.firstname,
         lastname: data.lastname,
         email: data.email,
         company: data.company,
         designation: data.designation,
+        bio: data.bio,
+        mime: data.mime,
+        // img: data.img,
         profilepic: "data:" + data.mime + ";base64," + data.img,
       };
       temp.push(details);
+      client
+        .query(
+          `SELECT userid, img, mime from details WHERE email='${req.email}'`
+        )
+        .then((data) => {
+          data = data.rows[0];
+          let innerTemp = {
+            // mime: data.mime,
+            // img: data.img,
+            userid: data.userid,
+            profilepic: "data:" + data.mime + ";base64," + data.img,
+          };
+          temp.push(innerTemp);
+        });
+
       client
         .query(
           // `SELECT firstname, lastname, details.email, bio, company, designation, img, mime, content, postsimg, postsmime, likes  FROM posts INNER JOIN details on posts.email=details.email WHERE details.email='${userEmail}';`
           `SELECT  content, postsimg, postsmime, postid, likes FROM posts WHERE email='${userEmail}';`
         )
         .then((data) => {
-          let temp2=[]
+          let temp2 = [];
           data.rows.forEach((data) => {
             let posts = {
               content: data.content,

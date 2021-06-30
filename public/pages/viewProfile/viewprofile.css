@@ -257,7 +257,7 @@ nav {
 .EditPostPopupContainer {
   width: 100vw;
   height: 100vh;
-  position: absolute;
+  position: fixed;
   background: rgba(148, 148, 148, 0.5);
   top: 0;
   left: 0;

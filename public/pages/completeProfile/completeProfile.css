@@ -141,6 +141,9 @@ nav {
   align-items: center;
   justify-content: space-evenly;
 }
+.homeLogo{
+  cursor: pointer;
+}
 .profileImageTopBarContainer {
   /* background : black; */
   border: 1px solid black;

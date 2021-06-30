@@ -8,5 +8,5 @@ app.use(express.json());
 
 router.get("/getdetails", verifyToken, getdetails);
 router.post("/updatedetails", verifyToken, updatedetails);
-router.get("/profile/:userid", profile);
+router.get("/profile/:userid", verifyToken, profile);
 module.exports = router;

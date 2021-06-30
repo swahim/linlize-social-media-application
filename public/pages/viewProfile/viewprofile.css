@@ -133,7 +133,7 @@ nav {
   justify-content: center;
   width: 5rem;
   border-radius: 50%;
-  padding: 0.3%;
+  /* padding: 0.3%; */
 }
 .profileImageTopBarContainer > img {
   height: 100%;
@@ -196,6 +196,10 @@ nav {
   font-family: "Montserrat", sans-serif;
   font-size: 1.5rem;
   transition: all 0.2s linear;
+  opacity: 0;
+}
+.editProfileButton.visible {
+  opacity: 1;
 }
 .editProfileButton:hover {
   background-color: transparent;

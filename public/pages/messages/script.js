@@ -1,3 +1,4 @@
+
 var socket = io.connect('http://localhost:8000');
 
 // Query DOM socket
@@ -42,3 +43,4 @@ socket.on("typing", (data) => {
 socket.on('message', (data) => {
     feedback.innerHTML = '<p>' + data.text + ' ' + data.time + '</p>'
 })
+

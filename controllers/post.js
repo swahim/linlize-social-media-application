@@ -149,6 +149,7 @@ exports.createnewpost = (req, res) => {
 exports.getallposts = (req, resp) => {
   console.log("in get all posts");
   console.log(req.email);
+  console.log(req.user_id);
   let temp = [];
   client  
     .query(

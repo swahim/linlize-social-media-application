@@ -39,17 +39,23 @@ exports.signUp = (req, res) => {
             )
             .then((data) => {
               console.log(data);
-              const token = jwt.sign(
-                {
-                  email: email,
-                },
-                process.env.SECRET_KEY
-              );
-
-              res.status(200).json({
-                message: "user added successfully",
-                token: token,
-              });
+              client
+                .query(`SELECT userid FROM details WHERE email='${user.email}'`)
+                .then((data) => {
+                  console.log("after userid " + data);
+                  const token = jwt.sign(
+                    {
+                      email: email,
+                      user_id: data.rows[0].userid,
+                    },
+                    process.env.SECRET_KEY
+                  );
+                  console.log(token);
+                  res.status(200).json({
+                    message: "user added successfully",
+                    token: token,
+                  });
+                });
             })
             .catch((err) => {
               console.log(err);
@@ -88,6 +94,7 @@ exports.signIn = (req, res) => {
             const token = jwt.sign(
               {
                 email: email,
+                user_id: data.rows[0].userid,
               },
               process.env.SECRET_KEY
             );

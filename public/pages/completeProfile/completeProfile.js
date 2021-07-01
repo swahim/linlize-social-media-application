@@ -159,7 +159,7 @@ function uploadToServer(file, name) {
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
-      location.href("/pages/feed/");
+      location.href="/pages/feed/";
     });
 }
 // submit.addEventListener("click", (e) =>{

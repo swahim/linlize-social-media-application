@@ -133,10 +133,11 @@ nav {
   justify-content: center;
   width: 5rem;
   border-radius: 50%;
-  padding: 0.3%;
+  /* padding: 0.3%; */
 }
 .profileImageTopBarContainer > img {
   height: 100%;
+  width: 100%;
   border-radius: 50%;
 }
 .superContainer {
@@ -168,9 +169,13 @@ nav {
   align-items: flex-start;
 }
 .bigProfileImage {
-  height: 30%;
-  width: auto;
-  padding: 3%;
+  height: 15rem;
+  width: 15rem;
+  padding: 2%;
+}
+.bigProfileImage > img{
+  height: 100%;
+  width: 100%;
 }
 .topRight {
   display: flex;
@@ -196,6 +201,10 @@ nav {
   font-family: "Montserrat", sans-serif;
   font-size: 1.5rem;
   transition: all 0.2s linear;
+  opacity: 0;
+}
+.editProfileButton.visible {
+  opacity: 1;
 }
 .editProfileButton:hover {
   background-color: transparent;
@@ -322,11 +331,13 @@ nav {
 .popUpProfileImage {
   height: 3.5rem;
   width: 3.5rem;
+  margin-left: 2.5rem;
 }
 .usernamePopUpRight {
   font-size: 1.5rem;
   font-weight: 700;
   font-family: "Merriweather", serif;
+  margin: 1rem;
 }
 .lineSeperation2 {
   width: 100%;

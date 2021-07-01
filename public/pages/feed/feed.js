@@ -131,6 +131,10 @@ window.addEventListener("load", () => {
             img[i].src = data.data;
           }
         }
+
+        //changing the href for view your profile
+        document.querySelector(".viewYourProfile").href="/pages/viewProfile?userid="+data.userid+"&self=true";
+
       })
       .catch((err) => {
         alert("Error Fetching data");

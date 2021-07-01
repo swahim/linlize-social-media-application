@@ -39,19 +39,29 @@ app.use("/posts", postRoutes);
 app.use("/details", detailsRoutes);
 
 //socket setup
-
+const formatMessage = require("./utils/messageFormat");
+const { userJoin, getCurrentUser } = require("./utils/users");
 var io = socket(server);
 
 io.on("connection", function (socket) {
   console.log("made socket connection", socket.id);
+  socket.on("joinRoom", ({ username, room }) => {
+    const user = userJoin(socket.id, username, room);
 
-  socket.on("chat", (data) => {
-    io.sockets.emit("chat", data);
+    socket.join(user.room);
+    socket.emit("message", formatMessage("Bot", "Welcome to the chat"));
+
+    socket.on("chat", (data) => {
+      const user= getCurrentUser(socket.id);
+
+      io.to(user.room).emit("chat", formatMessage(user.username, data.message));
+    });
+
+    socket.on("typing", (data) => {
+      const user= getCurrentUser(socket.id);
+      socket.broadcast.to(socket.id).emit("typing", data);
+    });
   });
-
-  socket.on("typing", (data) =>{
-    socket.broadcast.emit("typing", data);
-  })
 });
 
 client.connect((err) => {

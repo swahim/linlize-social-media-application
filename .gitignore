@@ -2,3 +2,4 @@
 /node_modules
 .DS_STORE
 /.vscode
+/public/pages/test

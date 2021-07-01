@@ -10,6 +10,7 @@ const port = process.env.PORT || 8000;
 const authRoutes = require("./routes/auth");
 const postRoutes = require("./routes/post");
 const detailsRoutes = require("./routes/details");
+const roomsRoutes = require("./routes/rooms");
 
 const passportSetup = require("./configs/passport-setup");
 const passport = require("passport");
@@ -22,7 +23,6 @@ var server = app.listen(port, () => {
   console.log("On port 8000!");
 });
 
-
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
@@ -31,8 +31,10 @@ app.get("/", (req, res) => {
 
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.use("/auth", authRoutes);
 app.use("/posts", postRoutes);
+app.use("/rooms", roomsRoutes);
 app.use("/details", detailsRoutes);
 
 //socket setup
@@ -49,22 +51,22 @@ io.on("connection", function (socket) {
     socket.emit("message", formatMessage("Bot", "Welcome to the chat"));
 
     socket.on("chat", (data) => {
-      const user= getCurrentUser(socket.id);
+      const user = getCurrentUser(socket.id);
 
       io.to(user.room).emit("chat", formatMessage(user.username, data.message));
     });
 
     socket.on("typing", (data) => {
-      const user= getCurrentUser(socket.id);
+      const user = getCurrentUser(socket.id);
       socket.broadcast.to(socket.id).emit("typing", data);
     });
   });
 });
 
-client.connect((err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("Connected to database!");
-  }
-});
+// client.connect((err) => {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log("Connected to database!");
+//   }
+// });

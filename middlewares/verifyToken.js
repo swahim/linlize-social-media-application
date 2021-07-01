@@ -11,6 +11,7 @@ exports.verifyToken = (req, res, next) => {
       });
     }
     const userEmail = decoded.email;
+    const user_id = decoded.user_id;
     client
       .query(`SELECT * FROM details WHERE email = '${userEmail}';`)
       .then((data) => {
@@ -20,6 +21,7 @@ exports.verifyToken = (req, res, next) => {
           });
         } else {
           req.email = userEmail;
+          req.user_id= user_id;
           next();
         }
       })

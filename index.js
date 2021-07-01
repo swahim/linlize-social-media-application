@@ -22,9 +22,6 @@ var server = app.listen(port, () => {
   console.log("On port 8000!");
 });
 
-// app.listen(port, () => {
-//   console.log("On port 8000!");
-// });
 
 app.use(express.static("public"));
 

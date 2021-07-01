@@ -21,7 +21,7 @@ body.dark {
 body.dark nav {
   background: #eeeeee;
 }
-body.dark .postHeading{
+body.dark .postHeading {
   color: rgb(150, 150, 150);
 }
 body.dark .editProfileButton {
@@ -147,7 +147,7 @@ nav {
   display: flex;
   justify-content: center;
 }
-.homeButton{
+.homeButton {
   cursor: pointer;
 }
 .mainContainer {
@@ -173,7 +173,7 @@ nav {
   width: 15rem;
   padding: 2%;
 }
-.bigProfileImage > img{
+.bigProfileImage > img {
   height: 100%;
   width: 100%;
 }
@@ -194,15 +194,31 @@ nav {
   padding: 2%;
   width: 35%;
   border-radius: 10px;
-  color: white;
   border: 1px solid white;
   cursor: pointer;
+  color: white;
   background-color: rgba(41, 120, 181, 0.7);
   font-family: "Montserrat", sans-serif;
   font-size: 1.5rem;
   transition: all 0.2s linear;
   opacity: 0;
 }
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  /* background : red; */
+  width: 90%;
+  margin-top: 10%;
+  margin-left: 9%;
+  justify-content: space-around;
+}
+/* .editProfileButton > a{
+  text-decoration: none;
+  color: white;
+  width: 100%;
+  height: 100%;
+  background-color: red;
+} */
 .editProfileButton.visible {
   opacity: 1;
 }
@@ -278,7 +294,7 @@ nav {
   justify-content: center;
   transition: all 0.2s linear;
 }
-.EditPostPopupContainer.visible{
+.EditPostPopupContainer.visible {
   opacity: 1;
   pointer-events: all;
 }
@@ -297,7 +313,7 @@ nav {
 }
 .popUpleft > img {
   width: 100%;
-  height: auto;
+  height: 100%;
 }
 .lineSeperation {
   height: 100%;
@@ -324,7 +340,8 @@ nav {
   margin-left: 3%;
   align-items: center;
   margin-top: 3%;
-  width: 50%;
+  width: 90%;
+  /* background-color: blue; */
   justify-content: space-around;
 }
 
@@ -338,6 +355,8 @@ nav {
   font-weight: 700;
   font-family: "Merriweather", serif;
   margin: 1rem;
+  width: 70%;
+  /* background  :red; */
 }
 .lineSeperation2 {
   width: 100%;
@@ -370,18 +389,17 @@ nav {
 .caption::-webkit-scrollbar {
   display: none;
 }
-.saveChangesButton{
-  margin-top: 10%;
+.saveChangesButton {
   width: 40%;
-  padding : 2.5%;
+  padding: 2.5%;
   border-radius: 14px;
   background: rgba(4, 142, 188, 0.5);
   border: 1px solid white;
   cursor: pointer;
-  align-self: flex-end;
+  /* align-self: flex-end; */
   color: white;
   transition: all 0.2s linear;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 .saveChangesButton:hover {
   background: transparent;

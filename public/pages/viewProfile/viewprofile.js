@@ -169,12 +169,12 @@ window.addEventListener("load", () => {
         }
       });
   }
-  console.log(
-    username.innerText,
-    name.innerText,
-    yourBio.innerText,
-    profileImageBackend
-  );
+  // console.log(
+  //   username.innerText,
+  //   name.innerText,
+  //   yourBio.innerText,
+  //   profileImageBackend
+  // );
 });
 
 function editDeletePost(data) {
@@ -185,7 +185,12 @@ function editDeletePost(data) {
   PostImage.src=data.postspic;
 
   const caption= document.querySelector(".caption");
-  caption.innerText=data.content;
+  caption.value=data.content;
   EditPostPopUp.classList.add("visible");
   body.style.overflow = "hidden";
 }
+
+const homeButton = document.querySelector(".homeButton");
+homeButton.addEventListener("click", () => {
+  location.href = "/pages/feed/";
+})

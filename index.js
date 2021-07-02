@@ -42,9 +42,23 @@ const formatMessage = require("./utils/messageFormat");
 const { userJoin, getCurrentUser } = require("./utils/users");
 var io = socket(server);
 
+const jwt = require("jsonwebtoken");
+
 io.on("connection", function (socket) {
   console.log("made socket connection", socket.id);
   socket.on("joinRoom", ({ username, room }) => {
+    let userId="", user_id="";
+    console.log("room id in socket " + room);
+    jwt.verify(room, process.env.SECRET_KEY, (err, decoded) => {
+      if (err) {
+        console.log(err);
+      }
+      const userId = decoded.userId;
+      const user_id = decoded.user_id;
+      room=room.split(".")[1];
+      console.log(userId, user_id, room);
+    });
+    console.log(room);
     const user = userJoin(socket.id, username, room);
 
     socket.join(user.room);
@@ -52,7 +66,7 @@ io.on("connection", function (socket) {
 
     socket.on("chat", (data) => {
       const user = getCurrentUser(socket.id);
-
+      console.log("chat "+user.room);
       io.to(user.room).emit("chat", formatMessage(user.username, data.message));
     });
 
@@ -63,10 +77,10 @@ io.on("connection", function (socket) {
   });
 });
 
-// client.connect((err) => {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     console.log("Connected to database!");
-//   }
-// });
+client.connect((err) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("Connected to database!");
+  }
+});

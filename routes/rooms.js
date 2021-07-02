@@ -8,5 +8,5 @@ const { createroom } = require("../controllers/rooms");
 const app = express();
 app.use(express.json());
 
-router.post("/createroom/:userid", createroom);
+router.post("/createroom/:userid", verifyToken, createroom);
 module.exports = router;

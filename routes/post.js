@@ -9,6 +9,8 @@ const {
   getallposts,
   updatelike,
   updatedislike,
+  updatepost,
+  deletepost,
 } = require("../controllers/post");
 const { verifyToken } = require("../middlewares/verifyToken");
 const app = express();
@@ -22,4 +24,6 @@ router.post("/createnewpost", verifyToken, createnewpost);
 router.post("/getallposts", verifyToken, getallposts);
 router.put("/updatelike", updatelike);
 router.put("/updatedislike", updatedislike);
+router.put("/updatepost/:postid", verifyToken, updatepost);
+router.delete("/deletepost/:postid", verifyToken, deletepost);
 module.exports = router;

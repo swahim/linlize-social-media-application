@@ -63,7 +63,8 @@ exports.getpics = (req, resp) => {
   let image = "";
   let mime = "";
   let firstname = "",
-    lastname = "", userid="";
+    lastname = "",
+    userid = "";
   client
     .query(
       `SELECT firstname, lastname, img, mime, userid FROM details WHERE email = '${req.email}'`
@@ -75,12 +76,12 @@ exports.getpics = (req, resp) => {
       lastname = res.rows[0].lastname;
       image = res.rows[0].img;
       mime = res.rows[0].mime;
-      userid=res.rows[0].userid;
+      userid = res.rows[0].userid;
       // console.log("data:" + mime + ";base64," + image);
       resp.status(200).json({
         mime: mime,
         message: "image fetched successfully",
-         data: `data:${mime};base64,${image}`,
+        data: `data:${mime};base64,${image}`,
         // data: "data:" + mime + ";base64," + image,
         firstname: firstname,
         lastname: lastname,
@@ -151,7 +152,7 @@ exports.getallposts = (req, resp) => {
   console.log(req.email);
   console.log(req.user_id);
   let temp = [];
-  client  
+  client
     .query(
       `SELECT postid, likes, userid, posts.email, content, firstname, lastname, company, designation, posts.postsimg, posts.postsmime, img, mime from posts INNER JOIN details ON posts.email=details.email;`
     )
@@ -188,4 +189,42 @@ exports.updatedislike = (req, res) => {
   client.query(
     `UPDATE posts SET likes = array_remove(likes, '${req.email}') WHERE postid='${req.postid}';`
   );
+};
+
+exports.updatepost = (req, res) => {
+  console.log(" in updatepost ");
+  const userId = req.params.postid;
+  console.log(req.body.captionValue);
+  console.log(userId);
+  client
+    .query(
+      `UPDATE posts SET content='${req.body.captionValue}' WHERE postid='${req.params.postid}'`
+    )
+    .then((data) => {
+      res.status(200).json({
+        message: "Post updated successfully,",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        message: "Server error occured!",
+      });
+    });
+};
+
+exports.deletepost = (req, res) => {
+  client
+    .query(`DELETE FROM posts WHERE postid ='${req.params.postid}'`)
+    .then((data) => {
+      res.status(200).json({
+        message: "Post deleted successfully,",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        message: "Server error occured!",
+      });
+    });
 };

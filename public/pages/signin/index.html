@@ -151,17 +151,25 @@
               />
             </div>
             <input type="submit" class="btn signupButton" value="Sign up" />
-            <p class="social-text">Or Sign up with social platforms</p>
-            <div class="social-media">
-              <a href="/auth/google" class="social-icon">
-                <i class="fab fa-google"></i>
-              </a>
-            </div>
-            <div class="social-media">
-              <a href="/auth/facebook" class="social-icon">
-                <i class="fab fa-facebook"></i>
-              </a>
-            </div>
+            <p class="social-text">Or Sign up with other social platforms</p>
+            <div
+                class="g-signin2"
+                data-onsuccess="onSignIn"
+                data-theme="dark"
+                data-width="150px"
+              ></div>
+              <div class="socialMediaContainer">
+                <div class="social-media">
+                  <a href="/auth/google" class="social-icon">
+                    <i class="fab fa-google"></i>
+                  </a>
+                </div>
+                <div class="social-media">
+                  <a href="/auth/facebook" class="social-icon">
+                    <i class="fab fa-facebook"></i>
+                  </a>
+                </div>
+              </div>
           </form>
         </div>
       </div>

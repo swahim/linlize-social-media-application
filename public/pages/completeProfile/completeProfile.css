@@ -345,3 +345,7 @@ select:focus{
 .submit{
   padding : 1%;  
 }
+
+.uploadBox{
+  margin-left: 0.5rem;
+}

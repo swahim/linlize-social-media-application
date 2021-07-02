@@ -41,81 +41,84 @@
         <div class="navBarContainer">
           <div class="textNav">Edit Your Linkize Profile</div>
         </div>
-        <div class="profileContainer">
-          <div class="card">
-            <div class="left">
-              <div class="heading">About</div>
-              <div class="description">
-                Tell us a little about yourself so people know who you are
+
+        <form id="image_submit">
+          <div class="profileContainer">
+            <div class="card">
+              <div class="left">
+                <div class="heading">About</div>
+                <div class="description">
+                  Tell us a little about yourself so people know who you are
+                </div>
               </div>
-            </div>
-            <div class="right right1">
-                <div class="editPhotoContainer">
-                    <div class="profileImageTopBarContainer">
-                        <img class="profileImageBackend" src="../../images/Icon.png" />
-                      </div>
-                      <div class="UplaodNewPhoto">
-                        <form id="image_submit">
-                        <input type="file" accept="image/*" name="pic" id="uploadBox"/>
-                        <input type="submit" class="publish" value="Save Changes" />
-                        </form>
-                      </div>
-                      
+              <div class="right right1">
+                  <div class="editPhotoContainer">
+                      <div class="profileImageTopBarContainer">
+                          <img class="profileImageBackend" src="../../images/Icon.png" />
+                        </div>
+                        <input type="file" accept="image/*" name="pic" id="uploadBox" class="uploadBox"/>
+                    </div>
+                <div class="name">
+                  <div class="firstName displayName">
+                      First Name :
+                      <input class="firstNameInput" type="text" placeholder="First Name">
                   </div>
-              <div class="name">
-                <div class="firstName displayName">
-                    First Name :
-                    <input class="firstNameInput" type="text" placeholder="First Name">
+                  <div class="lastName displayName">
+                      Last Name :
+                      <input class="lastNameInput" type="text" placeholder="Last Name">
+                  </div>
                 </div>
-                <div class="lastName displayName">
-                    Last Name :
-                    <input class="lastNameInput" type="text" placeholder="Last Name">
-                </div>
+                <div class="displayName">Phone number</div>
+                <input class="regionTextBox phoneNumber" type="number" placeholder="phone number">
+                <div class="Bio">Your Bio</div>
+                <Textarea class="writeBio" placeholder="Write you bio"></Textarea>
               </div>
-              <div class="displayName">Phone number</div>
-              <input class="regionTextBox phoneNumber" type="number" placeholder="phone number">
-              <div class="Bio">Your Bio</div>
-              <Textarea class="writeBio" placeholder="Write you bio"></Textarea>
             </div>
+            <div class="lineSeperation"></div>
+            <div class="card card2">
+                <div class="left">
+                  <div class="heading">Current working status</div>
+                  <div class="description">
+                    Designation you are working on
+                  </div>
+                </div>
+                <div class="right right2">
+                  <div class="company">Company/Insitution <span>*</span></div>
+                  <input type="text" class="regionTextBox rightInputBox companyName" placeholder="e.g. Amazon, ABV-IIITM">
+                  <div class="company designation">Designation <span>*</span></div>
+                  <input type="text" class="regionTextBox rightInputBox designationName" placeholder="e.g. Founder, Manager, Student">
+              </div>
           </div>
           <div class="lineSeperation"></div>
-          <div class="card card2">
-              <div class="left">
-                <div class="heading">Current working status</div>
-                <div class="description">
-                  Designation you are working on
-                </div>
+          <div class="card card3">
+            <div class="left">
+              <div class="heading Optional">Optional</div>
+              <div class="description">
+                These fields will not be displayed on your profile
               </div>
-              <div class="right right2">
-                <div class="company">Company/Insitution <span>*</span></div>
-                <input type="text" class="regionTextBox rightInputBox companyName" placeholder="e.g. Amazon, ABV-IIITM">
-                <div class="company designation">Designation <span>*</span></div>
-                <input type="text" class="regionTextBox rightInputBox designationName" placeholder="e.g. Founder, Manager, Student">
             </div>
-        </div>
-        <div class="lineSeperation"></div>
-        <div class="card card3">
-          <div class="left">
-            <div class="heading Optional">Optional</div>
-            <div class="description">
-              These fields will not be displayed on your profile
-            </div>
+            <div class="right right2">
+              <div class="company">Gender</div>
+              <select class="genderList">
+                <option value="male">Male</option>
+                <option value="female">Female
+                <option value="others">Others</option>
+              </select>
+              <div class="company designation">Birthday</div>
+              <input type="date" class="regionTextBox birthday" placeholder="YYYY-MM-DD">
           </div>
-          <div class="right right2">
-            <div class="company">Gender</div>
-            <select class="genderList">
-              <option value="male">Male</option>
-              <option value="female">Female
-              <option value="others">Others</option>
-            </select>
-            <div class="company designation">Birthday</div>
-            <input type="date" class="regionTextBox birthday" placeholder="YYYY-MM-DD">
+          </div>
+          <div class="submitContainer">
+            <input type="submit" class="publish" value="Save Changes" />
+          </div>
         </div>
-        </div>
-        <div class="submitContainer">
+        </form>
 
-        </div>
-      </div>
+        
+
+
+
+
     </div>
   </body>
   <script src="./completeProfile.js"></script>

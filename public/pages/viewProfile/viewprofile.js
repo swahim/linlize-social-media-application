@@ -59,6 +59,9 @@ const urlParams = new URLSearchParams(window.location.search);
 const userid = urlParams.get("userid");
 const self = urlParams.get("self");
 
+const deletePostButton = document.querySelector(".deletePostButton");
+const saveChangesButton2 = document.querySelector(".saveChangesButton2");
+
 console.log(userid, self);
 
 function getCookie(name) {
@@ -78,9 +81,9 @@ function getToken() {
     return getCookie("linkize");
   }
 }
+const token = getToken();
 
 window.addEventListener("load", () => {
-  const token = getToken();
   if (userid === null) {
     location.href = "/pages/feed/";
 
@@ -179,18 +182,51 @@ window.addEventListener("load", () => {
 
 function editDeletePost(data) {
   console.log(data);
-  data=data[0];
+  data = data[0];
 
-  const PostImage=document.querySelector(".PostImage");
-  PostImage.src=data.postspic;
+  const PostImage = document.querySelector(".PostImage");
+  PostImage.src = data.postspic;
 
-  const caption= document.querySelector(".caption");
-  caption.value=data.content;
+  const caption = document.querySelector(".caption");
+  caption.value = data.content;
   EditPostPopUp.classList.add("visible");
   body.style.overflow = "hidden";
+
+  deletePostButton.addEventListener("click", () => {
+    console.log("clicking deletePostButton");
+    fetch(`/posts/deletepost/${data.postid}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: token,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  });
+
+  saveChangesButton2.addEventListener("click", () => {
+    console.log("clicking saveChangesButton2");
+    const captionValue = caption.value;
+    console.log(caption.value);
+    fetch(`/posts/updatepost/${data.postid}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: token,
+      },
+      body: JSON.stringify({ captionValue }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  });
 }
 
 const homeButton = document.querySelector(".homeButton");
 homeButton.addEventListener("click", () => {
   location.href = "/pages/feed/";
-})
+});

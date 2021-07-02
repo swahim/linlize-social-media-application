@@ -16,6 +16,8 @@ body {
   transition: background 0.2s linear;
   transition: opacity 1s ease-in;
   opacity: 0;
+  overflow-x: hidden;
+
 }
 body.dark {
   background: #303841;

@@ -197,6 +197,14 @@ async function myposts() {
   })
     .then((resp) => resp.json())
     .then((data) => {
+
+      const mainContainer = document.querySelector(".mainContainer");
+      mainContainer.classList.add("visible");
+
+      const loadingAnimation = document.querySelector(".loadingAnimation");
+      loadingAnimation.classList.add("visible");
+
+
       console.log(data.temp);
       const xyz = data.temp;
       xyz.forEach((obj) => {

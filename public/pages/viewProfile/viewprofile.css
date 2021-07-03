@@ -154,6 +154,10 @@ nav {
 .mainContainer {
   height: 90%;
   width: 55%;
+  opacity: 0;
+}
+.mainContainer.visible{
+  opacity: 1;
 }
 .topContainer {
   height: 40%;

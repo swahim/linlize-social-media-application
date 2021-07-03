@@ -42,6 +42,7 @@ body {
   flex-direction: column;
   justify-content: space-evenly;
   opacity: 0;
+  transition: opacity 0.5s linear;
 }
 .popupSignUpSuccess.visible {
   opacity: 1;

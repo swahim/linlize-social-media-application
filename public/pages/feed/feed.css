@@ -49,6 +49,9 @@ body.dark .DisplayPost {
   color: white;
   border: 1px solid grey;
 }
+body.dark .displayPostName{
+  color: white;
+}
 body.dark .MakeAPost {
   background: #393e46;
   color: white;

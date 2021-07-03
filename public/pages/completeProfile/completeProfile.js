@@ -73,8 +73,7 @@ window.addEventListener("load", () => {
         companyName.value = data.company;
         designationName.value = data.designation;
         gender.value = data.gender;
-        birthday.value = data.dob;
-        console.log(data.dob);
+        birthday.value = data.dob.slice(0,10);
       })
       .catch((err) => {
         alert("Error Fetching data");

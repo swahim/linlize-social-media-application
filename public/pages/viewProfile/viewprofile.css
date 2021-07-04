@@ -202,10 +202,12 @@ nav {
   justify-content: flex-start;
   font-size: 1.5rem;
 }
-.designation {
+.designationCompany {
   margin-top: 3%;
 }
-.editProfileButton,
+.editProfileButton{
+  margin-top: 5%;
+}
 .name,
 .yourBio {
   margin-top: 10%;

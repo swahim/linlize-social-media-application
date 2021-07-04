@@ -103,14 +103,15 @@ window.addEventListener("load", () => {
 
         const loadingAnimation = document.querySelector(".loadingAnimation");
         loadingAnimation.classList.add("visible");
-        // console.log(data);
+        console.log(data);
         const profileImage = document.querySelector(".profileImage");
         profileImage.src = data[1].profilepic;
         for (var i = 0; i < username.length; i++) {
           username[i].innerText = data[0].firstname + " " + data[0].lastname;
         }
         yourBio.innerText = data[0].bio;
-
+        document.querySelector(".designationCompany").innerText =
+          data[0].designation + " | " + data[0].company;
         // dom manipulation for profile image, name, bio of user
         const img = document.querySelectorAll(".leftProfileImageBackend");
         if (data[0].mime === null) {

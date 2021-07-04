@@ -29,7 +29,7 @@ function getToken() {
 
 const token = getToken();
 var room = "";
-const { username } = Qs.parse(location.search, {
+var { username } = Qs.parse(location.search, {
   ignoreQueryPrefix: true,
 });
 console.log(username, room);
@@ -47,6 +47,7 @@ window.addEventListener("load", () => {
       room = data.room;
       console.log(room);
 
+      username=data.user_id;
       //Emit addEventListener
 
       socket.emit("joinRoom", { username, room });

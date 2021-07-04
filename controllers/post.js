@@ -176,7 +176,13 @@ exports.getallposts = (req, resp) => {
         temp.push(innertemp);
       });
       resp.status(200).json({ temp });
-    });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        message: "data error occured!"
+      })
+    })
 };
 
 exports.updatelike = (req, res) => {

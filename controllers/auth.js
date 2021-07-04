@@ -81,7 +81,7 @@ exports.signIn = (req, res) => {
     .then((data) => {
       userData = data.rows;
       if (userData.length === 0) {
-        res.status(400).json({
+        res.status(401).json({
           message: "user does not exist, signup instead!",
         });
       } else {
@@ -104,7 +104,7 @@ exports.signIn = (req, res) => {
               emailid: email,
             });
           } else {
-            res.status(400).json({
+            res.status(401).json({
               message: "Enter correct password!",
             });
           }

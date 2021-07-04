@@ -34,6 +34,9 @@ body.dark .editProfileButton:hover {
   border: 1px solid #00adb5;
   transition: background 0.2s linear;
 }
+body.dark .bigProfileImage{
+  border: 1px solid white;
+}
 nav {
   height: 10vh;
   z-index: 5;
@@ -106,6 +109,7 @@ nav {
   border-radius: 50%;
   top: 2px;
   left: 2px;
+  bottom: 2px;
   transition: transform 0.2s linear;
 }
 .checkbox {
@@ -134,6 +138,7 @@ nav {
   justify-content: center;
   width: 5rem;
   border-radius: 50%;
+  transition : border 0.2s linear;
   /* padding: 0.3%; */
 }
 .profileImageTopBarContainer > img {
@@ -158,13 +163,20 @@ nav {
 }
 .mainContainer.visible{
   opacity: 1;
+
 }
 .topContainer {
-  height: 40%;
+  height: fit-content;
   display: flex;
   /* background : rgba(255, 0, 0,0.2); */
   justify-content: space-evenly;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.5);
+  /* border-bottom: 1px solid rgba(128, 128, 128, 0.5); */
+}
+.lineSeperationView {
+  margin-top: 5%;
+  width: 100%;
+  background: rgba(128, 128, 128, 0.4);
+  height: 1px;
 }
 .topLeft {
   width: 30%;
@@ -190,6 +202,9 @@ nav {
   justify-content: flex-start;
   font-size: 1.5rem;
 }
+.designation {
+  margin-top: 3%;
+}
 .editProfileButton,
 .name,
 .yourBio {
@@ -206,7 +221,7 @@ nav {
   font-family: "Montserrat", sans-serif;
   font-size: 1.5rem;
   transition: all 0.2s linear;
-  opacity: 0;
+  opacity: 1;
 }
 .buttonContainer {
   display: flex;
@@ -305,26 +320,29 @@ nav {
 }
 .popUpMainContainer {
   background: white;
-  width: 50%;
+  width: 85rem;
   height: 60rem;
   display: flex;
   padding: 1.5%;
+  border: 1px solid rgba(180, 180, 180, 1);
 }
 .popUpleft {
   height: 100%;
   width: 60%;
   display: flex;
   align-items: center;
+  padding-right: 2%;
 }
 .popUpleft > img {
   width: 100%;
-  height: 100%;
+  height: auto;
 }
 .lineSeperation {
   height: 100%;
   background: rgba(128, 128, 128, 0.4);
   width: 1px;
 }
+
 .fa-times {
   font-size: 5rem;
   position: absolute;
@@ -386,6 +404,7 @@ nav {
   font-size: 1.5rem;
   overflow: scroll;
   height: 100%;
+  padding : 2%;
 }
 .caption:focus {
   outline: none;
@@ -410,4 +429,280 @@ nav {
   background: transparent;
   border: 1px solid rgba(4, 142, 188, 0.8);
   color: black;
+}
+.homeButton {
+  height: 60%;
+}
+.rightTopBar > img{
+  height: 50%;
+}
+.navPopUpRightPhone {
+  display: none;
+}
+/* 
+Responsive */
+
+@media screen and (max-width: 1440px) {
+  .leftTopBar {
+    width: 30%;
+    margin-left: -5%;
+  }
+  .rightTopBar {
+    width: 40%;
+    margin-left: -15%;
+  }
+  nav {
+    justify-content: space-around;
+  }
+  .mainContainer {
+    width: 60%;
+  }
+}
+@media screen and (max-width: 1200px) {
+  html {
+    font-size: 55%;
+  }
+  .displayPostGrid {
+    gap: 15px 15px;
+  }
+  .fa-moon,
+  .fa-sun {
+    font-size: 1.7rem;
+  }
+  .superContainer {
+    margin-top: 9%;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .leftTopBar {
+    width: 60%;
+    margin-left: -15%;
+  }
+  .rightTopBar {
+    width: 60%;
+  }
+  nav {
+    height: 8vh;
+    justify-content: space-between;
+  }
+  .mainContainer {
+    width: 75%;
+    margin-top: 2%;
+  }
+  .label {
+    height: 24px;
+    width: 60px;
+    border-radius: 50px;
+    position: relative;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .toggle {
+    height: 21px;
+    width: 21px;
+  }
+  .checkbox:checked + .label .toggle {
+    transform: translateX(34.4px);
+  }
+  .leftTopBar > img {
+    height: 150%;
+  }
+  .post {
+    height: 28rem;
+  }
+  .postHeading {
+    margin-top: 2%;
+  }
+  .popUpMainContainer {
+    width: 70rem;
+    height: 50rem;
+    border-radius: 14px;
+  }
+  .saveChangesButton2,
+  .deletePostButton {
+    width: 90px;
+  }
+}
+@media screen and (max-width: 800px) {
+  .post {
+    height: 23rem;
+  }
+  .superContainer {
+    margin-top: 11%;
+  }
+  nav {
+    height: 7vh;
+  }
+  .editProfileButton {
+    width: 40%;
+  }
+  .rightTopBar > img{
+    height: 70%;
+  }
+}
+@media screen and (max-width: 700px) {
+  .mainContainer {
+    width: 85%;
+    margin-top: 4%;
+  }
+  .bigProfileImage {
+    height: 13rem;
+    width: 13rem;
+  }
+  .popUpMainContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    height: 65rem;
+    padding :3%;
+    
+  }
+  .lineSeperation {
+    width: 100%;
+    height: 1.5px;
+  }
+  .popUpleft {
+    width: auto;
+    height: 50%;
+    margin-top: 2%;
+  }
+  .navPopUpRightPhone {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0;
+    margin-left: 0;
+  }
+  .navPopUpRightDesktop {
+    display: none;
+  }
+  .usernamePopUpRight {
+    width: fit-content;
+  }
+  .lineSeperation2 {
+    display: none;
+  }
+  .mainPopUpRight {
+    width: 70%;
+    margin-left: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .caption {
+    margin-left: 0;
+  }
+  .buttonContainer {
+    width: 70%;
+    margin-top: 4%;
+    margin-left: 0;
+  }
+  .popUpRight {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+  .saveChangesButton2, .deletePostButton{
+    width: 40%;
+    font-size: 1.5rem;
+  }
+}
+@media screen and (max-width: 600px) {
+  .mainContainer {
+    width: 90%;
+    margin-top: 6%;
+  }
+  .bigProfileImage {
+    height: 10rem;
+    width: 10rem;
+  }
+  .topContainer {
+    justify-content: space-around;
+  }
+  .post {
+    height: 20rem;
+  }
+  .displayPostGrid {
+    gap: 5px 5px;
+  }
+}
+@media screen and (max-width: 510px) {
+  html {
+    font-size: 45%;
+  }
+  .editProfileButton {
+    width: 60%;
+  }
+  .mainContainer {
+    margin-top: 10%;
+  }
+  .displayPostGrid {
+    gap: 1px 1px;
+    margin-top: 5%;
+  }
+  .post {
+    height: 17rem;
+  }
+  .postHeading {
+    margin-top: 4%;
+  }
+  .fa-moon,
+  .fa-sun {
+    font-size: 2rem;
+  }
+  .label {
+    width: 55px;
+  }
+  .checkbox:checked + .label .toggle {
+    transform: translateX(30px);
+  }
+  .rightTopBar {
+    width: 80%;
+  }
+  .leftTopBar {
+    width: 80%;
+  }
+  .rightTopBar > img {
+    height: 50%;
+  }
+}
+@media screen and (max-width: 400px) {
+  html {
+    font-size: 45%;
+  }
+  .profileImageTopBarContainer {
+    height: 3rem;
+    width: 3rem;
+  }
+  .label {
+    height: 18px;
+    width: 48px;
+  }
+  .toggle {
+    height: 17px;
+    width: 17px;
+    top: 1px;
+    left: 1.5px;
+    bottom: 1px;
+  }
+  .checkbox:checked + .label .toggle {
+    transform: translateX(27.5px);
+  }
+  .bigProfileImage {
+    height: 8rem;
+    width: 8rem;
+  }
+  .buttonContainer{
+    width: 80%;
+  }
+  .mainPopUpRight{
+    width: 80%;
+  }
+  .deletePostButton, .saveChangesButton2{
+    width: 40%;
+  }
 }

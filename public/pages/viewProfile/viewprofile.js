@@ -58,7 +58,7 @@ const profileImageBackend = document.querySelector(".profileImageBackend");
 const urlParams = new URLSearchParams(window.location.search);
 const userid = urlParams.get("userid");
 const self = urlParams.get("self");
-
+var buserid = "";
 const deletePostButton = document.querySelector(".deletePostButton");
 const saveChangesButton2 = document.querySelector(".saveChangesButton2");
 
@@ -149,6 +149,7 @@ window.addEventListener("load", () => {
         // checking if user is viewing its profile or not. If so, display edit profile button
         // if the user's id and the one which user is viewing profile is same, then
         // console.log(data[1].userid, userid);
+        buserid = data[1].userid;
         if (data[1].userid == userid) {
           console.log("user is viewing it's own profile");
           document.querySelector(".editProfileButton").classList.add("visible");
@@ -171,7 +172,10 @@ window.addEventListener("load", () => {
                 var index = tempPost.findIndex((x) => x.postid == postid);
                 var editDelete = [data[2][index]];
                 // console.log(editDelete);
-                editDeletePost(editDelete);
+
+                if (userid == buserid) {
+                  editDeletePost(editDelete);
+                }
               }
             }
           });

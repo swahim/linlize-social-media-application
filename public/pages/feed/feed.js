@@ -197,6 +197,14 @@ async function myposts() {
   })
     .then((resp) => resp.json())
     .then((data) => {
+
+      const mainContainer = document.querySelector(".mainContainer");
+      mainContainer.classList.add("visible");
+
+      const loadingAnimation = document.querySelector(".loadingAnimation");
+      loadingAnimation.classList.add("visible");
+
+
       console.log(data.temp);
       const xyz = data.temp;
       xyz.forEach((obj) => {
@@ -219,10 +227,10 @@ async function myposts() {
         ProfileDescription.className = "ProfileDescription";
 
         const profileName = document.createElement("h1");
-        profileName.className = "profileName";
+        profileName.className = "profileName ";
         profileName.innerHTML = " Sohan bro";
         ProfileDescription.appendChild(profileName);
-        ProfileDescription.innerHTML = `<a href="../viewProfile/?userid=${obj.userid}"><h1>${obj.firstname} ${obj.lastname}</h1></a>`;
+        ProfileDescription.innerHTML = `<a href="../viewProfile/?userid=${obj.userid}"><h1 class=displayPostName>${obj.firstname} ${obj.lastname}</h1></a>`;
 
         ProfileDescription.innerHTML += `<p>${obj.designation} | ${obj.company}</p>`;
 

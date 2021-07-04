@@ -49,6 +49,9 @@ body.dark .DisplayPost {
   color: white;
   border: 1px solid grey;
 }
+body.dark .displayPostName{
+  color: white;
+}
 body.dark .MakeAPost {
   background: #393e46;
   color: white;
@@ -214,10 +217,15 @@ nav {
   padding-left: 1%;
   padding-right: 3.5%;
   margin-top: 15%;
+  opacity: 0;
+}
+.mainContainer.visible{
+  opacity: 1;
 }
 .left {
   height: auto;
   width: 50%;
+  /* opacity: 0; */
 }
 .MakeAPost {
   width: 100%;

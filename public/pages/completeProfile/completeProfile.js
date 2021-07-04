@@ -51,6 +51,11 @@ window.addEventListener("load", () => {
     })
       .then((resp) => resp.json())
       .then((data) => {
+        const mainContainer = document.querySelector(".mainContainer");
+        mainContainer.classList.add("visible");
+
+        const loadingAnimation = document.querySelector(".loadingAnimation");
+        loadingAnimation.classList.add("visible");
         console.log(data);
         if (data.mime === null) {
           for (i = 0; i < profilePic.length; i++) {
@@ -68,7 +73,7 @@ window.addEventListener("load", () => {
         companyName.value = data.company;
         designationName.value = data.designation;
         gender.value = data.gender;
-        birthday.value = data.dob;
+        birthday.value = data.dob.slice(0,10);
       })
       .catch((err) => {
         alert("Error Fetching data");
@@ -159,7 +164,7 @@ function uploadToServer(file, name) {
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
-      location.href="/pages/feed/";
+      location.href = "/pages/feed/";
     });
 }
 // submit.addEventListener("click", (e) =>{
@@ -168,8 +173,7 @@ function uploadToServer(file, name) {
 //     console.log("clicking on submit");
 // })
 
-const homeLogo= document.querySelector(".homeLogo");
-homeLogo.addEventListener("click", (e) =>{
-    location.href = "/pages/feed/";
-  
-})
+const homeLogo = document.querySelector(".homeLogo");
+homeLogo.addEventListener("click", (e) => {
+  location.href = "/pages/feed/";
+});

@@ -159,7 +159,11 @@ nav {
 .mainContainer {
   height: 90%;
   width: 55%;
-  /* background-color: red; */
+  opacity: 0;
+}
+.mainContainer.visible{
+  opacity: 1;
+
 }
 .topContainer {
   height: fit-content;

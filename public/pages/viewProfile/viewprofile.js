@@ -98,6 +98,11 @@ window.addEventListener("load", () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        const mainContainer = document.querySelector(".mainContainer");
+        mainContainer.classList.add("visible");
+
+        const loadingAnimation = document.querySelector(".loadingAnimation");
+        loadingAnimation.classList.add("visible");
         // console.log(data);
         const profileImage = document.querySelector(".profileImage");
         profileImage.src = data[1].profilepic;

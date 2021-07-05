@@ -7,6 +7,7 @@ const body = document.querySelector("body");
 const sharePostButton = document.querySelector(".startPostButton");
 const cross = document.querySelector(".fa-times");
 const logOut = document.querySelector(".LogOut");
+const hamburgerLogOut = document.querySelector(".logOut");
 let image_compressed = "";
 
 function getCookie(name) {
@@ -180,6 +181,19 @@ logOut.addEventListener("click", () => {
     location.href = "/pages/signin";
   }
 });
+hamburgerLogOut.addEventListener("click", () => {
+  console.log("clicking on logout");
+  const cookie = getCookie("linkize");
+
+  console.log(token);
+  if (token) {
+    localStorage.removeItem("jwt");
+    location.href = "/pages/signin";
+  } else {
+    document.cookie = "linkize=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+    location.href = "/pages/signin";
+  }
+})
 
 async function myposts() {
   fetch(`/posts/getallposts`, {

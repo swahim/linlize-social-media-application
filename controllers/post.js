@@ -59,7 +59,7 @@ exports.newprofilepic = (req, res) => {
 };
 
 exports.getpics = (req, resp) => {
-  console.log(req.email);
+  // console.log(req.email);
   let image = "";
   let mime = "";
   let firstname = "",
@@ -120,7 +120,13 @@ exports.profile = (req, res) => {
           data: `data:${mime};base64,${image}`,
         });
       }
-    });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        message: "data error occured!"
+      })
+    })
 };
 
 exports.createnewpost = (req, res) => {
@@ -148,13 +154,13 @@ exports.createnewpost = (req, res) => {
 };
 
 exports.getallposts = (req, resp) => {
-  console.log("in get all posts");
-  console.log(req.email);
-  console.log(req.user_id);
+  // console.log("in get all posts");
+  // console.log(req.email);
+  // console.log(req.user_id);
   let temp = [];
   client
     .query(
-      `SELECT postid, likes, userid, posts.email, content, firstname, lastname, company, designation, posts.postsimg, posts.postsmime, img, mime from posts INNER JOIN details ON posts.email=details.email;`
+      `SELECT postid, likes, userid, posts.email, content, firstname, lastname, company, designation, posts.postsimg, posts.postsmime, img, mime from posts INNER JOIN details ON posts.email=details.email ORDER BY postid DESC`
     )
     .then((res) => {
       res.rows.forEach((data) => {
@@ -176,19 +182,47 @@ exports.getallposts = (req, resp) => {
         temp.push(innertemp);
       });
       resp.status(200).json({ temp });
-    });
+    })
+    .catch((err) => {
+      console.log(err);
+      resp.status(500).json({
+        message: "data error occured!"
+      })
+    })
 };
 
 exports.updatelike = (req, res) => {
   client.query(
-    `UPDATE posts SET likes = array_append(likes, '${req.email}') WHERE postid='${req.postid}';`
-  );
+    `UPDATE posts SET likes = array_append(likes, '${req.email}') WHERE postid='${req.params.postid}';`
+  )
+  .then((data) => {
+    res.status(200).json({
+      message: "updated like",
+    })
+  })
+  .catch((err) => {
+    console.log(err);
+    res.status(500).json({
+      message: "database error occured!"
+    })
+  })
 };
 
 exports.updatedislike = (req, res) => {
   client.query(
-    `UPDATE posts SET likes = array_remove(likes, '${req.email}') WHERE postid='${req.postid}';`
-  );
+    `UPDATE posts SET likes = array_remove(likes, '${req.email}') WHERE postid='${req.params.postid}';`
+  )
+  .then((data) => {
+    res.status(200).json({
+      message: "updated dislike",
+    })
+  })
+  .catch((err) => {
+    console.log(err);
+    res.status(500).json({
+      message: "database error occured!"
+    })
+  })
 };
 
 exports.updatepost = (req, res) => {

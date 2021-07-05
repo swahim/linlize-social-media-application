@@ -22,5 +22,6 @@ exports.createroom = (req, res) => {
   res.status(200).json({
     message: "room created successfully",
     room: room,
+    user_id: user_id,
   });
 };

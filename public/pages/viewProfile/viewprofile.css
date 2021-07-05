@@ -202,10 +202,12 @@ nav {
   justify-content: flex-start;
   font-size: 1.5rem;
 }
-.designation {
+.designationCompany {
   margin-top: 3%;
 }
-.editProfileButton,
+.editProfileButton{
+  margin-top: 5%;
+}
 .name,
 .yourBio {
   margin-top: 10%;
@@ -221,7 +223,7 @@ nav {
   font-family: "Montserrat", sans-serif;
   font-size: 1.5rem;
   transition: all 0.2s linear;
-  opacity: 1;
+  opacity: 0;
 }
 .buttonContainer {
   display: flex;

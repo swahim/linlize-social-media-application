@@ -59,7 +59,7 @@ exports.newprofilepic = (req, res) => {
 };
 
 exports.getpics = (req, resp) => {
-  console.log(req.email);
+  // console.log(req.email);
   let image = "";
   let mime = "";
   let firstname = "",
@@ -160,7 +160,7 @@ exports.getallposts = (req, resp) => {
   let temp = [];
   client
     .query(
-      `SELECT postid, likes, userid, posts.email, content, firstname, lastname, company, designation, posts.postsimg, posts.postsmime, img, mime from posts INNER JOIN details ON posts.email=details.email;`
+      `SELECT postid, likes, userid, posts.email, content, firstname, lastname, company, designation, posts.postsimg, posts.postsmime, img, mime from posts INNER JOIN details ON posts.email=details.email ORDER BY postid DESC`
     )
     .then((res) => {
       res.rows.forEach((data) => {
@@ -185,7 +185,7 @@ exports.getallposts = (req, resp) => {
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json({
+      resp.status(500).json({
         message: "data error occured!"
       })
     })
@@ -193,14 +193,36 @@ exports.getallposts = (req, resp) => {
 
 exports.updatelike = (req, res) => {
   client.query(
-    `UPDATE posts SET likes = array_append(likes, '${req.email}') WHERE postid='${req.postid}';`
-  );
+    `UPDATE posts SET likes = array_append(likes, '${req.email}') WHERE postid='${req.params.postid}';`
+  )
+  .then((data) => {
+    res.status(200).json({
+      message: "updated like",
+    })
+  })
+  .catch((err) => {
+    console.log(err);
+    res.status(500).json({
+      message: "database error occured!"
+    })
+  })
 };
 
 exports.updatedislike = (req, res) => {
   client.query(
-    `UPDATE posts SET likes = array_remove(likes, '${req.email}') WHERE postid='${req.postid}';`
-  );
+    `UPDATE posts SET likes = array_remove(likes, '${req.email}') WHERE postid='${req.params.postid}';`
+  )
+  .then((data) => {
+    res.status(200).json({
+      message: "updated dislike",
+    })
+  })
+  .catch((err) => {
+    console.log(err);
+    res.status(500).json({
+      message: "database error occured!"
+    })
+  })
 };
 
 exports.updatepost = (req, res) => {

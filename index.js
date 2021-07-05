@@ -47,7 +47,8 @@ const jwt = require("jsonwebtoken");
 io.on("connection", function (socket) {
   console.log("made socket connection", socket.id);
   socket.on("joinRoom", ({ username, room }) => {
-    var userId="", user_id="";
+    var userId = "",
+      user_id = "";
     console.log("room id in socket " + room);
     jwt.verify(room, process.env.SECRET_KEY, (err, decoded) => {
       if (err) {
@@ -55,11 +56,11 @@ io.on("connection", function (socket) {
       }
       userId = decoded.userId;
       user_id = decoded.user_id;
-      room=room.split(".")[1];
+      room = room.split(".")[1];
       console.log(userId, user_id, room);
     });
     console.log(room);
-    room="test"
+    room = "test";
     const user = userJoin(socket.id, user_id, room);
 
     socket.join(user.room);
@@ -67,7 +68,7 @@ io.on("connection", function (socket) {
 
     socket.on("chat", (data) => {
       const user = getCurrentUser(socket.id);
-      console.log("chat "+user.room);
+      console.log("chat " + user.room);
       io.to(user.room).emit("chat", formatMessage(user.username, data.message));
     });
 
@@ -78,6 +79,28 @@ io.on("connection", function (socket) {
   });
 });
 
+// node mailer
+const nodemailer = require("nodemailer");
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "bandarysohan24@gmail.com",
+    pass: "Nokia@114",
+  },
+});
+const options = {
+  from: "outlook_38288AF31E2B69A0@outlook.com",
+  to: "bandarysohan24@gmail.com",
+  subject: "sending email with node",
+  text: "a test email",
+};
+// transporter.sendMail(options, (err, info) => {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log(info.response);
+//   }
+// });
 client.connect((err) => {
   if (err) {
     console.log(err);

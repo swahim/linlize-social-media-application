@@ -6,8 +6,6 @@ const Likes = document.querySelector(".LikeNumber");
 const body = document.querySelector("body");
 const sharePostButton = document.querySelector(".startPostButton");
 const cross = document.querySelector(".fa-times");
-const token = localStorage.getItem("jwt");
-const googleauthtoken = localStorage.getItem("googleauthtoken");
 const logOut = document.querySelector(".LogOut");
 let image_compressed = "";
 
@@ -28,7 +26,7 @@ function getToken() {
     return getCookie("linkize");
   }
 }
-
+const token = getToken();
 async function handleImageUpload(event) {
   event.preventDefault();
   console.log(event);
@@ -57,7 +55,6 @@ async function handleImageUpload(event) {
 
 function uploadToServer(file, content, name) {
   console.log(content);
-  const token = getToken();
 
   var formData = new FormData();
   formData.append("image", file, name);
@@ -103,7 +100,6 @@ window.addEventListener("load", () => {
   body.classList.add("visible");
   const fullname = document.querySelector(".nameBackend");
 
-  const token = getToken();
   console.log(token);
   if (token === null) {
     location.href = "/pages/signin";
@@ -133,8 +129,8 @@ window.addEventListener("load", () => {
         }
 
         //changing the href for view your profile
-        document.querySelector(".viewYourProfile").href="/pages/viewProfile?userid="+data.userid+"&self=true";
-
+        document.querySelector(".viewYourProfile").href =
+          "/pages/viewProfile?userid=" + data.userid + "&self=true";
       })
       .catch((err) => {
         alert("Error Fetching data");
@@ -174,7 +170,6 @@ profileImageTopBarContainer.addEventListener("click", () => {
 logOut.addEventListener("click", () => {
   console.log("clicking on logout");
   const cookie = getCookie("linkize");
-  const token = localStorage.getItem("jwt");
 
   console.log(token);
   if (token) {
@@ -187,7 +182,6 @@ logOut.addEventListener("click", () => {
 });
 
 async function myposts() {
-  const token = getToken();
   fetch(`/posts/getallposts`, {
     method: "POST",
     headers: {
@@ -197,15 +191,13 @@ async function myposts() {
   })
     .then((resp) => resp.json())
     .then((data) => {
-
       const mainContainer = document.querySelector(".mainContainer");
       mainContainer.classList.add("visible");
 
       const loadingAnimation = document.querySelector(".loadingAnimation");
       loadingAnimation.classList.add("visible");
 
-
-      console.log(data.temp);
+      // console.log(data.temp);
       const xyz = data.temp;
       xyz.forEach((obj) => {
         // console.log(obj.firstname);
@@ -267,19 +259,27 @@ async function myposts() {
         const like = document.createElement("div");
         like.className = "like";
 
-        const likeIcon = document.createElement("span");
+        const likeIcon = document.createElement("div");
         likeIcon.className = "likeIcon";
         const likes = obj.likes;
         const tempEmail = obj.logemail;
+
+        const bulb = document.createElement("div");
+        bulb.className = `far fa-lightbulb likebtn postid=${obj.postid} likes=${likes.length} logemail=${obj.logemail} likedBy=${obj.likes}`;
+
+        likeIcon.append(bulb);
+        // likeIcon.innerHTML = `<i class="far fa-lightbulb likebtn postid=${obj.postid} likes=${likes.length} logemail=${obj.logemail} likedBy=${obj.likes}"></i>`;
+
         if (likes.includes(tempEmail)) {
-          likeIcon.innerHTML = `<i class="fas fa-lightbulb fill"></i>`;
+          var temp = bulb.className;
+          bulb.className = "fill " + temp;
         } else {
-          likeIcon.innerHTML = `<i class="far fa-lightbulb"></i>`;
+          // bulb.innerHTML = `<i class="far fa-lightbulb"></i>`;
         }
         like.appendChild(likeIcon);
 
         const LikeNumber = document.createElement("div");
-        LikeNumber.className = `LikeNumber likeBtn postid=${obj.postid} likes=${likes.length}`;
+        LikeNumber.className = `LikeNumber postid=${obj.postid}`;
         if (obj.likes.length > 0) {
           LikeNumber.innerText = obj.likes.length;
         } else {
@@ -308,27 +308,75 @@ async function myposts() {
           img.src = obj.profilepic;
         }
       });
-      const likeBtn = document.querySelectorAll(".likeBtn");
-      for (var i = 0; i < likeBtn.length; i++) {
-        likeBtn[i].addEventListener("click", (event) => {
+      const likebtn = document.querySelectorAll(".likebtn");
+      for (var i = 0; i < likebtn.length; i++) {
+        likebtn[i].addEventListener("click", (event) => {
           var temp = event.target.className.split(" ");
-          var postid, noOfLikes;
+          var postid, noOfLikes, logEmail, likedBy;
           for (var j = 0; j < temp.length; j++) {
             if (temp[j].startsWith("postid")) {
               postid = temp[j].split("=")[1];
-              console.log(postid);
             }
+
             if (temp[j].startsWith("likes")) {
               noOfLikes = temp[j].split("=")[1];
-              console.log(noOfLikes);
             }
-            // console.log(x);
+
+            if (temp[j].startsWith("logemail")) {
+              logEmail = temp[j].split("=")[1];
+            }
+
+            if (temp[j].startsWith("likedBy")) {
+              likedBy = temp[j].split("=")[1];
+            }
           }
-          console.log(postid);
-          console.log(
-            document.getElementsByClassName("postid=" + postid)[0].innerText
-          );
-          document.getElementsByClassName("postid=" + postid)[0].innerText += 1;
+          var likedByUsers = likedBy.split(",");
+
+          if (likedByUsers.includes(logEmail)) {
+            //then dislike it
+            const likeIconInner = document.getElementsByClassName(
+              "postid=" + postid
+            );
+            var noOfLikes = parseInt(likeIconInner[1].innerText);
+            likeIconInner[1].innerText = noOfLikes - 1;
+            fetch(`/posts/updatedislike/${postid}`, {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+                authorization: token,
+              },
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                console.log(data);
+                location.reload();
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          } else {
+            // like it
+            const likeIconInner = document.getElementsByClassName(
+              "postid=" + postid
+            );
+            var noOfLikes = parseInt(likeIconInner[1].innerText);
+            likeIconInner[1].innerText = noOfLikes + 1;
+            fetch(`/posts/updatelike/${postid}`, {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+                authorization: token,
+              },
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                console.log(data);
+                location.reload();
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }
         });
       }
     });

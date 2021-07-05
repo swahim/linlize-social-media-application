@@ -20,6 +20,7 @@ body {
 
 /* Pop Up for success */
 .popupPasswordMatch,
+.popUpInValidEmail,
 .popupSignUpSuccess,
 .popupServerError,
 .popupSignInSuccess,
@@ -44,20 +45,23 @@ body {
   opacity: 0;
   transition: opacity 0.5s linear;
 }
-.popupSignUpSuccess.visible {
+.popupSignUpSuccess.visible{
+  opacity: 1;
+}
+.popUpInValidEmail.visible {
   opacity: 1;
 }
 .popupPasswordMatch.visible {
   opacity: 1;
 }
-.popupServerError.visible{
+.popupServerError.visible {
   opacity: 1;
 }
 .popupSignInSuccess.visible {
   opacity: 1;
 }
 .popupWrongPassword.visible {
-  opacity: 1;;
+  opacity: 1;
 }
 .icon,
 .iconFailure {

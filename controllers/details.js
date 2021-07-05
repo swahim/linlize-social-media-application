@@ -92,7 +92,7 @@ exports.profile = (req, res) => {
   const userId = req.params.userid;
   let userEmail = "",
     temp = [];
-  console.log(userId);
+  // console.log(userId);
 
   client
     .query(
@@ -131,7 +131,7 @@ exports.profile = (req, res) => {
       client
         .query(
           // `SELECT firstname, lastname, details.email, bio, company, designation, img, mime, content, postsimg, postsmime, likes  FROM posts INNER JOIN details on posts.email=details.email WHERE details.email='${userEmail}';`
-          `SELECT  content, postsimg, postsmime, postid, likes FROM posts WHERE email='${userEmail}';`
+          `SELECT  content, postsimg, postsmime, postid, likes FROM posts WHERE email='${userEmail}' ORDER BY postid DESC;`
         )
         .then((data) => {
           let temp2 = [];

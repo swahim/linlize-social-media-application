@@ -120,7 +120,13 @@ exports.profile = (req, res) => {
           data: `data:${mime};base64,${image}`,
         });
       }
-    });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        message: "data error occured!"
+      })
+    })
 };
 
 exports.createnewpost = (req, res) => {
@@ -148,9 +154,9 @@ exports.createnewpost = (req, res) => {
 };
 
 exports.getallposts = (req, resp) => {
-  console.log("in get all posts");
-  console.log(req.email);
-  console.log(req.user_id);
+  // console.log("in get all posts");
+  // console.log(req.email);
+  // console.log(req.user_id);
   let temp = [];
   client
     .query(

@@ -173,3 +173,6 @@ homeLogo.addEventListener("click", (e) =>{
     location.href = "/pages/feed/";
   
 })
+checkbox.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+});

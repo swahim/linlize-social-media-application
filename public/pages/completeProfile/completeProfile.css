@@ -24,32 +24,32 @@ body {
 body.dark nav {
   background: #eeeeee;
 }
-body.dark .textNav{
+body.dark .textNav {
   color: white;
 }
-body.dark .profileContainer{
+body.dark .profileContainer {
   background: #393e46;
 }
-body.dark .heading{
+body.dark .heading {
   color: white;
 }
-body.dark .description{
+body.dark .description {
   color: rgb(160, 163, 165);
 }
-body.dark .card{
+body.dark .card {
   color: white;
 }
-body.dark .UplaodNewPhoto{
+body.dark .UplaodNewPhoto {
   background: #00adb5;
   color: black;
 }
-body.dark .UplaodNewPhoto:hover{
+body.dark .UplaodNewPhoto:hover {
   background: none;
   color: white;
   border: 1px solid #00adb5;
 }
-body.dark select{
-  background : white;
+body.dark select {
+  background: white;
 }
 nav {
   height: 10vh;
@@ -141,7 +141,7 @@ nav {
   align-items: center;
   justify-content: space-evenly;
 }
-.homeLogo{
+.homeLogo {
   cursor: pointer;
 }
 .profileImageTopBarContainer {
@@ -153,7 +153,7 @@ nav {
   justify-content: center;
   width: 5rem;
   border-radius: 50%;
-  /* padding: 0.3%; */
+  padding: 0.5%;
 }
 .profileImageTopBarContainer > img {
   height: 100%;
@@ -259,8 +259,7 @@ textarea:focus {
   font-size: 1.5rem;
 }
 .editPhotoContainer {
-  width: 50%;
-
+  width: 75%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -320,10 +319,10 @@ span {
 .card2 {
   margin-top: 2%;
 }
-.Optional{
+.Optional {
   color: red;
 }
-select{
+select {
   font-size: 1.5rem;
   width: 15rem;
   height: 3rem;
@@ -333,19 +332,261 @@ select{
   transition: all 0.2s linear;
   cursor: pointer;
 }
-select:focus{
+select:focus {
   outline: none;
 }
-.submitContainer{
+.submitContainer {
   width: 100%;
-  display : flex;
+  display: flex;
+  align-items: center;
   justify-content: flex-end;
   margin-top: 5%;
+  height: 5rem;
 }
-.submit{
-  padding : 1%;  
+.publish {
+  cursor: pointer;
+  background: rgba(4, 142, 188, 0.5);
+  border: 1px solid white;
+  width: 20%;
+  height: 100%;
+  color: white;
+  border-radius: 22.5px;
+  font-size: 1.5rem;
+  transition: all 0.2s ease;
+}
+.publish:hover {
+  background: transparent;
+  border: 1px solid rgba(4, 142, 188, 0.8);
+  color: black;
+}
+.uploadBox {
+  margin-left: 0.5rem;
 }
 
-.uploadBox{
-  margin-left: 0.5rem;
+/* Responsive */
+@media screen and (max-width: 1250px) {
+  html {
+    font-size: 55%;
+  }
+  .fa-sun,
+  .fa-moon {
+    font-size: 1.7rem;
+  }
+}
+@media screen and (max-width: 1150px) {
+  nav {
+    justify-content: space-around;
+    height: 8vh;
+  }
+  .mainContainer {
+    width: 72%;
+  }
+  .rightTopBar {
+    width: 35%;
+  }
+  .textNav {
+    font-size: 2.5rem;
+  }
+  .editPhotoContainer {
+    width: 85%;
+  }
+  .rightTopBar > img {
+    height: 60%;
+  }
+  .label {
+    height: 23px;
+  }
+  .toggle {
+    height: 20px;
+    width: 20px;
+  }
+  .checkbox:checked + .label .toggle {
+    transform: translateX(35.5px);
+  }
+  .leftTopBar > img {
+    height: 160%;
+  }
+}
+@media screen and (max-width: 900px) {
+  nav {
+    justify-content: space-between;
+  }
+  .rightTopBar {
+    width: 50%;
+  }
+  .mainContainer {
+    width: 85%;
+  }
+  .leftTopBar {
+    justify-content: flex-start;
+    margin-left: 10%;
+  }
+  .editPhotoContainer {
+    width: 80%;
+  }
+  .navBarContainer {
+    margin-top: 6%;
+  }
+  .profileContainer {
+    margin-top: 0;
+  }
+}
+@media screen and (max-width: 700px) {
+  .leftTopBar {
+    margin-left: 5%;
+  }
+  body {
+    height: 120vh;
+  }
+  .navBarContainer {
+    height: 5%;
+  }
+  .mainContainer {
+    width: 95%;
+    height: 100rem;
+    margin-top: 10%;
+  }
+  .profileContainer {
+    margin-top: 5%;
+  }
+  .lastName {
+    margin-left: 8%;
+  }
+}
+@media screen and (max-width: 600px) {
+  .description {
+    display: none;
+  }
+  .left {
+    width: 80%;
+  }
+  body {
+    height: 100vh;
+  }
+  .superContainer {
+    margin-top: 15%;
+  }
+  nav {
+    height: 6vh;
+    position: fixed;
+    top: 0;
+  }
+  .mainContainer {
+    margin-top: 3%;
+  }
+  .heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  .card {
+    flex-direction: column;
+    align-items: center;
+    height: 40rem;
+    justify-content: space-around;
+  }
+  .card2,
+  .card3 {
+    height: 30rem;
+  }
+  .right2 {
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  .label {
+    width: 55px;
+  }
+  .checkbox:checked + .label .toggle {
+    transform: translateX(32px);
+  }
+  .rightTopBar > .profileImageTopBarContainer {
+    height: 4rem;
+    width: 4rem;
+  }
+  .rightTopBar {
+    width: 60%;
+  }
+  .submitContainer{
+    display: flex;
+    align-items: center;
+    justify-content:center;
+  }
+  .publish{
+    width: 30%;
+    height: 70%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .right {
+    width: 90%;
+    margin-left: 0;
+  }
+  .mainContainer {
+    margin-top: 8%;
+  }
+}
+@media screen and (max-width: 450px) {
+  #uploadBox {
+    width: 70%;
+  }
+  .editPhotoContainer {
+    justify-content: space-evenly;
+    width: 90%;
+  }
+  .mainContainer {
+    margin-top: 7%;
+  }
+  .name {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .Name {
+    width: 45%;
+  }
+  .writeBio {
+    width: 80%;
+  }
+  .rightTopBar {
+    width: 70%;
+  }
+  .label {
+    height: 20px;
+    width: 50px;
+  }
+  .toggle {
+    height: 17px;
+    width: 18px;
+  }
+  .checkbox:checked + .label .toggle {
+    transform: translateX(28px);
+  }
+  .fa-moon,
+  .fa-sun {
+    font-size: 1.5rem;
+  }
+  .textNav {
+    font-size: 2.5rem;
+  }
+  /* * {
+    background: #000 !important;
+    color: #0f0 !important;
+    outline: solid #f00 1px !important;
+  } */
+}
+@media screen and (max-width: 410px) {
+  .mainContainer {
+    margin-top: 25%;
+  }
+  .publish{
+    width: 50%;
+  }
+}
+@media screen and (max-width: 380px) {
+  body {
+    height: 100vh;
+  }
 }

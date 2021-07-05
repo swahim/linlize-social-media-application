@@ -347,3 +347,21 @@ Hamburger.addEventListener("click", () => {
   Link3.classList.toggle("fade");
   Link4.classList.toggle("fade");
 });
+
+
+function chat_scroll() {
+  chat_box = document.querySelector(".right_container");
+  document_h = document.querySelector('body').scrollHeight;
+  window_h = window.screen.height;
+  footer_h = window.screen.height * (40/100);
+
+  if((window.scrollY + window_h) <= (document_h - footer_h) && window.screen.width >= 455){
+    console.log(window.scrollY);
+
+    chat_box.style.top = `${window.scrollY}px`;
+  } 
+}
+
+document.addEventListener('scroll' , () => {
+  chat_scroll();
+})

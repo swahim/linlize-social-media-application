@@ -101,7 +101,7 @@ nav {
   background: white;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
   padding: 0.5%;
   border-bottom: 1px solid rgba(180, 180, 180, 1);
   transition: background 0.2s linear;
@@ -144,7 +144,8 @@ nav {
   height: 27px;
   width: 60px;
   border-radius: 50px;
-  position: relative;
+  position: absolute;
+  right: 35%;
   background-color: black;
   display: flex;
   align-items: center;
@@ -595,7 +596,92 @@ a {
 .sub:hover {
   background: rgba(4, 142, 188, 0.3);
 }
+.roomContainer{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 90%;
+}
+.room {
+  /* background: rgba( 0, 0, 0, 0.40 );
+box-shadow: 0 8px 32px 0 rgba(56, 57, 66, 0.37);
+  backdrop-filter: blur(4.5px);
+  -webkit-backdrop-filter: blur(4.5px); */
+  border-radius: 10px;
+  width: 90%;
+  height: 20%;
+  
+  border : 1px solid rgba(255, 166, 0,0.4);
+  display: flex;
+  padding: 1%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+/* .room:hover{
+  border: 1px solid rgba(255,255,255);
+  background : rgba(255, 165, 0,0.4);
+} */
+.leftRoom{
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fa-rocket{
+  font-size: 5rem;
+  color: rgba(255, 166, 0,0.8);
+}
 
+.rightRoom{
+  font-family: "Open Sans", sans-serif;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+
+}
+.rightRoom > h1{
+  font-size:1.6rem;
+  font-weight: 700;
+}
+.rightRoom > p{
+  text-align: center;
+  font-size: 1rem;
+}
+.enterRoom{
+  padding: 3%;
+  margin-top: 4%;
+  width: 13rem;
+  border : 1px solid rgba(255, 166, 0,0.4);
+  background : none;
+  border-radius: 10px;
+  cursor : pointer;
+  transition : all 0.2s linear;
+  font-size: 1.3rem;
+}
+.enterRoom:hover{
+  border: 1px solid rgba(255,255,255);
+  background : rgba(255, 165, 0,0.4);
+  color: white;
+}
+.fa-headphones{
+  font-size: 5rem;
+  color: #00adb5;
+}
+.room2{
+  border : 1px solid rgba(0, 173, 181,0.4);
+}
+.enterRoom2{
+  border: 1px solid rgba(0, 173, 181,0.4);
+}
+.enterRoom2:hover{
+  border: 1px solid rgba(255,255,255);
+  background : rgba(0, 173, 181,0.4);
+  color: white;
+}
 /*  
 Making Responsive */
 @media screen and (max-width: 1472px) {
@@ -747,6 +833,9 @@ Making Responsive */
   }
   nav {
     height: 7rem;
+  }
+  .label {
+    right: 20%;
   }
   .rightTopBarHamburger {
     display: block;
@@ -960,6 +1049,9 @@ Making Responsive */
   }
   .right {
     width: 100%;
+  }
+  .label {
+    right: 18%;
   }
   .MakeAPost,
   .DisplayPost {

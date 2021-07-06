@@ -30,11 +30,13 @@
 //    editContainerPopUp.classList.remove("visible");
 // })
 checkbox.addEventListener("click", () => {
-  document.body.classList.toggle("dark");
   if (localStorage.getItem("theme") === "dark") {
     localStorage.setItem("theme", "light");
-  } else {
+    document.body.classList.toggle("dark");
+
+  } else if (localStorage.getItem("theme") === "light") {
     localStorage.setItem("theme", "dark");
+    document.body.classList.toggle("dark");
   }
 });
 const EditPostPopUp = document.querySelector(".EditPostPopupContainer");
@@ -91,9 +93,11 @@ const token = getToken();
 window.addEventListener("load", () => {
   if (localStorage.getItem("theme") === null) {
     localStorage.setItem("theme", "light");
-  }
-  if (localStorage.getItem("theme") === "dark") {
-    checkbox.click();
+    localStorage.getItem("theme")
+  } else if (localStorage.getItem("theme") === "dark") {
+    console.log(localStorage.getItem("theme"));
+    document.body.classList.toggle("dark");
+
   }
 
   if (userid === null) {

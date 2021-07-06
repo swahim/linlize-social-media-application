@@ -39,6 +39,14 @@ function getToken() {
 window.addEventListener("load", () => {
   const token = getToken();
 
+  if (localStorage.getItem("theme") === null) {
+    localStorage.setItem("theme", "light");
+    localStorage.getItem("theme")
+  } else if (localStorage.getItem("theme") === "dark") {
+    console.log(localStorage.getItem("theme"));
+    document.body.classList.toggle("dark");
+
+  }
   if (token === null) {
     location.href = "/pages/signin/";
   } else {
@@ -173,7 +181,18 @@ function uploadToServer(file, name) {
 //     console.log("clicking on submit");
 // })
 
-const homeLogo = document.querySelector(".homeLogo");
-homeLogo.addEventListener("click", (e) => {
-  location.href = "/pages/feed/";
+const homeLogo= document.querySelector(".homeLogo");
+homeLogo.addEventListener("click", (e) =>{
+    location.href = "/pages/feed/";
+  
+})
+checkbox.addEventListener("click", () => {
+  if (localStorage.getItem("theme") === "dark") {
+    localStorage.setItem("theme", "light");
+    document.body.classList.toggle("dark");
+
+  } else if (localStorage.getItem("theme") === "light") {
+    localStorage.setItem("theme", "dark");
+    document.body.classList.toggle("dark");
+  }
 });

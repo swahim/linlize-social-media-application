@@ -7,6 +7,7 @@ const body = document.querySelector("body");
 const sharePostButton = document.querySelector(".startPostButton");
 const cross = document.querySelector(".fa-times");
 const logOut = document.querySelector(".LogOut");
+const hamburgerLogOut = document.querySelector(".logOut");
 let image_compressed = "";
 
 //hamburger
@@ -124,8 +125,11 @@ window.addEventListener("load", () => {
 
   if (localStorage.getItem("theme") === null) {
     localStorage.setItem("theme", "light");
+    localStorage.getItem("theme")
   } else if (localStorage.getItem("theme") === "dark") {
-    checkbox.click();
+    console.log(localStorage.getItem("theme"));
+    document.body.classList.toggle("dark");
+
   }
 
   console.log(token);
@@ -216,6 +220,19 @@ function logOutButton() {
 logOut.addEventListener("click", () => {
   logOutButton();
 });
+hamburgerLogOut.addEventListener("click", () => {
+  console.log("clicking on logout");
+  const cookie = getCookie("linkize");
+
+  console.log(token);
+  if (token) {
+    localStorage.removeItem("jwt");
+    location.href = "/pages/signin";
+  } else {
+    document.cookie = "linkize=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+    location.href = "/pages/signin";
+  }
+})
 
 async function myposts() {
   fetch(`/posts/getallposts`, {

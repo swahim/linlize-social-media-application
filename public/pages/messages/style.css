@@ -1,5 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600&display=swap");
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 body {
-  font-family: "Nunito";
+  font-family: "Open Sans", sans-serif;
 }
 
 h2 {
@@ -13,7 +19,14 @@ h2 {
   margin: 30px auto;
   border: 1px solid #ddd;
   box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.05);
-  border-radius: 2px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40%;
+  transform: translate(-50%, -50%);
 }
 
 #chat-window {
@@ -59,11 +72,44 @@ input {
 }
 
 button {
-  background: #575ed8;
+  background: rgba(255, 166, 0,0.8);
   color: #fff;
   font-size: 18px;
   border: 0;
   padding: 12px 0;
   width: 100%;
   border-radius: 0 0 2px 2px;
+}
+#message:focus{
+  outline: none;
+}
+.nav{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 5rem;
+  
+}
+.nav > h2{
+  color: rgba(255, 166, 0,1);
+}
+.fa-comments{
+  font-size: 2rem;
+  color: rgba(255, 166, 0,0.8);
+}
+@media screen and (max-width:800px){
+  #mario-chat{
+    width: 60%;
+
+  }
+}
+@media screen and (max-width:600px){
+  #mario-chat{
+    width: 70%;
+  }
+}
+@media screen and (max-width:500px){
+  #mario-chat{
+    width: 80%;
+  }
 }

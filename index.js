@@ -41,7 +41,12 @@ app.use("/feedback", feedBackRoutes);
 
 //socket setup
 const formatMessage = require("./utils/messageFormat");
-const { userJoin, getCurrentUser } = require("./utils/users");
+const {
+  userJoin,
+  getCurrentUser,
+  userLeave,
+  getRoomUsers,
+} = require("./utils/users");
 var io = socket(server);
 
 io.on("connection", function (socket) {
@@ -50,6 +55,18 @@ io.on("connection", function (socket) {
 
     socket.join(user.room);
     socket.emit("message", formatMessage("Bot", "Welcome to the chat"));
+
+    socket.broadcast
+      .to(user.room)
+      .emit(
+        "chat",
+        formatMessage("Linkize", `${user.username} has joined the chat!`)
+      );
+
+    io.to(user.room).emit("roomUsers", {
+      room: user.room,
+      users: getRoomUsers(user.room),
+    });
 
     socket.on("chat", (data) => {
       const user = getCurrentUser(socket.id);
@@ -61,9 +78,25 @@ io.on("connection", function (socket) {
       }
     });
 
+    //disconnects
+    socket.on("disconnect", () => {
+      const user = userLeave(socket.id);
+
+      if (user) {
+        io.to(user.room).emit(
+          "message",
+          formatMessage("Bot", `${user.username} has left the chat`)
+        );
+
+        io.to(user.room).emit("roomUsers", {
+          room: user.room,
+          users: getRoomUsers(user.room),
+        });
+      }
+    });
     socket.on("typing", (data) => {
       const user = getCurrentUser(socket.id);
-      socket.broadcast.to(socket.id).emit("typing", data);
+      socket.broadcast.to(user.room).emit("typing", user.username);
     });
   });
 });

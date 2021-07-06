@@ -14,7 +14,7 @@ exports.joinroom = (req, res) => {
   .then((data) => {
     data =data.rows[0];
     res.status(200).json({
-      name: data.firstname+ " " + data.lastname,
+      name: data.lastname+ " " + data.firstname,
     });
   })
   .catch((err) => {

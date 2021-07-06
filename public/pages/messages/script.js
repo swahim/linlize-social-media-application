@@ -51,7 +51,12 @@ window.addEventListener("load", () => {
 
       socket.emit("joinRoom", { username, room });
 
+      socket.on('roomUsers', ({room, users})=>{
+        console.log(room, users);
+      })
       message.addEventListener("keypress", (e) => {
+        socket.emit("typing", username);
+
         if (e.key === "Enter") {
           socket.emit("chat", {
             message: message.value,
@@ -66,9 +71,7 @@ window.addEventListener("load", () => {
         message.value = "";
       });
 
-      message.addEventListener("keypress", (e) => {
-        socket.emit("typing", handle.value);
-      });
+     
 
       socket.on("chat", (data) => {
         console.log(data);
@@ -93,6 +96,7 @@ window.addEventListener("load", () => {
       });
 
       socket.on("typing", (data) => {
+        console.log(data);
         feedback.innerHTML =
           "<p><em>" + data + " is typing a message...</em></p>";
       });

@@ -31,6 +31,11 @@
 // })
 checkbox.addEventListener("click", () => {
   document.body.classList.toggle("dark");
+  if (localStorage.getItem("theme") === "dark") {
+    localStorage.setItem("theme", "light");
+  } else {
+    localStorage.setItem("theme", "dark");
+  }
 });
 const EditPostPopUp = document.querySelector(".EditPostPopupContainer");
 const body = document.querySelector("body");
@@ -84,6 +89,13 @@ function getToken() {
 const token = getToken();
 
 window.addEventListener("load", () => {
+  if (localStorage.getItem("theme") === null) {
+    localStorage.setItem("theme", "light");
+  }
+  if (localStorage.getItem("theme") === "dark") {
+    checkbox.click();
+  }
+
   if (userid === null) {
     location.href = "/pages/feed/";
 

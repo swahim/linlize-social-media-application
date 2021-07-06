@@ -9,6 +9,21 @@ const cross = document.querySelector(".fa-times");
 const logOut = document.querySelector(".LogOut");
 let image_compressed = "";
 
+//hamburger
+const HamburgerMenuLinks = document.querySelector(".HamburgerMenuLinks");
+const Hamburger = document.querySelector(".HamLine");
+const Links = document.querySelector(".Links");
+const Link2 = document.querySelector(".Link2");
+const Link3 = document.querySelector(".Link3");
+const Link4 = document.querySelector(".Link4");
+Hamburger.addEventListener("click", () => {
+  HamburgerMenuLinks.classList.toggle("open");
+  Links.classList.toggle("fade");
+  Link2.classList.toggle("fade");
+  Link3.classList.toggle("fade");
+  Link4.classList.toggle("fade");
+});
+
 function getCookie(name) {
   function escape(s) {
     return s.replace(/([.*+?\^$(){}|\[\]\/\\])/g, "\\$1");
@@ -80,7 +95,14 @@ function uploadToServer(file, content, name) {
 }
 
 checkbox.addEventListener("click", () => {
-  document.body.classList.toggle("dark");
+  if (localStorage.getItem("theme") === "dark") {
+    localStorage.setItem("theme", "light");
+    document.body.classList.toggle("dark");
+
+  } else if (localStorage.getItem("theme") === "light") {
+    localStorage.setItem("theme", "dark");
+    document.body.classList.toggle("dark");
+  }
 });
 
 likeIcon.addEventListener("click", () => {
@@ -99,6 +121,12 @@ likeIcon.addEventListener("click", () => {
 window.addEventListener("load", () => {
   body.classList.add("visible");
   const fullname = document.querySelector(".nameBackend");
+
+  if (localStorage.getItem("theme") === null) {
+    localStorage.setItem("theme", "light");
+  } else if (localStorage.getItem("theme") === "dark") {
+    checkbox.click();
+  }
 
   console.log(token);
   if (token === null) {
@@ -131,6 +159,10 @@ window.addEventListener("load", () => {
         //changing the href for view your profile
         document.querySelector(".viewYourProfile").href =
           "/pages/viewProfile?userid=" + data.userid + "&self=true";
+        Link2.addEventListener("click", (e) => {
+          location.href =
+            "/pages/viewProfile?userid=" + data.userid + "&self=true";
+        });
       })
       .catch((err) => {
         alert("Error Fetching data");
@@ -167,7 +199,7 @@ profileImageTopBarContainer.addEventListener("click", () => {
   dropDownContainer.classList.toggle("visible");
 });
 
-logOut.addEventListener("click", () => {
+function logOutButton() {
   console.log("clicking on logout");
   const cookie = getCookie("linkize");
 
@@ -179,6 +211,10 @@ logOut.addEventListener("click", () => {
     document.cookie = "linkize=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
     location.href = "/pages/signin";
   }
+}
+
+logOut.addEventListener("click", () => {
+  logOutButton();
 });
 
 async function myposts() {
@@ -382,18 +418,3 @@ async function myposts() {
     });
 }
 myposts();
-const HamburgerMenuLinks = document.querySelector(".HamburgerMenuLinks");
-const Hamburger = document.querySelector(".HamLine");
-const Links = document.querySelector(".Links");
-const Link2 = document.querySelector(".Link2");
-const Link3 = document.querySelector(".Link3");
-const Link4 = document.querySelector(".Link4");
-Hamburger.addEventListener("click", () => {
-  HamburgerMenuLinks.classList.toggle("open");
-  Links.classList.toggle("fade");
-  Link2.classList.toggle("fade");
-  Link3.classList.toggle("fade");
-  Link4.classList.toggle("fade");
-});
-
-

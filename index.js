@@ -11,6 +11,7 @@ const authRoutes = require("./routes/auth");
 const postRoutes = require("./routes/post");
 const detailsRoutes = require("./routes/details");
 const roomsRoutes = require("./routes/rooms");
+const feedBackRoutes = require("./routes/feedback");
 
 const passportSetup = require("./configs/passport-setup");
 const passport = require("passport");
@@ -34,15 +35,14 @@ app.use(passport.session());
 
 app.use("/auth", authRoutes);
 app.use("/posts", postRoutes);
-app.use("/rooms", roomsRoutes);
 app.use("/details", detailsRoutes);
+app.use("/rooms", roomsRoutes);
+app.use("/feedback", feedBackRoutes);
 
 //socket setup
 const formatMessage = require("./utils/messageFormat");
 const { userJoin, getCurrentUser } = require("./utils/users");
 var io = socket(server);
-
-const jwt = require("jsonwebtoken");
 
 io.on("connection", function (socket) {
   socket.on("joinRoom", ({ username, room }) => {
@@ -53,7 +53,12 @@ io.on("connection", function (socket) {
 
     socket.on("chat", (data) => {
       const user = getCurrentUser(socket.id);
-      io.to(user.room).emit("chat", formatMessage(user.username, data.message));
+      if (data.message !== "") {
+        io.to(user.room).emit(
+          "chat",
+          formatMessage(user.username, data.message)
+        );
+      }
     });
 
     socket.on("typing", (data) => {
@@ -63,28 +68,6 @@ io.on("connection", function (socket) {
   });
 });
 
-// node mailer
-const nodemailer = require("nodemailer");
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.GMAIL,
-    pass: process.env.GPASS,
-  },
-});
-const options = {
-  from: "outlook_38288AF31E2B69A0@outlook.com",
-  to: "bandarysohan24@gmail.com",
-  subject: "sending email with node",
-  text: "a test email",
-};
-// transporter.sendMail(options, (err, info) => {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     console.log(info.response);
-//   }
-// });
 client.connect((err) => {
   if (err) {
     console.log(err);

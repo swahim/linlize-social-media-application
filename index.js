@@ -47,21 +47,8 @@ const jwt = require("jsonwebtoken");
 io.on("connection", function (socket) {
   console.log("made socket connection", socket.id);
   socket.on("joinRoom", ({ username, room }) => {
-    var userId = "",
-      user_id = "";
-    console.log("room id in socket " + room);
-    jwt.verify(room, process.env.SECRET_KEY, (err, decoded) => {
-      if (err) {
-        console.log(err);
-      }
-      userId = decoded.userId;
-      user_id = decoded.user_id;
-      room = room.split(".")[1];
-      console.log(userId, user_id, room);
-    });
-    console.log(room);
-    room = "test";
-    const user = userJoin(socket.id, user_id, room);
+    console.log(username, room);    
+    const user = userJoin(socket.id, username, room);
 
     socket.join(user.room);
     socket.emit("message", formatMessage("Bot", "Welcome to the chat"));

@@ -28,13 +28,12 @@ function getToken() {
 }
 
 const token = getToken();
-var room = "";
-var { username } = Qs.parse(location.search, {
-  ignoreQueryPrefix: true,
-});
-console.log(username, room);
+// searching room id form url
+const urlParams = new URLSearchParams(window.location.search);
+const room = urlParams.get("room");
+console.log(room);
 window.addEventListener("load", () => {
-  fetch(`/rooms/createroom/${username}`, {
+  fetch(`/rooms/joinroom/${room}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -44,20 +43,26 @@ window.addEventListener("load", () => {
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
-      room = data.room;
-      console.log(room);
 
-      username=data.user_id;
+      username = data.name;
+
       //Emit addEventListener
 
       socket.emit("joinRoom", { username, room });
 
+      message.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          socket.emit("chat", {
+            message: message.value,
+          });
+          message.value = "";
+        }
+      });
       btn.addEventListener("click", (e) => {
         socket.emit("chat", {
           message: message.value,
-          handle: handle.value,
         });
-        // message.value="";
+        message.value = "";
       });
 
       message.addEventListener("keypress", (e) => {
@@ -65,7 +70,7 @@ window.addEventListener("load", () => {
       });
 
       socket.on("chat", (data) => {
-          console.log(data);
+        console.log(data);
         feedback.innerHTML = "";
         output.innerHTML +=
           "<p><strong>" +
@@ -86,7 +91,7 @@ window.addEventListener("load", () => {
       });
 
       socket.on("message", (data) => {
-          console.log(data);
+        console.log(data);
         feedback.innerHTML = "<p>" + data.text + " " + data.time + "</p>";
       });
     });

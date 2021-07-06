@@ -4,9 +4,9 @@ const express = require("express");
 const router = express.Router();
 
 const { verifyToken } = require("../middlewares/verifyToken");
-const { createroom } = require("../controllers/rooms");
+const {  joinroom } = require("../controllers/rooms");
 const app = express();
 app.use(express.json());
 
-router.post("/createroom/:userid", verifyToken, createroom);
+router.post("/joinroom/:room", verifyToken, joinroom);
 module.exports = router;

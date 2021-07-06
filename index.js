@@ -45,9 +45,7 @@ var io = socket(server);
 const jwt = require("jsonwebtoken");
 
 io.on("connection", function (socket) {
-  console.log("made socket connection", socket.id);
   socket.on("joinRoom", ({ username, room }) => {
-    console.log(username, room);    
     const user = userJoin(socket.id, username, room);
 
     socket.join(user.room);
@@ -55,7 +53,6 @@ io.on("connection", function (socket) {
 
     socket.on("chat", (data) => {
       const user = getCurrentUser(socket.id);
-      console.log("chat " + user.room);
       io.to(user.room).emit("chat", formatMessage(user.username, data.message));
     });
 
@@ -71,8 +68,8 @@ const nodemailer = require("nodemailer");
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "bandarysohan24@gmail.com",
-    pass: "Nokia@114",
+    user: process.env.GMAIL,
+    pass: process.env.GPASS,
   },
 });
 const options = {

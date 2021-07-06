@@ -83,6 +83,12 @@ window.addEventListener("load", () => {
           "<br>" +
           data.text +
           "</p>";
+          var element =document.querySelector(".chatWindow");
+          element.scrollTop = element.scrollHeight - element.clientHeight;
+
+          // window.scrollTo(0,document.querySelector(".chatWindow").scrollHeight);
+
+
         // feedback.scrollTop=feedback.scrollHeight;
       });
 

@@ -7,6 +7,7 @@ const body = document.querySelector("body");
 const sharePostButton = document.querySelector(".startPostButton");
 const cross = document.querySelector(".fa-times");
 const logOut = document.querySelector(".LogOut");
+const hamburgerLogOut = document.querySelector(".logOut");
 let image_compressed = "";
 
 function getCookie(name) {
@@ -101,42 +102,42 @@ window.addEventListener("load", () => {
   const fullname = document.querySelector(".nameBackend");
 
   console.log(token);
-  if (token === null) {
-    location.href = "/pages/signin";
-  } else {
-    fetch(`/posts/getpics`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: token,
-      },
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        console.log(data);
-        fullname.innerHTML = data.firstname + " " + data.lastname;
-        const img = document.querySelectorAll(".profileImageBackend");
-        if (data.mime === null) {
-          var i;
-          for (i = 0; i < img.length; i++) {
-            img[i].src = "../../images/default-profile-picture1.jpg";
-          }
-        } else {
-          var i;
-          for (i = 0; i < img.length; i++) {
-            img[i].src = data.data;
-          }
-        }
+  // if (token === null) {
+  //   location.href = "/pages/signin";
+  // } else {
+  //   fetch(`/posts/getpics`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       authorization: token,
+  //     },
+  //   })
+  //     .then((resp) => resp.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       fullname.innerHTML = data.firstname + " " + data.lastname;
+  //       const img = document.querySelectorAll(".profileImageBackend");
+  //       if (data.mime === null) {
+  //         var i;
+  //         for (i = 0; i < img.length; i++) {
+  //           img[i].src = "../../images/default-profile-picture1.jpg";
+  //         }
+  //       } else {
+  //         var i;
+  //         for (i = 0; i < img.length; i++) {
+  //           img[i].src = data.data;
+  //         }
+  //       }
 
-        //changing the href for view your profile
-        document.querySelector(".viewYourProfile").href =
-          "/pages/viewProfile?userid=" + data.userid + "&self=true";
-      })
-      .catch((err) => {
-        alert("Error Fetching data");
-        console.log(err);
-      });
-  }
+  //       //changing the href for view your profile
+  //       document.querySelector(".viewYourProfile").href =
+  //         "/pages/viewProfile?userid=" + data.userid + "&self=true";
+  //     })
+  //     .catch((err) => {
+  //       alert("Error Fetching data");
+  //       console.log(err);
+  //     });
+  // }
 });
 
 sharePostButton.addEventListener("click", () => {
@@ -180,6 +181,19 @@ logOut.addEventListener("click", () => {
     location.href = "/pages/signin";
   }
 });
+hamburgerLogOut.addEventListener("click", () => {
+  console.log("clicking on logout");
+  const cookie = getCookie("linkize");
+
+  console.log(token);
+  if (token) {
+    localStorage.removeItem("jwt");
+    location.href = "/pages/signin";
+  } else {
+    document.cookie = "linkize=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+    location.href = "/pages/signin";
+  }
+})
 
 async function myposts() {
   fetch(`/posts/getallposts`, {
@@ -381,7 +395,7 @@ async function myposts() {
       }
     });
 }
-myposts();
+// myposts();
 const HamburgerMenuLinks = document.querySelector(".HamburgerMenuLinks");
 const Hamburger = document.querySelector(".HamLine");
 const Links = document.querySelector(".Links");

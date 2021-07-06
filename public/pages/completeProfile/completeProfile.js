@@ -173,7 +173,11 @@ function uploadToServer(file, name) {
 //     console.log("clicking on submit");
 // })
 
-const homeLogo = document.querySelector(".homeLogo");
-homeLogo.addEventListener("click", (e) => {
-  location.href = "/pages/feed/";
+const homeLogo= document.querySelector(".homeLogo");
+homeLogo.addEventListener("click", (e) =>{
+    location.href = "/pages/feed/";
+  
+})
+checkbox.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
 });

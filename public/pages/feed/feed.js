@@ -99,7 +99,6 @@ checkbox.addEventListener("click", () => {
   if (localStorage.getItem("theme") === "dark") {
     localStorage.setItem("theme", "light");
     document.body.classList.toggle("dark");
-
   } else if (localStorage.getItem("theme") === "light") {
     localStorage.setItem("theme", "dark");
     document.body.classList.toggle("dark");
@@ -125,54 +124,53 @@ window.addEventListener("load", () => {
 
   if (localStorage.getItem("theme") === null) {
     localStorage.setItem("theme", "light");
-    localStorage.getItem("theme")
+    localStorage.getItem("theme");
   } else if (localStorage.getItem("theme") === "dark") {
     console.log(localStorage.getItem("theme"));
     document.body.classList.toggle("dark");
-
   }
 
-  // console.log(token);
-  // if (token === null) {
-  //   location.href = "/pages/signin";
-  // } else {
-  //   fetch(`/posts/getpics`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       authorization: token,
-  //     },
-  //   })
-  //     .then((resp) => resp.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       fullname.innerHTML = data.firstname + " " + data.lastname;
-  //       const img = document.querySelectorAll(".profileImageBackend");
-  //       if (data.mime === null) {
-  //         var i;
-  //         for (i = 0; i < img.length; i++) {
-  //           img[i].src = "../../images/default-profile-picture1.jpg";
-  //         }
-  //       } else {
-  //         var i;
-  //         for (i = 0; i < img.length; i++) {
-  //           img[i].src = data.data;
-  //         }
-  //       }
+  console.log(token);
+  if (token === null) {
+    location.href = "/pages/signin";
+  } else {
+    fetch(`/posts/getpics`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: token,
+      },
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        console.log(data);
+        fullname.innerHTML = data.firstname + " " + data.lastname;
+        const img = document.querySelectorAll(".profileImageBackend");
+        if (data.mime === null) {
+          var i;
+          for (i = 0; i < img.length; i++) {
+            img[i].src = "../../images/default-profile-picture1.jpg";
+          }
+        } else {
+          var i;
+          for (i = 0; i < img.length; i++) {
+            img[i].src = data.data;
+          }
+        }
 
-  //       //changing the href for view your profile
-  //       document.querySelector(".viewYourProfile").href =
-  //         "/pages/viewProfile?userid=" + data.userid + "&self=true";
-  //       Link2.addEventListener("click", (e) => {
-  //         location.href =
-  //           "/pages/viewProfile?userid=" + data.userid + "&self=true";
-  //       });
-  //     })
-  //     .catch((err) => {
-  //       alert("Error Fetching data");
-  //       console.log(err);
-  //     });
-  // }
+        //changing the href for view your profile
+        document.querySelector(".viewYourProfile").href =
+          "/pages/viewProfile?userid=" + data.userid + "&self=true";
+        Link2.addEventListener("click", (e) => {
+          location.href =
+            "/pages/viewProfile?userid=" + data.userid + "&self=true";
+        });
+      })
+      .catch((err) => {
+        alert("Error Fetching data");
+        console.log(err);
+      });
+  }
 });
 
 sharePostButton.addEventListener("click", () => {
@@ -236,7 +234,7 @@ hamburgerLogOut.addEventListener("click", () => {
     document.cookie = "linkize=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
     location.href = "/pages/signin";
   }
-})
+});
 
 async function myposts() {
   fetch(`/posts/getallposts`, {
@@ -438,12 +436,13 @@ async function myposts() {
       }
     });
 }
-// myposts();
+myposts();
 
 const feedbackButton = document.querySelector(".feedback");
 feedbackButton.addEventListener("click", () => {
   const feedbackContainer = document.querySelector(".feedbackPopUpContainer");
   const cancelButton = document.querySelector(".cancel");
+  const submit = document.querySelector(".ok");
   const navBar = document.querySelector("nav");
   const container = document.querySelector(".superContainer");
   const body = document.querySelector("body");
@@ -455,7 +454,33 @@ feedbackButton.addEventListener("click", () => {
   cancelButton.addEventListener("click", () => {
     feedbackContainer.classList.remove("visible");
     navBar.classList.remove("afterPopUp");
-  container.classList.remove("afterPopUp");
-  body.style.overflow = "scroll";
+    container.classList.remove("afterPopUp");
+    body.style.overflow = "scroll";
   });
-})
+
+  submit.addEventListener("click", () => {
+    const feedback = document.querySelector(".feedbackEnter");
+    var feedbackValue = feedback.value;
+    console.log(feedback.value);
+    fetch(`/feedback/sendmail`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: token,
+      },
+      body: JSON.stringify({ 
+        feedback: feedback.value,
+       }),
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        console.log(data);
+      });
+    feedback.value = "";
+
+    feedbackContainer.classList.remove("visible");
+    navBar.classList.remove("afterPopUp");
+    container.classList.remove("afterPopUp");
+    body.style.overflow = "scroll";
+  });
+});

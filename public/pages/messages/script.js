@@ -33,77 +33,96 @@ const token = getToken();
 const urlParams = new URLSearchParams(window.location.search);
 const room = urlParams.get("room");
 console.log(room);
+const roomName = document.querySelector(".roomName");
+const customColor = document.querySelectorAll(".customColor");
 window.addEventListener("load", () => {
-  fetch(`/rooms/joinroom/${room}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      authorization: token,
-    },
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
+  if (token === null) {
+    location.href = "/pages/signin/";
+  } else {
+    if (room === "startup") {
+      roomName.innerHTML = "StartUp Talks";
+    } else if (room === "general") {
+      roomName.innerHTML = "General Talks";
+      for (var i = 0; i < customColor.length; i++) {
+        customColor[i].style.color = "#00adb5";
+      }
+      send.style.background = "#00adb5";
+    } else if (room === "findwork") {
+      // #F38BA0roomName.innerHTML="General Talks";
+      roomName.innerHTML = "Find Work";
+      for (var i = 0; i < customColor.length; i++) {
+        customColor[i].style.color = "#F38BA0";
+      }
+      send.style.background = "#F38BA0";
+    }
+    fetch(`/rooms/joinroom/${room}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: token,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
 
-      username = data.name;
+        username = data.name;
 
-      //Emit addEventListener
+        //Emit addEventListener
 
-      socket.emit("joinRoom", { username, room });
+        socket.emit("joinRoom", { username, room });
 
-      socket.on('roomUsers', ({room, users})=>{
-        console.log(room, users);
-      })
-      message.addEventListener("keypress", (e) => {
-        socket.emit("typing", username);
+        socket.on("roomUsers", ({ room, users }) => {
+          console.log(room, users);
+        });
+        message.addEventListener("keypress", (e) => {
+          socket.emit("typing", username);
 
-        if (e.key === "Enter") {
+          if (e.key === "Enter") {
+            socket.emit("chat", {
+              message: message.value,
+            });
+            message.value = "";
+          }
+        });
+        btn.addEventListener("click", (e) => {
           socket.emit("chat", {
             message: message.value,
           });
           message.value = "";
-        }
-      });
-      btn.addEventListener("click", (e) => {
-        socket.emit("chat", {
-          message: message.value,
         });
-        message.value = "";
-      });
 
-     
-
-      socket.on("chat", (data) => {
-        console.log(data);
-        feedback.innerHTML = "";
-        output.innerHTML +=
-          "<p><strong>" +
-          data.username +
-          ":</strong>  " +
-          "<em>" +
-          data.time +
-          "</em>" +
-          "<br>" +
-          data.text +
-          "</p>";
-          var element =document.querySelector(".chatWindow");
+        socket.on("chat", (data) => {
+          console.log(data);
+          feedback.innerHTML = "";
+          output.innerHTML +=
+            "<p><strong>" +
+            data.username +
+            ":</strong>  " +
+            "<em>" +
+            data.time +
+            "</em>" +
+            "<br>" +
+            data.text +
+            "</p>";
+          var element = document.querySelector(".chatWindow");
           element.scrollTop = element.scrollHeight - element.clientHeight;
 
           // window.scrollTo(0,document.querySelector(".chatWindow").scrollHeight);
 
+          // feedback.scrollTop=feedback.scrollHeight;
+        });
 
-        // feedback.scrollTop=feedback.scrollHeight;
-      });
+        socket.on("typing", (data) => {
+          console.log(data);
+          feedback.innerHTML =
+            "<p><em>" + data + " is typing a message...</em></p>";
+        });
 
-      socket.on("typing", (data) => {
-        console.log(data);
-        feedback.innerHTML =
-          "<p><em>" + data + " is typing a message...</em></p>";
+        socket.on("message", (data) => {
+          console.log(data);
+          feedback.innerHTML = "<p>" + data.text + " " + data.time + "</p>";
+        });
       });
-
-      socket.on("message", (data) => {
-        console.log(data);
-        feedback.innerHTML = "<p>" + data.text + " " + data.time + "</p>";
-      });
-    });
+  }
 });

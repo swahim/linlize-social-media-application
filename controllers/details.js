@@ -61,6 +61,7 @@ exports.updatedetails = (req, res) => {
       .then((data) => {
         res.status(200).json({
           message: "details updated successfully",
+          data: data,
         });
       })
       .catch((err) => {
@@ -77,6 +78,7 @@ exports.updatedetails = (req, res) => {
       .then((data) => {
         res.status(200).json({
           message: "details updated successfully",
+          data: data,
         });
       })
       .catch((err) => {

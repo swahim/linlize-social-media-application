@@ -177,6 +177,8 @@ sharePostButton.addEventListener("click", () => {
   const navBar = document.querySelector("nav");
   const container = document.querySelector(".superContainer");
   const popUp = document.querySelector(".popUpMakeAPostContainer");
+  const body = document.querySelector("body");
+  body.style.overflow = "hidden";
   popUp.classList.add("visible");
   navBar.classList.add("afterPopUp");
   container.classList.add("afterPopUp");
@@ -189,6 +191,8 @@ cross.addEventListener("click", () => {
   const container = document.querySelector(".superContainer");
   const popUp = document.querySelector(".popUpMakeAPostContainer");
   popUp.classList.remove("visible");
+  const body = document.querySelector("body");
+  body.style.overflow = "scroll";
   navBar.classList.remove("afterPopUp");
   container.classList.remove("afterPopUp");
 });
@@ -443,7 +447,6 @@ feedbackButton.addEventListener("click", () => {
   const container = document.querySelector(".superContainer");
   const body = document.querySelector("body");
   body.style.overflow = "hidden";
-
   navBar.classList.add("afterPopUp");
   container.classList.add("afterPopUp");
 

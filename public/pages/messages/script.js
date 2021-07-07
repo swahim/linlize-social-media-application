@@ -40,7 +40,13 @@ window.addEventListener("load", () => {
     location.href = "/pages/signin/";
   } else {
     if (room === "startup") {
+      const itag= document.querySelector(".fas");
+      itag.className="fas fa-rocket customColor";
       roomName.innerHTML = "StartUp Talks";
+      for (var i = 0; i < customColor.length; i++) {
+        customColor[i].style.color = "rgba(255, 166, 0,1)";
+      }
+      send.style.background = "rgba(255, 166, 0,1)";
     } else if (room === "general") {
       roomName.innerHTML = "General Talks";
       for (var i = 0; i < customColor.length; i++) {
@@ -48,7 +54,9 @@ window.addEventListener("load", () => {
       }
       send.style.background = "#00adb5";
     } else if (room === "findwork") {
-      // #F38BA0roomName.innerHTML="General Talks";
+      const itag= document.querySelector(".fas");
+      itag.className="fas fa-briefcase customColor";
+      roomName.innerHTML = "StartUp Talks";
       roomName.innerHTML = "Find Work";
       for (var i = 0; i < customColor.length; i++) {
         customColor[i].style.color = "#F38BA0";

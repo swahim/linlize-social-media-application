@@ -8,63 +8,10 @@ app.use(fileUpload());
 app.use(express.json());
 app.use(cors());
 
-exports.newprofilepic = (req, res) => {
-  console.log("in new profile pic");
-  // <form
-  //     action="http://localhost:8200/posts/newprofilepic"
-  //     enctype="multipart/form-data"
-  //     method="POST"
-  //   >
-  //     <input type="text" placeholder="email id" name="emailid"/>
-  //     <input type="file" name="pic" />
-  //     <input type="submit" value="Upload a file" />
-  //   </form>
-
-  // SUPPOST THIS IS POST REQUEST,
-  //WE WILL BE STORING IMAGE FILE IN DATA VARIABLE USING EXPRESS FILE FILEUPLOADER
-  // GET THER USER EMAIL FROM POST REQ BODY
-  const data = req.files.image;
-  // SENDING DECODED BUFFER
-  const imgdata = data.data.toString("base64");
-  const email = req.body.email;
-  const mime = data.mimetype;
-  if (data) {
-    // WRITING A CLIENT QUERY WHERE WE CAN STORE IMAGE NAME, IMAGE, EMAIL IN OUT DATABASE
-    client
-      // .query(
-      //   `INSERT INTO profilepic (imgname, img, email, mime) VALUES ('${data.name}', bytea('${imgdata}') , '${email}', '${mime}');`
-      // )
-      .query(
-        `UPDATE details
-        SET imgname='${data.name}', img=bytea('${imgdata}'), mime='${mime}'
-        WHERE email='${email}';`
-      )
-      // IF THERE IS ANY ERROR, IT WILL CONSOLE LOG
-      .catch((err) => {
-        console.log(err);
-      });
-
-    // WILL SEND A 200 STATUS IF IMAGE IS SUCCEFULLY ADDED INTO OUR DATABASE
-    res.status(200).json({
-      message: "image added successfully",
-      data: req.files.pic,
-    });
-  }
-  // SEND A 400 RES STATUS IF IMAGE IS NOT FOUND
-  else {
-    res.status(400).json({
-      message: "image not found",
-    });
-  }
-};
-
+// THIS ROUTE IS TO GET BASIC DETAILS, PROFILE PIC OF THE USER THAT IS LOGGED IN
 exports.getpics = (req, resp) => {
-  // console.log(req.email);
-  let image = "";
-  let mime = "";
-  let firstname = "",
-    lastname = "",
-    userid = "";
+
+  let image = "", mime = "", firstname = "", lastname = "", userid = "";
   client
     .query(
       `SELECT firstname, lastname, img, mime, userid FROM details WHERE email = '${req.email}'`
@@ -77,12 +24,10 @@ exports.getpics = (req, resp) => {
       image = res.rows[0].img;
       mime = res.rows[0].mime;
       userid = res.rows[0].userid;
-      // console.log("data:" + mime + ";base64," + image);
       resp.status(200).json({
         mime: mime,
         message: "image fetched successfully",
         data: `data:${mime};base64,${image}`,
-        // data: "data:" + mime + ";base64," + image,
         firstname: firstname,
         lastname: lastname,
         userid: userid,
@@ -124,27 +69,36 @@ exports.profile = (req, res) => {
     .catch((err) => {
       console.log(err);
       res.status(500).json({
-        message: "data error occured!"
-      })
-    })
+        error: "server error occured!",
+      });
+    });
 };
 
+// ROUTE FOR CREATE NEW POST
+// THIS ROUTE STORES POSTS IMAGE, CONTENT IN DATABSE
 exports.createnewpost = (req, res) => {
-  console.log("in create new post");
+  // storing the file in data variable
   const data = req.files.image;
+  // converting image file to base64 and storing it in imgdata variable
   const imgdata = data.data.toString("base64");
+  // storing mime type in mime variable
   const mime = data.mimetype;
   if (data) {
+    // WRITING A CLIENT QUERY WHERE WE CAN STORE EMAIL, CONTENT, POST IMAGE, POST MIME IN OUT DATABASE
     client
       .query(
         `INSERT INTO posts (email, content, postsimg, postsmime) VALUES  ('${req.email}', '${req.body.content}', bytea('${imgdata}'), '${mime}');`
       )
+      // DURING THIS PROCESS, IF ANY ERROR OCCURS
       .catch((err) => {
         console.log(err);
+        res.status(500).json({
+          error: "database error occured!",
+        })
       });
+      // SENDING 200 RESPONSE WHEN POSTS CONTENT, IMAGE STORED IN DATABASE
     res.status(200).json({
       message: "image added successfully",
-      // data: req.files.pic,
     });
   } else {
     res.status(400).json({
@@ -153,10 +107,9 @@ exports.createnewpost = (req, res) => {
   }
 };
 
+// ROUTE TO GET ALL POSTS
 exports.getallposts = (req, resp) => {
-  // console.log("in get all posts");
-  // console.log(req.email);
-  // console.log(req.user_id);
+  // A VARIABLE TO STORE USERID, POSTID, POST IMAGE, USER PROFILE IAMGE, CONTENT, LIKES, COMPANY, DESIGNATION
   let temp = [];
   client
     .query(
@@ -164,6 +117,7 @@ exports.getallposts = (req, resp) => {
     )
     .then((res) => {
       res.rows.forEach((data) => {
+        // STORING ALL THOSE VALUES IN INNERTEMP AND THEN APPENDING IT TO TEMP
         let innertemp = {
           postid: data.postid,
           userid: data.userid,
@@ -181,80 +135,102 @@ exports.getallposts = (req, resp) => {
         };
         temp.push(innertemp);
       });
+      // SENDING THE REQUIRED DATA AS A JSON OBJECT WITH A 200 RESPONSE
       resp.status(200).json({ temp });
     })
+    // DURING THIS PROCESS, IF ANY ERROR OCCURS
     .catch((err) => {
       console.log(err);
       resp.status(500).json({
-        message: "data error occured!"
-      })
-    })
+        message: "data error occured!",
+      });
+    });
 };
 
+// ROUTE FOR UPDATE LIKE
+// THIS ROUTE APPEND USER EMAIL IN LIKES ARRAY 
 exports.updatelike = (req, res) => {
-  client.query(
-    `UPDATE posts SET likes = array_append(likes, '${req.email}') WHERE postid='${req.params.postid}';`
-  )
-  .then((data) => {
-    res.status(200).json({
-      message: "updated like",
+  // QUERY TO APPEND USER EMAIL IN LIKE ARRAY COLUMN
+  client
+    .query(
+      `UPDATE posts SET likes = array_append(likes, '${req.email}') WHERE postid='${req.params.postid}';`
+    )
+    // SENDING 200 RESPONSE STATUS
+    .then((data) => {
+      res.status(200).json({
+        message: "updated like",
+      });
     })
-  })
-  .catch((err) => {
-    console.log(err);
-    res.status(500).json({
-      message: "database error occured!"
-    })
-  })
+    // DURING THIS PROCESS, IF ANY ERROR OCCURS
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        error: "database error occured!",
+      });
+    });
 };
 
+// ROUTE TO UPDATE DISLIKE
+// THIS ROUTE REMOVES USER EMAIL FROM LIKE ARRAY COLUMN
 exports.updatedislike = (req, res) => {
-  client.query(
-    `UPDATE posts SET likes = array_remove(likes, '${req.email}') WHERE postid='${req.params.postid}';`
-  )
-  .then((data) => {
-    res.status(200).json({
-      message: "updated dislike",
+  // QUERY TO REMOVE USER'S EMAIL ID FROM LIKE ARRAY COLUMN IN DB
+  client
+    .query(
+      `UPDATE posts SET likes = array_remove(likes, '${req.email}') WHERE postid='${req.params.postid}';`
+    )
+    // SENDING 200 RESPONSE STATUS
+    .then((data) => {
+      res.status(200).json({
+        message: "updated dislike",
+      });
     })
-  })
-  .catch((err) => {
-    console.log(err);
-    res.status(500).json({
-      message: "database error occured!"
-    })
-  })
+    // DURING THIS PROCESS, IF ANY ERROR OCCURS
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        error: "database error occured!",
+      });
+    });
 };
 
+// ROUTE TO UPDATE POST
 exports.updatepost = (req, res) => {
-  console.log(" in updatepost ");
-  const userId = req.params.postid;
-  console.log(req.body.captionValue);
-  console.log(userId);
+  // QUERY TO UPDATE POST CONTENT OF THE GIVEN POST WHERE POSTID =  REQ.PARAMS.POSTID
+  // THIS ROUTE REQUIRES A MIDDLE WARE TO VERIFY JWT TOKEN
+  // SO WITHOUT TOKEN USER CAN NOT EDIT POST
   client
     .query(
       `UPDATE posts SET content='${req.body.captionValue}' WHERE postid='${req.params.postid}'`
     )
+    // SENDING 200 RESPONSE STATUS
     .then((data) => {
       res.status(200).json({
         message: "Post updated successfully,",
       });
     })
+    // DURING THIS PROCESS, IF ANY ERROR OCCURS
     .catch((err) => {
       console.log(err);
       res.status(500).json({
-        message: "Server error occured!",
+        error: "Server error occured!",
       });
     });
 };
 
+// ROUTE TO DELETE POST
 exports.deletepost = (req, res) => {
+  // QUERY  TO DELETE POST BY POSTID WHERE POSTID = REQ.PARAMS.postid
+  // THIS ROUTE REQUIRES A MIDDLE WARE TO VERIFY JWT TOKEN
+  // SO WITHOUT TOKEN USER CAN NOT DELTE POST
   client
     .query(`DELETE FROM posts WHERE postid ='${req.params.postid}'`)
     .then((data) => {
+      //SENDING 200 RESPONSE STATUS
       res.status(200).json({
         message: "Post deleted successfully,",
       });
     })
+    // DURING THIS PROCESS, IF ANY ERROR OCCURS
     .catch((err) => {
       console.log(err);
       res.status(500).json({

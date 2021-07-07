@@ -59,7 +59,7 @@ router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
 
         // Sending cookie to client with a life span of 15 mins
         res.cookie("linkize", token, {
-          expires: new Date(Date.now() + 900000),
+          expires: new Date(Date.now() + 3600000),
         });
 
         // After sending the cookies, it's time to redirect feed page
@@ -91,7 +91,7 @@ router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
                   process.env.SECRET_KEY
                 );
                 res.cookie("linkize", token, {
-                  expires: new Date(Date.now() + 900000),
+                  expires: new Date(Date.now() + 3600000),
                 });
                 res.redirect("/pages/feed");
               })

@@ -39,6 +39,10 @@ app.use("/details", detailsRoutes);
 app.use("/rooms", roomsRoutes);
 app.use("/feedback", feedBackRoutes);
 
+app.get("*", (req, res) => {
+  res.send("page not found");
+}); //default 404 response
+
 //socket setup
 const formatMessage = require("./utils/messageFormat");
 const {

@@ -25,7 +25,10 @@ body {
 .popupServerError,
 .popupSignInSuccess,
 .popupWrongPassword,
-.popupFailure {
+.popUpuserDoesNotExists,
+.popupFailure,
+.popUpInValidPassword,
+.popUpuserAlreadyExists {
   width: 30%;
   height: 40%;
   position: absolute;
@@ -45,24 +48,18 @@ body {
   opacity: 0;
   transition: opacity 0.5s linear;
 }
-.popupSignUpSuccess.visible{
+.popupSignUpSuccess.visible,
+.popUpuserDoesNotExists.visible,
+.popUpInValidEmail.visible,
+.popupPasswordMatch.visible,
+.popupServerError.visible,
+.popupSignInSuccess.visible,
+.popupWrongPassword.visible,
+.popUpInValidPassword.visible,
+.popUpuserAlreadyExists.visible {
   opacity: 1;
 }
-.popUpInValidEmail.visible {
-  opacity: 1;
-}
-.popupPasswordMatch.visible {
-  opacity: 1;
-}
-.popupServerError.visible {
-  opacity: 1;
-}
-.popupSignInSuccess.visible {
-  opacity: 1;
-}
-.popupWrongPassword.visible {
-  opacity: 1;
-}
+
 .icon,
 .iconFailure {
   border: 2px solid #34f234;

@@ -40,7 +40,8 @@ app.use("/rooms", roomsRoutes);
 app.use("/feedback", feedBackRoutes);
 
 app.get("*", (req, res) => {
-  res.send("page not found");
+  res.redirect("/pages/404Page/");
+  // res.send("page not found");
 }); //default 404 response
 
 //socket setup

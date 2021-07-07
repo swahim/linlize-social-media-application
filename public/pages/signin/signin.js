@@ -4,13 +4,18 @@ const container = document.querySelector(".container");
 const body = document.querySelector("body");
 const loginbtn = document.querySelector(".loginButton");
 const signupbtn = document.querySelector(".signupButton");
-// const apiUrl = "http://localhost:8000";
-// const apiUrl = "https://still-fortress-53995.herokuapp.com";
 
+// function to validate email
 function validateEmail(email) {
   const re =
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
+}
+
+// function to validate password
+function validatePassword(str) {
+  var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+  return re.test(str);
 }
 
 loginbtn.addEventListener("click", (event) => {
@@ -42,9 +47,39 @@ loginbtn.addEventListener("click", (event) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        const { token } = data;
-
-        if (token) {
+        console.log(data);
+        if (data.error === "user does not exist, signup instead!") {
+          console.log("User does not exist");
+          const popUpuserDoesNotExists = document.querySelector(
+            ".popUpuserDoesNotExists"
+          );
+          const dismissPopUpuserDoesNotExists = document.querySelector(
+            ".dismissPopUpuserDoesNotExists"
+          );
+          popUpuserDoesNotExists.classList.add("visible");
+          popUpuserDoesNotExists.classList.zIndex = "11";
+          dismissPopUpuserDoesNotExists.addEventListener("click", (e) => {
+            popUpuserDoesNotExists.classList.remove("visible");
+            popUpuserDoesNotExists.style.zIndex = "10";
+          });
+        } else if (data.error === "Wrong password!") {
+          // wrong password
+          const dismissWrongPassword = document.querySelector(
+            ".dismissWrongPassword"
+          );
+          const popupWrongPassword = document.querySelector(
+            ".popupWrongPassword"
+          );
+          popupWrongPassword.classList.add("visible");
+          popupWrongPassword.style.zIndex = "11";
+          dismissWrongPassword.addEventListener("click", (e) => {
+            console.log("in dismiss1");
+            popupWrongPassword.classList.remove("visible");
+            popupWrongPassword.style.zIndex = "10";
+          });
+        } else if (data.token) {
+          // sign in successful
+          const { token } = data;
           const popupSignInSuccess = document.querySelector(
             ".popupSignInSuccess"
           );
@@ -60,22 +95,9 @@ loginbtn.addEventListener("click", (event) => {
             location.href = "/pages/feed/";
           });
           localStorage.setItem("jwt", token);
-        } else {
-          const dismissWrongPassword = document.querySelector(
-            ".dismissWrongPassword"
-          );
-          const popupWrongPassword = document.querySelector(
-            ".popupWrongPassword"
-          );
-          popupWrongPassword.classList.add("visible");
-          popupWrongPassword.style.zIndex = "11";
-          dismissWrongPassword.addEventListener("click", (e) => {
-            console.log("in dismiss1");
-            popupWrongPassword.classList.remove("visible");
-            popupWrongPassword.style.zIndex = "10";
-          });
         }
       })
+      // error while fetching data
       .catch((err) => {
         const dismissServerError = document.querySelector(
           ".dismissServerError"
@@ -115,7 +137,7 @@ signupbtn.addEventListener("click", (event) => {
     ".confirmPasswordSignUp"
   ).value;
   console.log(email, password, confirmPassword);
-  //validating email addresss
+  // validating email address
   if (!validateEmail(email)) {
     const popUpInValidEmail = document.querySelector(".popUpInValidEmail");
     popUpInValidEmail.classList.add("visible");
@@ -129,8 +151,8 @@ signupbtn.addEventListener("click", (event) => {
       popUpInValidEmail.style.zIndex = "10";
     });
   } else {
+    // checking if password is same or not
     if (password !== confirmPassword) {
-      console.log("in password doesn't match");
       const dismissPasswordMatch = document.querySelector(
         ".dismissPasswordMatch"
       );
@@ -142,57 +164,97 @@ signupbtn.addEventListener("click", (event) => {
         popupPasswordMatch.classList.remove("visible");
         popupPasswordMatch.style.zIndex = "10";
       });
-      // alert("Password doesn't match");
-      return;
     } else {
-      fetch(`/auth/signup`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          const { token } = data;
+      // if password is same
+      if (!validatePassword(password)) {
+        // validating password
+        const popUpInValidPassword = document.querySelector(".popUpInValidPassword");
+        popUpInValidPassword.classList.add("visible");
+        popUpInValidPassword.style.zIndex = "11";
 
-          if (token) {
-            // alert("SignUp successfull");
-            const popupSignUpSuccess = document.querySelector(
-              ".popupSignUpSuccess"
-            );
-            popupSignUpSuccess.classList.add("visible");
-            popupSignUpSuccess.style.zIndex = "11";
-
-            const continueSignUpSuccess = document.querySelector(
-              ".continueSignUpSuccess"
-            );
-            continueSignUpSuccess.addEventListener("click", (e) => {
-              popupSignUpSuccess.classList.remove("visible");
-              popupSignUpSuccess.style.zIndex = "10";
-              location.href = "/pages/completeProfile/";
-            });
-
-            localStorage.setItem("jwt", token);
-          } else {
-            // alert("sign up again");
-          }
-        })
-        .catch((err) => {
-          // POP UP DATABASE ERROR OCCURED
-          const dismissServerError = document.querySelector(
-            ".dismissServerError"
-          );
-          const popupServerError = document.querySelector(".popupServerError");
-          popupServerError.classList.add("visible");
-          popupServerError.style.zIndex = "11";
-          dismissServerError.addEventListener("click", (e) => {
-            console.log("in dismiss1");
-            popupServerError.classList.remove("visible");
-            popupServerError.style.zIndex = "10";
-          });
-          console.log(err);
+        const dismissPopUpInValidPassword = document.querySelector(
+          ".dismissPopUpInValidPassword"
+        );
+        dismissPopUpInValidPassword.addEventListener("click", (e) => {
+          popUpInValidPassword.classList.remove("visible");
+          popUpInValidPassword.style.zIndex = "10";
         });
+      } else {
+        // this case => email, password is valid, & both password matches
+        fetch(`/auth/signup`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.message === "user already exists") {
+              const popUpuserAlreadyExists = document.querySelector(
+                ".popUpuserAlreadyExists"
+              );
+              const dismissPopUpuserAlreadyExists = document.querySelector(
+                ".dismissPopUpuserAlreadyExists"
+              );
+              popUpuserAlreadyExists.classList.add("visible");
+              popUpuserAlreadyExists.classList.zIndex = "11";
+              dismissPopUpuserAlreadyExists.addEventListener("click", (e) => {
+                popUpuserAlreadyExists.classList.remove("visible");
+                popUpuserAlreadyExists.style.zIndex = "10";
+              });
+            } else if (data.error) {
+              // POP UP DATABASE ERROR OCCURED
+              const dismissServerError = document.querySelector(
+                ".dismissServerError"
+              );
+              const popupServerError =
+                document.querySelector(".popupServerError");
+              popupServerError.classList.add("visible");
+              popupServerError.style.zIndex = "11";
+              dismissServerError.addEventListener("click", (e) => {
+                console.log("in dismiss1");
+                popupServerError.classList.remove("visible");
+                popupServerError.style.zIndex = "10";
+              });
+              console.log(err);
+            } else if (data.token) {
+              const { token } = data;
+              const popupSignUpSuccess = document.querySelector(
+                ".popupSignUpSuccess"
+              );
+              popupSignUpSuccess.classList.add("visible");
+              popupSignUpSuccess.style.zIndex = "11";
+
+              const continueSignUpSuccess = document.querySelector(
+                ".continueSignUpSuccess"
+              );
+              continueSignUpSuccess.addEventListener("click", (e) => {
+                popupSignUpSuccess.classList.remove("visible");
+                popupSignUpSuccess.style.zIndex = "10";
+                location.href = "/pages/completeProfile/";
+              });
+
+              localStorage.setItem("jwt", token);
+            }
+          })
+          .catch((err) => {
+            // POP UP DATABASE ERROR OCCURED
+            const dismissServerError = document.querySelector(
+              ".dismissServerError"
+            );
+            const popupServerError =
+              document.querySelector(".popupServerError");
+            popupServerError.classList.add("visible");
+            popupServerError.style.zIndex = "11";
+            dismissServerError.addEventListener("click", (e) => {
+              console.log("in dismiss1");
+              popupServerError.classList.remove("visible");
+              popupServerError.style.zIndex = "10";
+            });
+            console.log(err);
+          });
+      }
     }
   }
 });

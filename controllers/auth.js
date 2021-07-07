@@ -109,7 +109,7 @@ exports.signIn = (req, res) => {
       // if user does not exist, then sending a response => user doesn't exists, sign up instead
       if (userData.length === 0) {
         res.status(401).json({
-          message: "user does not exist, signup instead!",
+          error: "user does not exist, signup instead!",
         });
       } else { // if user exists then comparing password given by client and hashed password that is stored in our database
         bcrypt.compare(password, userData[0].password, (err, result) => {
@@ -135,7 +135,7 @@ exports.signIn = (req, res) => {
             });
           } else { // if the user enters incorrect password, then sending 401 res 
             res.status(401).json({
-              error: "Enter correct password!",
+              error: "Wrong password!",
             });
           }
         });

@@ -435,3 +435,21 @@ async function myposts() {
     });
 }
 myposts();
+
+const feedbackButton = document.querySelector(".feedback");
+feedbackButton.addEventListener("click", () => {
+  const feedbackContainer = document.querySelector(".feedbackPopUpContainer");
+  const cancelButton = document.querySelector(".cancel");
+  const navBar = document.querySelector("nav");
+  const container = document.querySelector(".superContainer");
+
+  navBar.classList.add("afterPopUp");
+  container.classList.add("afterPopUp");
+
+  feedbackContainer.classList.add("visible");
+  cancelButton.addEventListener("click", () => {
+    feedbackContainer.classList.remove("visible");
+    navBar.classList.remove("afterPopUp");
+  container.classList.remove("afterPopUp");
+  });
+})

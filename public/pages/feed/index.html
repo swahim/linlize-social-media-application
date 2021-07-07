@@ -20,6 +20,22 @@
     <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
   </head>
   <body>
+    <!-- Feedback button -->
+    <div class="feedback">
+      Feedback
+    </div>
+      <div class="feedbackPopUpContainer">
+        <div class="navFeedback">
+          <h1>Help us get better</h1>
+        </div>
+        <Textarea class="feedbackEnter" placeholder="Write us feedback :)"></Textarea>
+        <div class="buttonContainerFeedback">
+          <button class="buttonFeedback cancel">Cancel</button>
+          <button class="buttonFeedback ok">Submit</button>
+        </div>
+      </div>
+    <!-- .. -->
+
     <!-- Hamburger Menu -->
     <div class="HamburgerMenuLinks">
       <a href="#"><div class="Links">Home</div></a>
@@ -147,7 +163,7 @@
               </div>
               <div class="rightRoom">
                 <h1>Startup Talks</h1>
-                <p>Discuss what is happening in startup world with the community.</p>
+                <p>Discuss your ideas with the community.</p>
                 <a href="/pages/messages/?room=startup">
                   <button type="button" class="enterRoom enterRoom1">Enter Room!</button>
                 </a>
@@ -155,7 +171,7 @@
           </div>
           <div class="room room2">
               <div class="leftRoom leftRoom2">
-                <i class="fas fa-headphones"></i>
+                <i class="fas fa-comments"></i>
               </div>
               <div class="rightRoom rightRoom2">
                 <h1>General Chats</h1>
@@ -165,7 +181,18 @@
                 </a>
               </div>
           </div>
-
+          <div class="room room3">
+            <div class="leftRoom leftRoom3">
+              <i class="fas fa-briefcase"></i>
+            </div>
+            <div class="rightRoom rightRoom3">
+              <h1>Find Work</h1>
+              <p>Help find yourself freelancing work or an internship.</p>
+              <a href="/pages/messages/?room=general">
+                <button type="button" class="enterRoom enterRoom3">Enter Room!</button>
+              </a>
+            </div>
+        </div>
           </div>
         </div>
       </div>

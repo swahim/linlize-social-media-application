@@ -41,11 +41,10 @@ window.addEventListener("load", () => {
 
   if (localStorage.getItem("theme") === null) {
     localStorage.setItem("theme", "light");
-    localStorage.getItem("theme")
+    localStorage.getItem("theme");
   } else if (localStorage.getItem("theme") === "dark") {
     console.log(localStorage.getItem("theme"));
     document.body.classList.toggle("dark");
-
   }
   if (token === null) {
     location.href = "/pages/signin/";
@@ -81,7 +80,7 @@ window.addEventListener("load", () => {
         companyName.value = data.company;
         designationName.value = data.designation;
         gender.value = data.gender;
-        birthday.value = data.dob.slice(0,10);
+        birthday.value = data.dob.slice(0, 10);
       })
       .catch((err) => {
         alert("Error Fetching data");
@@ -142,6 +141,7 @@ async function handleImageUpload(event) {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        location.href = "/pages/feed/";
       });
   }
   // uploadToServer(compressedFile, name);
@@ -171,6 +171,7 @@ function uploadToServer(file, name) {
   })
     .then((res) => res.json())
     .then((data) => {
+      console.log("after update details");
       console.log(data);
       location.href = "/pages/feed/";
     });
@@ -181,16 +182,14 @@ function uploadToServer(file, name) {
 //     console.log("clicking on submit");
 // })
 
-const homeLogo= document.querySelector(".homeLogo");
-homeLogo.addEventListener("click", (e) =>{
-    location.href = "/pages/feed/";
-  
-})
+const homeLogo = document.querySelector(".homeLogo");
+homeLogo.addEventListener("click", (e) => {
+  location.href = "/pages/feed/";
+});
 checkbox.addEventListener("click", () => {
   if (localStorage.getItem("theme") === "dark") {
     localStorage.setItem("theme", "light");
     document.body.classList.toggle("dark");
-
   } else if (localStorage.getItem("theme") === "light") {
     localStorage.setItem("theme", "dark");
     document.body.classList.toggle("dark");

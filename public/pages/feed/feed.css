@@ -723,7 +723,7 @@ box-shadow: 0 8px 32px 0 rgba(56, 57, 66, 0.37);
   border-top-right-radius: 5px;
 }
 .feedbackPopUpContainer{
-  position: absolute;
+  position: fixed;
   background: white;
   border: 1px solid rgba(180, 180, 180, 1);
   border-radius: 14px;
@@ -791,7 +791,7 @@ box-shadow: 0 8px 32px 0 rgba(56, 57, 66, 0.37);
   color: black;
 }
 .ok{
-  background : rgba(181, 205, 163,0.7);
+  background : rgba(0, 255, 0, 0.6);
   color: white;
   
 }

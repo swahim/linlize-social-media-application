@@ -33,7 +33,18 @@ const token = getToken();
 const urlParams = new URLSearchParams(window.location.search);
 const room = urlParams.get("room");
 console.log(room);
+const roomName=document.querySelector(".roomName");
+const customColor= document.querySelectorAll(".customColor");
 window.addEventListener("load", () => {
+  if(room==="startup"){
+    roomName.innerHTML="StartUp Talks";
+  } else if (room==="general"){
+    roomName.innerHTML="General Talks";
+    for(var i=0; i<customColor.length; i++){
+      customColor[i].style.color="#00adb5";
+    }
+    send.style.background="#00adb5";
+  }
   fetch(`/rooms/joinroom/${room}`, {
     method: "POST",
     headers: {

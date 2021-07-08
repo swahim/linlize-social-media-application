@@ -26,17 +26,11 @@ loginbtn.addEventListener("click", (event) => {
 
   //validating email addresss
   if (!validateEmail(email)) {
-    const popUpInValidEmail = document.querySelector(".popUpInValidEmail");
-    popUpInValidEmail.classList.add("visible");
-    popUpInValidEmail.style.zIndex = "11";
-
-    const dismissPopUpInValidEmail = document.querySelector(
-      ".dismissPopUpInValidEmail"
-    );
-    dismissPopUpInValidEmail.addEventListener("click", (e) => {
-      popUpInValidEmail.classList.remove("visible");
-      popUpInValidEmail.style.zIndex = "10";
-    });
+    Swal.fire({
+      icon: "error",
+      title: "Invalid Email...",
+      text: "Please try again :(",
+    })
   } else {
     fetch(`/auth/signin`, {
       method: "POST",
@@ -50,67 +44,41 @@ loginbtn.addEventListener("click", (event) => {
         console.log(data);
         if (data.error === "user does not exist, signup instead!") {
           console.log("User does not exist");
-          const popUpuserDoesNotExists = document.querySelector(
-            ".popUpuserDoesNotExists"
-          );
-          const dismissPopUpuserDoesNotExists = document.querySelector(
-            ".dismissPopUpuserDoesNotExists"
-          );
-          popUpuserDoesNotExists.classList.add("visible");
-          popUpuserDoesNotExists.classList.zIndex = "11";
-          dismissPopUpuserDoesNotExists.addEventListener("click", (e) => {
-            popUpuserDoesNotExists.classList.remove("visible");
-            popUpuserDoesNotExists.style.zIndex = "10";
-          });
+          Swal.fire({
+            icon: "error",
+            title: "User doesn't exists...",
+            text: "Sign up instead!",
+          })
         } else if (data.error === "Wrong password!") {
           // wrong password
-          const dismissWrongPassword = document.querySelector(
-            ".dismissWrongPassword"
-          );
-          const popupWrongPassword = document.querySelector(
-            ".popupWrongPassword"
-          );
-          popupWrongPassword.classList.add("visible");
-          popupWrongPassword.style.zIndex = "11";
-          dismissWrongPassword.addEventListener("click", (e) => {
-            console.log("in dismiss1");
-            popupWrongPassword.classList.remove("visible");
-            popupWrongPassword.style.zIndex = "10";
-          });
+          Swal.fire({
+            icon: "error",
+            title: "Incorrect Password",
+            text: "Please try again!",
+          })
         } else if (data.token) {
           // sign in successful
           const { token } = data;
-          const popupSignInSuccess = document.querySelector(
-            ".popupSignInSuccess"
-          );
-          popupSignInSuccess.classList.add("visible");
-          popupSignInSuccess.style.zIndex = "11";
 
-          const continueSignInSuccess = document.querySelector(
-            ".continueSignInSuccess"
-          );
-          continueSignInSuccess.addEventListener("click", (e) => {
-            popupSignInSuccess.classList.remove("visible");
-            popupSignInSuccess.style.zIndex = "10";
-            location.href = "/pages/feed/";
-          });
           localStorage.setItem("jwt", token);
+          Swal.fire({
+            icon: "success",
+            title: "Sign in successful...",
+            text: "We hope you leave with some great ideas :)",
+          }).then(() => {
+            window.location.href = "/pages/feed/";
+          });
         }
       })
       // error while fetching data
       .catch((err) => {
-        const dismissServerError = document.querySelector(
-          ".dismissServerError"
-        );
-        const popupServerError = document.querySelector(".popupServerError");
-        popupServerError.classList.add("visible");
-        popupServerError.style.zIndex = "11";
-        dismissServerError.addEventListener("click", (e) => {
-          console.log("in dismiss1");
-          popupServerError.classList.remove("visible");
-          popupServerError.style.zIndex = "10";
-        });
+        // serverError();
         console.log(err);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Server Error Occured, Please Try Again Later !!",
+        });
       });
   }
 });
@@ -139,46 +107,28 @@ signupbtn.addEventListener("click", (event) => {
   console.log(email, password, confirmPassword);
   // validating email address
   if (!validateEmail(email)) {
-    const popUpInValidEmail = document.querySelector(".popUpInValidEmail");
-    popUpInValidEmail.classList.add("visible");
-    popUpInValidEmail.style.zIndex = "11";
-
-    const dismissPopUpInValidEmail = document.querySelector(
-      ".dismissPopUpInValidEmail"
-    );
-    dismissPopUpInValidEmail.addEventListener("click", (e) => {
-      popUpInValidEmail.classList.remove("visible");
-      popUpInValidEmail.style.zIndex = "10";
-    });
+    Swal.fire({
+      icon: "error",
+      title: "Invalid Email...",
+      text: "Please try again :(",
+    })
   } else {
     // checking if password is same or not
     if (password !== confirmPassword) {
-      const dismissPasswordMatch = document.querySelector(
-        ".dismissPasswordMatch"
-      );
-      const popupPasswordMatch = document.querySelector(".popupPasswordMatch");
-      popupPasswordMatch.classList.add("visible");
-      popupPasswordMatch.style.zIndex = "11";
-      dismissPasswordMatch.addEventListener("click", (e) => {
-        console.log("in dismiss1");
-        popupPasswordMatch.classList.remove("visible");
-        popupPasswordMatch.style.zIndex = "10";
-      });
+      Swal.fire({
+        icon: "error",
+        title: "Password doesn't match..",
+        text: "Please try again :(",
+      })
     } else {
       // if password is same
       if (!validatePassword(password)) {
         // validating password
-        const popUpInValidPassword = document.querySelector(".popUpInValidPassword");
-        popUpInValidPassword.classList.add("visible");
-        popUpInValidPassword.style.zIndex = "11";
-
-        const dismissPopUpInValidPassword = document.querySelector(
-          ".dismissPopUpInValidPassword"
-        );
-        dismissPopUpInValidPassword.addEventListener("click", (e) => {
-          popUpInValidPassword.classList.remove("visible");
-          popUpInValidPassword.style.zIndex = "10";
-        });
+        Swal.fire({
+          icon: "error",
+          title: "Invalid Password..",
+          text: "Please try again :(",
+        })
       } else {
         // this case => email, password is valid, & both password matches
         fetch(`/auth/signup`, {
@@ -191,66 +141,52 @@ signupbtn.addEventListener("click", (event) => {
           .then((res) => res.json())
           .then((data) => {
             if (data.message === "user already exists") {
-              const popUpuserAlreadyExists = document.querySelector(
-                ".popUpuserAlreadyExists"
-              );
-              const dismissPopUpuserAlreadyExists = document.querySelector(
-                ".dismissPopUpuserAlreadyExists"
-              );
-              popUpuserAlreadyExists.classList.add("visible");
-              popUpuserAlreadyExists.classList.zIndex = "11";
-              dismissPopUpuserAlreadyExists.addEventListener("click", (e) => {
-                popUpuserAlreadyExists.classList.remove("visible");
-                popUpuserAlreadyExists.style.zIndex = "10";
-              });
+              Swal.fire({
+                icon: "error",
+                title: "User doesn't exists...",
+                text: "Sign In instead!",
+              })
             } else if (data.error) {
               // POP UP DATABASE ERROR OCCURED
-              const dismissServerError = document.querySelector(
-                ".dismissServerError"
-              );
-              const popupServerError =
-                document.querySelector(".popupServerError");
-              popupServerError.classList.add("visible");
-              popupServerError.style.zIndex = "11";
-              dismissServerError.addEventListener("click", (e) => {
-                console.log("in dismiss1");
-                popupServerError.classList.remove("visible");
-                popupServerError.style.zIndex = "10";
-              });
               console.log(err);
+              Swal.fire({
+                icon: "error",
+                title: "Incorrect Password",
+                text: "Please try again!",
+              })
             } else if (data.token) {
               const { token } = data;
-              const popupSignUpSuccess = document.querySelector(
-                ".popupSignUpSuccess"
-              );
-              popupSignUpSuccess.classList.add("visible");
-              popupSignUpSuccess.style.zIndex = "11";
-
-              const continueSignUpSuccess = document.querySelector(
-                ".continueSignUpSuccess"
-              );
-              continueSignUpSuccess.addEventListener("click", (e) => {
-                popupSignUpSuccess.classList.remove("visible");
-                popupSignUpSuccess.style.zIndex = "10";
-                location.href = "/pages/completeProfile/";
-              });
-
               localStorage.setItem("jwt", token);
+
+              Swal.fire({
+                icon: "success",
+                title: "Sign in successful...",
+                text: "We hope you leave with some great ideas :)",
+              }).then(() => {
+                window.location.href = "/pages/feed/";
+              });
+              // const popupSignUpSuccess = document.querySelector(
+              //   ".popupSignUpSuccess"
+              // );
+              // popupSignUpSuccess.classList.add("visible");
+              // popupSignUpSuccess.style.zIndex = "11";
+
+              // const continueSignUpSuccess = document.querySelector(
+              //   ".continueSignUpSuccess"
+              // );
+              // continueSignUpSuccess.addEventListener("click", (e) => {
+              //   popupSignUpSuccess.classList.remove("visible");
+              //   popupSignUpSuccess.style.zIndex = "10";
+              //   location.href = "/pages/completeProfile/";
+              // });
             }
           })
           .catch((err) => {
             // POP UP DATABASE ERROR OCCURED
-            const dismissServerError = document.querySelector(
-              ".dismissServerError"
-            );
-            const popupServerError =
-              document.querySelector(".popupServerError");
-            popupServerError.classList.add("visible");
-            popupServerError.style.zIndex = "11";
-            dismissServerError.addEventListener("click", (e) => {
-              console.log("in dismiss1");
-              popupServerError.classList.remove("visible");
-              popupServerError.style.zIndex = "10";
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Server Error Occured, Please Try Again Later !",
             });
             console.log(err);
           });

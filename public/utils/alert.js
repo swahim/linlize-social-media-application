@@ -7,7 +7,7 @@ function signInSuccess() {
     confirmButtonText: "Cool",
   });
 }
-function serverError() {
+export function serverError() {
   Swal.fire({
     icon: "error",
     title: "OOPS...",

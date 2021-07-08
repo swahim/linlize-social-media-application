@@ -147,7 +147,14 @@ async function handleImageUpload(event) {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        location.href = "/pages/feed/";
+        if(data.message){
+          Swal.fire({
+            icon: "success",
+            title: "Profile Updated Successful...",
+          }).then(() => {
+            window.location.href = "/pages/feed/";
+          });
+        }
       })
       .catch((err) => {
         console.log(err);

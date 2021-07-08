@@ -80,7 +80,6 @@ exports.updatedetails = (req, res) => {
         // sending 200 response after updating user details
         res.status(200).json({
           message: "details updated successfully",
-          data: data,
         });
       })
       // during this process, if any error occurs

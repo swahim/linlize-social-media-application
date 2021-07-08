@@ -190,35 +190,48 @@ function editDeletePost(data) {
 
   deletePostButton.addEventListener("click", () => {
     console.log("clicking deletePostButton");
-    fetch(`/posts/deletepost/${data.postid}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: token,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.message === "Post deleted successful") {
-          EditPostPopUp.classList.remove("visible");
-          body.style.overflow = "scroll";
-          Swal.fire({
-            icon: "success",
-            title: "Post Deleted Successful...",
-          }).then(() => {
-            location.reload();
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`/posts/deletepost/${data.postid}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: token,
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            if (data.message === "Post deleted successful") {
+              EditPostPopUp.classList.remove("visible");
+              body.style.overflow = "scroll";
+              Swal.fire(
+                "Deleted!",
+                "Your post has been deleted.",
+                "success"
+              ).then(() => {
+                location.reload();
+              });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Server Error Occured, Please Try Again Later !!",
+            });
           });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Server Error Occured, Please Try Again Later !!",
-        });
-      });
+      }
+    });
   });
 
   saveChangesButton2.addEventListener("click", () => {
@@ -242,6 +255,8 @@ function editDeletePost(data) {
           Swal.fire({
             icon: "success",
             title: "Post Updated Successful...",
+          }).then(() => {
+            location.reload();
           });
         }
       })

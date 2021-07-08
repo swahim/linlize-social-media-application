@@ -357,9 +357,9 @@ nav {
 .DisplayPost::-webkit-scrollbar {
   display: none;
 }
-.temp{
+/* .temp{
   display: none;
-}
+} */
 .ProfileDescription {
   display: flex;
   padding: 1%;
@@ -653,10 +653,6 @@ a {
   height: 90%;
 }
 .room {
-  /* background: rgba( 0, 0, 0, 0.40 );
-box-shadow: 0 8px 32px 0 rgba(56, 57, 66, 0.37);
-  backdrop-filter: blur(4.5px);
-  -webkit-backdrop-filter: blur(4.5px); */
   border-radius: 10px;
   width: 90%;
   height: 20%;
@@ -865,8 +861,8 @@ box-shadow: 0 8px 32px 0 rgba(56, 57, 66, 0.37);
 .after{
   margin-top: 20%;
 }
-/*  
-Making Responsive
+ 
+/* Making Responsive */
 @media screen and (max-width: 1472px) {
   nav {
     height: 8rem;
@@ -941,9 +937,9 @@ Making Responsive
   .dropDownContainer {
     right: 15%;
   }
-  /* .navDisplayPost{
+  .navDisplayPost{
     background : red;
-  } */
+  }
   .displayPostProfileImage {
     height: 5rem;
     width: 5.9rem;
@@ -1067,7 +1063,7 @@ Making Responsive
     display: block;
     width: 5%;
     height: 40%;
-    /* background : grey; */
+    background : grey;
     align-self: center;
     display: flex;
     justify-content: space-evenly;
@@ -1302,9 +1298,9 @@ Making Responsive
     flex-direction: column;
   }
   .lineSeperation {
-    /* height: 0.7px;
+    height: 0.7px;
     width: 60%;
-    align-self: center; */
+    align-self: center;
     display: none;
   }
   .fa-comments,

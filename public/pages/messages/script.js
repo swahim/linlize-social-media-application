@@ -36,6 +36,8 @@ console.log(room);
 const roomName = document.querySelector(".roomName");
 const customColor = document.querySelectorAll(".customColor");
 window.addEventListener("load", () => {
+  const body = document.querySelector("body");
+  body.classList.add("visible");
   if (token === null) {
     location.href = "/pages/signin/";
   } else {
@@ -134,3 +136,8 @@ window.addEventListener("load", () => {
       });
   }
 });
+
+const homebutton = document.querySelector(".homeContainer");
+homebutton.addEventListener("click", () => {
+  window.location = "/pages/feed";
+})

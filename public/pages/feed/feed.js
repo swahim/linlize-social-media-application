@@ -93,6 +93,20 @@ function uploadToServer(file, content, name) {
       popUp.classList.remove("visible");
       navBar.classList.remove("afterPopUp");
       container.classList.remove("afterPopUp");
+      Swal.fire({
+        icon: "success",
+        title: "Post Uploaded Successful...",
+      }).then(() => {
+        location.reload();
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Server Error Occured, Please Try Again Later !!",
+      });
     });
 }
 
@@ -168,8 +182,12 @@ window.addEventListener("load", () => {
         });
       })
       .catch((err) => {
-        alert("Error Fetching data");
         console.log(err);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Server Error Occured, Please Try Again Later !!",
+        });
       });
   }
 });
@@ -279,7 +297,11 @@ async function myposts() {
         ProfileDescription.appendChild(profileName);
         ProfileDescription.innerHTML = `<a href="../viewProfile/?userid=${obj.userid}"><h1 class=displayPostName>${obj.firstname} ${obj.lastname}</h1></a>`;
 
-        ProfileDescription.innerHTML += `<p>${obj.designation} | ${obj.company}</p>`;
+        if (obj.designation === "" || obj.designation === "") {
+          ProfileDescription.innerHTML += ` `;
+        } else {
+          ProfileDescription.innerHTML += `<p>${obj.designation} | ${obj.company}</p>`;
+        }
 
         navDisplayPost.append(ProfileDescription);
         const img = document.createElement("img");
@@ -434,54 +456,62 @@ async function myposts() {
           }
         });
       }
+    })
+    .catch((err) => {
+      console.log(err);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Server Error Occured, Please Try Again Later !!",
+      });
     });
 }
 myposts();
 
 const feedbackButton = document.querySelector(".feedback");
 feedbackButton.addEventListener("click", () => {
-  const feedbackContainer = document.querySelector(".feedbackPopUpContainer");
-  const cancelButton = document.querySelector(".cancel");
-  const submit = document.querySelector(".ok");
-  const navBar = document.querySelector("nav");
-  const container = document.querySelector(".superContainer");
-  const body = document.querySelector("body");
-  body.style.overflow = "hidden";
-  navBar.classList.add("afterPopUp");
-  container.classList.add("afterPopUp");
-
-  feedbackContainer.classList.add("visible");
-  cancelButton.addEventListener("click", () => {
-    feedbackContainer.classList.remove("visible");
-    navBar.classList.remove("afterPopUp");
-    container.classList.remove("afterPopUp");
-    body.style.overflow = "scroll";
-  });
-
-  submit.addEventListener("click", () => {
-    const feedback = document.querySelector(".feedbackEnter");
-    var feedbackValue = feedback.value;
-    console.log(feedback.value);
-    fetch(`/feedback/sendmail`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: token,
-      },
-      body: JSON.stringify({ 
-        feedback: feedback.value,
-       }),
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        console.log(data);
-      });
-    feedback.value = "";
-
-    feedbackContainer.classList.remove("visible");
-    navBar.classList.remove("afterPopUp");
-    container.classList.remove("afterPopUp");
-    body.style.overflow = "scroll";
+  const { value: text } = Swal.fire({
+    input: "textarea",
+    inputLabel: "Message",
+    inputPlaceholder: "Type your message here...",
+    inputAttributes: {
+      "aria-label": "Type your message here",
+    },
+    showCancelButton: true,
+  }).then((result) => {
+    if (result.value) {
+      console.log(result.value);
+      var feedback = result.value;
+      fetch(`/feedback/sendmail`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: token,
+        },
+        body: JSON.stringify({
+          feedback: feedback,
+        }),
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          console.log(data);
+          if (data.message === "feedback sent successful") {
+            Swal.fire({
+              icon: "success",
+              title: "Feedback sent successful...",
+              text: "Thanks for your feedback :)",
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Server Error Occured, Please Try Again Later !!",
+          });
+        });
+    }
   });
 });
 
@@ -489,11 +519,15 @@ feedbackButton.addEventListener("click", () => {
 const topBarProfileImage = document.querySelector(".topBarProfile");
 let xPos = 0;
 let yPos = 0;
-xPos += (topBarProfileImage.offsetLeft - topBarProfileImage.scrollLeft + topBarProfileImage.clientLeft);
-yPos += (topBarProfileImage.offsetTop - topBarProfileImage.scrollTop + topBarProfileImage.clientTop);
+xPos +=
+  topBarProfileImage.offsetLeft -
+  topBarProfileImage.scrollLeft +
+  topBarProfileImage.clientLeft;
+yPos +=
+  topBarProfileImage.offsetTop -
+  topBarProfileImage.scrollTop +
+  topBarProfileImage.clientTop;
 
 //Setting dropDown in this position
-dropDownContainer.style.top = `${yPos+56}px`;
-dropDownContainer.style.left = `${xPos-175}px`;
-
-
+dropDownContainer.style.top = `${yPos + 56}px`;
+dropDownContainer.style.left = `${xPos - 175}px`;

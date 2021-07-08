@@ -250,13 +250,13 @@ function logOutButton() {
   const cookie = getCookie("linkize");
 
   console.log(token);
-  if (token) {
+  // if (token) {
     localStorage.removeItem("jwt");
-    location.href = "/pages/signin";
-  } else {
+    // location.href = "/pages/signin";
+  // } else {
     document.cookie = "linkize=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
     location.href = "/pages/signin";
-  }
+  // }
 }
 
 logOut.addEventListener("click", () => {

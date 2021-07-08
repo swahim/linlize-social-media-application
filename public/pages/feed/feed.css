@@ -941,9 +941,9 @@ box-shadow: 0 8px 32px 0 rgba(56, 57, 66, 0.37);
   .dropDownContainer {
     right: 15%;
   }
-  .navDisplayPost {
+  /* .navDisplayPost {
     background: red;
-  }
+  } */
   .displayPostProfileImage {
     height: 5rem;
     width: 5.9rem;

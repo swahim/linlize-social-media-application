@@ -1,39 +1,7 @@
-// const editButton = document.querySelector(".editPost");
-// editButton.addEventListener("click", () => {
-//  const navBar = document.querySelector("nav");
-//  const container = document.querySelector(".superContainer");
-//  const popUp = document.querySelector(".editContainer");
-//  popUp.classList.add("visible");
-//  navBar.classList.add("afterPopUp");
-//  container.classList.add("afterPopUp");
-// });
-
-// const cross = document.querySelector(".fa-times");
-// cross.addEventListener("click", () => {
-//    const navBar = document.querySelector("nav");
-//    const container = document.querySelector(".superContainer");
-//    const popUp = document.querySelector(".editContainer");
-//    popUp.classList.remove("visible");
-//    navBar.classList.remove("afterPopUp");
-//    container.classList.remove("afterPopUp");
-// });
-
-// const postimg=document.querySelector(".postimg");
-
-// const editButton = document.querySelector(".fa-edit");
-// const cross = document.querySelector(".fa-times");
-// const editContainerPopUp = document.querySelector(".editContainer");
-// editButton.addEventListener("click", () => {
-//    editContainerPopUp.classList.add("visible");
-// })
-// cross.addEventListener("click", () => {
-//    editContainerPopUp.classList.remove("visible");
-// })
 checkbox.addEventListener("click", () => {
   if (localStorage.getItem("theme") === "dark") {
     localStorage.setItem("theme", "light");
     document.body.classList.toggle("dark");
-
   } else if (localStorage.getItem("theme") === "light") {
     localStorage.setItem("theme", "dark");
     document.body.classList.toggle("dark");
@@ -44,11 +12,6 @@ const body = document.querySelector("body");
 const cross = document.querySelector(".fa-times");
 
 const post = document.querySelectorAll(".post");
-// post.addEventListener("click", () => {
-//   console.log("clicking on post")
-//   EditPostPopUp.classList.add("visible");
-//   body.style.overflow = "hidden";
-// });
 cross.addEventListener("click", () => {
   EditPostPopUp.classList.remove("visible");
   body.style.overflow = "scroll";
@@ -95,11 +58,10 @@ window.addEventListener("load", () => {
   body.classList.add("visible");
   if (localStorage.getItem("theme") === null) {
     localStorage.setItem("theme", "light");
-    localStorage.getItem("theme")
+    localStorage.getItem("theme");
   } else if (localStorage.getItem("theme") === "dark") {
     console.log(localStorage.getItem("theme"));
     document.body.classList.toggle("dark");
-
   }
 
   if (userid === null) {
@@ -128,8 +90,12 @@ window.addEventListener("load", () => {
           username[i].innerText = data[0].firstname + " " + data[0].lastname;
         }
         yourBio.innerText = data[0].bio;
-        document.querySelector(".designationCompany").innerText =
-          data[0].designation + " | " + data[0].company;
+        if (data[0].designation === "" || data[0].company === "") {
+          document.querySelector(".designationCompany").innerHTML = `<p></p>`;
+        } else {
+          document.querySelector(".designationCompany").innerText =
+            data[0].designation + " | " + data[0].company;
+        }
         // dom manipulation for profile image, name, bio of user
         const img = document.querySelectorAll(".leftProfileImageBackend");
         if (data[0].mime === null) {
@@ -198,14 +164,16 @@ window.addEventListener("load", () => {
             }
           });
         }
+      })
+      .catch((err) => {
+        console.log(err);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Server Error Occured, Please Try Again Later !!",
+        });
       });
   }
-  // console.log(
-  //   username.innerText,
-  //   name.innerText,
-  //   yourBio.innerText,
-  //   profileImageBackend
-  // );
 });
 
 function editDeletePost(data) {
@@ -222,17 +190,48 @@ function editDeletePost(data) {
 
   deletePostButton.addEventListener("click", () => {
     console.log("clicking deletePostButton");
-    fetch(`/posts/deletepost/${data.postid}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: token,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`/posts/deletepost/${data.postid}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: token,
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            if (data.message === "Post deleted successful") {
+              EditPostPopUp.classList.remove("visible");
+              body.style.overflow = "scroll";
+              Swal.fire(
+                "Deleted!",
+                "Your post has been deleted.",
+                "success"
+              ).then(() => {
+                location.reload();
+              });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Server Error Occured, Please Try Again Later !!",
+            });
+          });
+      }
+    });
   });
 
   saveChangesButton2.addEventListener("click", () => {
@@ -250,6 +249,24 @@ function editDeletePost(data) {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        if (data.message === "Post updated successfully") {
+          EditPostPopUp.classList.remove("visible");
+          body.style.overflow = "scroll";
+          Swal.fire({
+            icon: "success",
+            title: "Post Updated Successful...",
+          }).then(() => {
+            location.reload();
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Server Error Occured, Please Try Again Later !!",
+        });
       });
   });
 }

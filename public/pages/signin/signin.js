@@ -143,7 +143,7 @@ signupbtn.addEventListener("click", (event) => {
             if (data.message === "user already exists") {
               Swal.fire({
                 icon: "error",
-                title: "User doesn't exists...",
+                title: "User already exists...",
                 text: "Sign In instead!",
               })
             } else if (data.error) {
@@ -160,25 +160,11 @@ signupbtn.addEventListener("click", (event) => {
 
               Swal.fire({
                 icon: "success",
-                title: "Sign in successful...",
+                title: "Sign Up Successful...",
                 text: "We hope you leave with some great ideas :)",
               }).then(() => {
-                window.location.href = "/pages/feed/";
+                window.location.href = "/pages/completeProfile/";
               });
-              // const popupSignUpSuccess = document.querySelector(
-              //   ".popupSignUpSuccess"
-              // );
-              // popupSignUpSuccess.classList.add("visible");
-              // popupSignUpSuccess.style.zIndex = "11";
-
-              // const continueSignUpSuccess = document.querySelector(
-              //   ".continueSignUpSuccess"
-              // );
-              // continueSignUpSuccess.addEventListener("click", (e) => {
-              //   popupSignUpSuccess.classList.remove("visible");
-              //   popupSignUpSuccess.style.zIndex = "10";
-              //   location.href = "/pages/completeProfile/";
-              // });
             }
           })
           .catch((err) => {

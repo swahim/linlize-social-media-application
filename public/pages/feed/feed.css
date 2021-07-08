@@ -772,7 +772,7 @@ box-shadow: 0 8px 32px 0 rgba(56, 57, 66, 0.37);
   border-top-right-radius: 5px;
   transition: all 0.2s linear;
 }
-.feedbackPopUpContainer {
+/* .feedbackPopUpContainer {
   position: fixed;
   background: white;
   border: 1px solid rgba(180, 180, 180, 1);

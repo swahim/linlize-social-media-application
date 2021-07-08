@@ -205,7 +205,7 @@ exports.updatepost = (req, res) => {
     // SENDING 200 RESPONSE STATUS
     .then((data) => {
       res.status(200).json({
-        message: "Post updated successfully,",
+        message: "Post updated successfully",
       });
     })
     // DURING THIS PROCESS, IF ANY ERROR OCCURS
@@ -227,7 +227,7 @@ exports.deletepost = (req, res) => {
     .then((data) => {
       //SENDING 200 RESPONSE STATUS
       res.status(200).json({
-        message: "Post deleted successfully,",
+        message: "Post deleted successful",
       });
     })
     // DURING THIS PROCESS, IF ANY ERROR OCCURS

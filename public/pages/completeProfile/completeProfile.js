@@ -68,7 +68,7 @@ window.addEventListener("load", () => {
         console.log(data);
         if (data.mime === null) {
           for (i = 0; i < profilePic.length; i++) {
-            profilePic[i].src = "../../images/Icon.png";
+            profilePic[i].src = "../../images/default-profile-picture1.jpg";
           }
         } else {
           for (i = 0; i < profilePic.length; i++) {
@@ -85,8 +85,12 @@ window.addEventListener("load", () => {
         birthday.value = data.dob.slice(0, 10);
       })
       .catch((err) => {
-        alert("Error Fetching data");
         console.log(err);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Server Error Occured, Please Try Again Later !!",
+        });
       });
   }
 });
@@ -143,7 +147,22 @@ async function handleImageUpload(event) {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        location.href = "/pages/feed/";
+        if(data.message){
+          Swal.fire({
+            icon: "success",
+            title: "Profile Updated Successful...",
+          }).then(() => {
+            window.location.href = "/pages/feed/";
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Server Error Occured, Please Try Again Later !!",
+        });
       });
   }
   // uploadToServer(compressedFile, name);
@@ -176,13 +195,16 @@ function uploadToServer(file, name) {
       console.log("after update details");
       console.log(data);
       location.href = "/pages/feed/";
+    })
+    .catch((err) => {
+      console.log(err);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Server Error Occured, Please Try Again Later !!",
+      });
     });
 }
-// submit.addEventListener("click", (e) =>{
-//     e.preventDefault();
-//     console.log(firstName, lastName, phoneNumber, writeBio, companyName, designationName, gender, birthday);
-//     console.log("clicking on submit");
-// })
 
 const homeLogo = document.querySelector(".homeLogo");
 homeLogo.addEventListener("click", (e) => {

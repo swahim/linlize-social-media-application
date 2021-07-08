@@ -34,8 +34,8 @@ router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
   console.log(req.user);
 
   // Getting the information given by google when user authenticated with google like first name, last name, profile pic, email.
-  const firstname = req.user.name.familyName;
-  const lastname = req.user.name.givenName;
+  const lastname = req.user.name.familyName;
+  const firstname = req.user.name.givenName;
   const profilepic = req.user.photos[0].value;
   const email = req.user.emails[0].value;
 
@@ -123,8 +123,8 @@ router.get(
   function (req, res) {
     console.log("in facebook call back");
     // Getting the information given by facebook when user authenticated with facebook like first name, last name, profile pic, email.
-    const firstname = req.user.name.familyName;
-    const lastname = req.user.name.givenName;
+    const lastname = req.user.name.familyName;
+    const firstname = req.user.name.givenName;
     const profilepic = req.user.photos[0].value;
     const email = req.user.emails[0].value;
 

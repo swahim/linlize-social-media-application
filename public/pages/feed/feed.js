@@ -529,5 +529,21 @@ yPos +=
   topBarProfileImage.clientTop;
 
 //Setting dropDown in this position
-dropDownContainer.style.top = `${yPos + 56}px`;
-dropDownContainer.style.left = `${xPos - 175}px`;
+dropDownContainer.style.top = `${yPos+56}px`;
+dropDownContainer.style.left = `${xPos-175}px`;
+
+//Getting position of search div
+const searchDiv = document.querySelector(".searchDiv");
+let xPosSearch = 0;
+let yPosSearch = 0;
+xPosSearch += (searchDiv.offsetLeft - searchDiv.scrollLeft + searchDiv.clientLeft);
+yPosSearch += (searchDiv.offsetTop - searchDiv.scrollTop + searchDiv.clientTop);
+console.log(xPosSearch, yPosSearch);
+
+const dropDownSearchBox = document.querySelector(".dropDownSearchBox");
+dropDownSearchBox.style.top = `${yPosSearch+40}px`;
+dropDownSearchBox.style.left = `${xPosSearch}px`;
+
+searchDiv.addEventListener("click", () => {
+  dropDownSearchBox.classList.toggle("visible");
+})

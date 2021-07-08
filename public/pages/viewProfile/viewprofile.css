@@ -337,13 +337,11 @@ nav {
 .popUpleft {
   height: 100%;
   width: 60%;
-  display: flex;
-  align-items: center;
   padding-right: 2%;
 }
 .popUpleft > img {
   width: 100%;
-  height: auto;
+  height: 100%;
 }
 .lineSeperation {
   height: 100%;
@@ -576,6 +574,8 @@ Responsive */
     width: auto;
     height: 50%;
     margin-top: 2%;
+    padding-bottom: 2%;
+    padding-right: 0;
   }
   .navPopUpRightPhone {
     display: flex;

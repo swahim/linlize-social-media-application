@@ -132,46 +132,46 @@ window.addEventListener("load", () => {
   }
 
   console.log(token);
-  if (token === null) {
-    location.href = "/pages/signin";
-  } else {
-    fetch(`/posts/getpics`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: token,
-      },
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        console.log(data);
-        fullname.innerHTML = data.firstname + " " + data.lastname;
-        const img = document.querySelectorAll(".profileImageBackend");
-        if (data.mime === null) {
-          var i;
-          for (i = 0; i < img.length; i++) {
-            img[i].src = "../../images/default-profile-picture1.jpg";
-          }
-        } else {
-          var i;
-          for (i = 0; i < img.length; i++) {
-            img[i].src = data.data;
-          }
-        }
+  // if (token === null) {
+  //   location.href = "/pages/signin";
+  // } else {
+  //   fetch(`/posts/getpics`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       authorization: token,
+  //     },
+  //   })
+  //     .then((resp) => resp.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       fullname.innerHTML = data.firstname + " " + data.lastname;
+  //       const img = document.querySelectorAll(".profileImageBackend");
+  //       if (data.mime === null) {
+  //         var i;
+  //         for (i = 0; i < img.length; i++) {
+  //           img[i].src = "../../images/default-profile-picture1.jpg";
+  //         }
+  //       } else {
+  //         var i;
+  //         for (i = 0; i < img.length; i++) {
+  //           img[i].src = data.data;
+  //         }
+  //       }
 
-        //changing the href for view your profile
-        document.querySelector(".viewYourProfile").href =
-          "/pages/viewProfile?userid=" + data.userid + "&self=true";
-        Link2.addEventListener("click", (e) => {
-          location.href =
-            "/pages/viewProfile?userid=" + data.userid + "&self=true";
-        });
-      })
-      .catch((err) => {
-        alert("Error Fetching data");
-        console.log(err);
-      });
-  }
+  //       //changing the href for view your profile
+  //       document.querySelector(".viewYourProfile").href =
+  //         "/pages/viewProfile?userid=" + data.userid + "&self=true";
+  //       Link2.addEventListener("click", (e) => {
+  //         location.href =
+  //           "/pages/viewProfile?userid=" + data.userid + "&self=true";
+  //       });
+  //     })
+  //     .catch((err) => {
+  //       alert("Error Fetching data");
+  //       console.log(err);
+  //     });
+  // }
 });
 
 sharePostButton.addEventListener("click", () => {
@@ -496,4 +496,18 @@ yPos += (topBarProfileImage.offsetTop - topBarProfileImage.scrollTop + topBarPro
 dropDownContainer.style.top = `${yPos+56}px`;
 dropDownContainer.style.left = `${xPos-175}px`;
 
+//Getting position of search div
+const searchDiv = document.querySelector(".searchDiv");
+let xPosSearch = 0;
+let yPosSearch = 0;
+xPosSearch += (searchDiv.offsetLeft - searchDiv.scrollLeft + searchDiv.clientLeft);
+yPosSearch += (searchDiv.offsetTop - searchDiv.scrollTop + searchDiv.clientTop);
+console.log(xPosSearch, yPosSearch);
 
+const dropDownSearchBox = document.querySelector(".dropDownSearchBox");
+dropDownSearchBox.style.top = `${yPosSearch+40}px`;
+dropDownSearchBox.style.left = `${xPosSearch}px`;
+
+searchDiv.addEventListener("click", () => {
+  dropDownSearchBox.classList.toggle("visible");
+})

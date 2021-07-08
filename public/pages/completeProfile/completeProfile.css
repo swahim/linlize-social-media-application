@@ -17,6 +17,8 @@ body {
   height: 130vh;
   overflow: scroll;
   background: rgba(229, 229, 229, 1);
+  opacity : 0;
+  transition: opacity 1s ease-in;
 }
 .visible {
   opacity: 1;

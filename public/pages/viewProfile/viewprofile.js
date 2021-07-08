@@ -91,6 +91,8 @@ function getToken() {
 const token = getToken();
 
 window.addEventListener("load", () => {
+  const body = document.querySelector("body");
+  body.classList.add("visible");
   if (localStorage.getItem("theme") === null) {
     localStorage.setItem("theme", "light");
     localStorage.getItem("theme")

@@ -11,6 +11,11 @@ body {
   transition: all 0.2s linear;
   background-color: #f1f1f1;
   overflow-x: hidden;
+  opacity: 0;
+  transition: opacity 1s ease-in;
+}
+.visible{
+  opacity: 1;
 }
 html {
   font-size: 62.5%;

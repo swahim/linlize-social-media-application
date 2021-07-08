@@ -357,7 +357,7 @@ nav {
 .DisplayPost::-webkit-scrollbar {
   display: none;
 }
-.temp{
+.temp {
   display: none;
 }
 .ProfileDescription {
@@ -847,26 +847,26 @@ box-shadow: 0 8px 32px 0 rgba(56, 57, 66, 0.37);
   background: transparent;
   color: black;
 }
-.dropDownSearchBox{
+.dropDownSearchBox {
   position: absolute;
   width: 200px;
   z-index: 20;
-  background : grey;
+  background: grey;
   padding: 1%;
   font-size: 1.5rem;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   opacity: 0;
-  color : white;
+  color: white;
 }
-.dropDownSearchBox.visible{
+.dropDownSearchBox.visible {
   opacity: 1;
 }
-.after{
-  margin-top: 20%;
+.after {
+  margin: 10%;
 }
-/*  
-Making Responsive
+
+/* Making Responsive */
 @media screen and (max-width: 1472px) {
   nav {
     height: 8rem;
@@ -941,9 +941,9 @@ Making Responsive
   .dropDownContainer {
     right: 15%;
   }
-  /* .navDisplayPost{
-    background : red;
-  } */
+  .navDisplayPost {
+    background: red;
+  }
   .displayPostProfileImage {
     height: 5rem;
     width: 5.9rem;
@@ -1355,4 +1355,9 @@ Making Responsive
   .feedbackPopUpContainer {
     width: 85%;
   }
+}
+.elementsDropDown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

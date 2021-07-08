@@ -37,6 +37,8 @@ function getToken() {
 }
 
 window.addEventListener("load", () => {
+  const body = document.querySelector("body");
+  body.classList.add("visible");
   const token = getToken();
 
   if (localStorage.getItem("theme") === null) {

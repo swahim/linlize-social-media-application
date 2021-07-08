@@ -8,6 +8,7 @@ const sharePostButton = document.querySelector(".startPostButton");
 const cross = document.querySelector(".fa-times");
 const logOut = document.querySelector(".LogOut");
 const hamburgerLogOut = document.querySelector(".logOut");
+const dropDownContainer = document.querySelector(".dropDownContainer");
 let image_compressed = "";
 
 //hamburger
@@ -201,7 +202,6 @@ const profileImageTopBarContainer = document.querySelector(
   ".profileImageTopBarContainer"
 );
 profileImageTopBarContainer.addEventListener("click", () => {
-  const dropDownContainer = document.querySelector(".dropDownContainer");
   dropDownContainer.classList.toggle("visible");
 });
 
@@ -484,3 +484,16 @@ feedbackButton.addEventListener("click", () => {
     body.style.overflow = "scroll";
   });
 });
+
+//Getting position of dropdown element
+const topBarProfileImage = document.querySelector(".topBarProfile");
+let xPos = 0;
+let yPos = 0;
+xPos += (topBarProfileImage.offsetLeft - topBarProfileImage.scrollLeft + topBarProfileImage.clientLeft);
+yPos += (topBarProfileImage.offsetTop - topBarProfileImage.scrollTop + topBarProfileImage.clientTop);
+
+//Setting dropDown in this position
+dropDownContainer.style.top = `${yPos+56}px`;
+dropDownContainer.style.left = `${xPos-175}px`;
+
+

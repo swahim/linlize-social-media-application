@@ -45,7 +45,7 @@ router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
       if (isValid.length !== 0) {
         // getting userid from database to send jwt token
         const user_id = data.rows[0].userid;
-        // Creating a token with the help of jwt by providing email and a secret key
+        // Creating a token with the help of jwt by providing emailid, userid and a secret key
         const token = jwt.sign(
           {
             email: email,
@@ -59,7 +59,7 @@ router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
           expires: new Date(Date.now() + 3600000),
         });
 
-        // After sending the cookies, it's time to redirect feed page
+        // After sending the cookies, it's time to redirect to feed page
         res.redirect("/pages/feed");
       } else {
         // This is else block when user logged in with google for first time, so hence we are storing users name, email and profile pic
@@ -80,6 +80,7 @@ router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
                 `INSERT INTO details (firstname, lastname, email, img, mime) VALUES  ('${firstname}','${lastname}','${email}',bytea('${imgdata}'), '${mime}');`
               )
               .then((data) => {
+                // getting userid from database after storing details
                 client
                   .query(`SELECT userid FROM details WHERE email='${email}'`)
                   .then((data) => {
@@ -94,6 +95,7 @@ router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
                     res.cookie("linkize", token, {
                       expires: new Date(Date.now() + 3600000),
                     });
+                    // redirecting to completeProfile page as the user logged in with google for first time
                     res.redirect("/pages/completeProfile/");
                   });
               })
@@ -135,28 +137,29 @@ router.get(
       .query(`SELECT * FROM details WHERE email = '${email}';`)
       .then((data) => {
         isValid = data.rows;
-
         // Checking if user already exists, then we can send token to client with the help of cookies,
         // not sending as a json object because we weren't able to acquire token using json object
         if (isValid.length !== 0) {
-          console.log("in user already exists");
-          // Creating a token with the help of jwt by providing email and a secret key
+          // getting userid from database to send jwt token
+          const user_id = data.rows[0].userid;
+          // Creating a token with the help of jwt by providing emailid, userid and a secret key
           const token = jwt.sign(
             {
               email: email,
+              user_id: user_id,
             },
             process.env.SECRET_KEY
           );
 
           // Sending cookie to client with a life span of 15 mins
           res.cookie("linkize", token, {
-            expires: new Date(Date.now() + 900000),
+            expires: new Date(Date.now() + 3600000),
           });
 
-          // After sending the cookies, it's time to redirect feed page
+          // After sending the cookies, it's time to redirect to feed page
           res.redirect("/pages/feed");
         } else {
-          // This is else block when user logged in with facebook for first time, so hence we are storing users name, email and profile pic
+          // This is else block when user logged in with google for first time, so hence we are storing users name, email and profile pic
 
           let imgdata;
 
@@ -165,37 +168,49 @@ router.get(
 
           // We had to write queries inside this function as imageToBase64 was asynchronous function
           // imageToBase64 is a package which helps to convert image or image url to base64
-          // since we are having image url given by facebook, passing it to get required data and store in data  our base
+          // since we are having image url given by google, passing it to get required data and store in data  our base
           imageToBase64(profilepic)
             .then((response) => {
               imgdata = response;
-              client.query(
-                `INSERT INTO details (firstname, lastname, email, img, mime) VALUES  ('${firstname}','${lastname}','${email}',bytea('${imgdata}'), '${mime}');`
-              );
-
-              // After successfully storing required data in our database, it's time to send cookies and redirect to client side
-              const token = jwt.sign(
-                {
-                  email: email,
-                },
-                process.env.SECRET_KEY
-              );
-              res.cookie("linkize", token, {
-                expires: new Date(Date.now() + 900000),
-              });
-              res.redirect("/pages/completeProfile/");
+              client
+                .query(
+                  `INSERT INTO details (firstname, lastname, email, img, mime) VALUES  ('${firstname}','${lastname}','${email}',bytea('${imgdata}'), '${mime}');`
+                )
+                .then((data) => {
+                  // getting userid from database after storing details
+                  client
+                    .query(`SELECT userid FROM details WHERE email='${email}'`)
+                    .then((data) => {
+                      // After successfully storing required data in our database, it's time to send cookies and redirect to client side
+                      const token = jwt.sign(
+                        {
+                          email: email,
+                          user_id: data.rows[0].userid,
+                        },
+                        process.env.SECRET_KEY
+                      );
+                      res.cookie("linkize", token, {
+                        expires: new Date(Date.now() + 3600000),
+                      });
+                      // redirecting to completeProfile page as the user logged in with facebook for first time
+                      res.redirect("/pages/completeProfile/");
+                    });
+                })
+                .catch((err) => {
+                  console.log(err);
+                  res.status(500).json({
+                    message: "database error occured!",
+                  });
+                });
             })
             // During this process, if any error occured
             .catch((err) => {
               console.log(err);
+              res.status(500).json({
+                message: "Server error occured!",
+              });
             });
         }
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json({
-          message: "database error occured!",
-        });
       });
   }
 );

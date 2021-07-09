@@ -35,6 +35,25 @@ Social media application for webkriti.
 # Features Implemented
 
 ## Front-end
+1. Landing page: 
+* The landing page contains the overview of the website about how we intend the users to use this website.
+2. Sign in and sign up page :
+* All the checks have been made on the frontend side for email and password. For example, we have defined the password pattern that the user must enter while signing up. 
+3. Feed Page :
+* Once the user is signed in, a token is generated, saved in local storage, which helps maintain session activity. This token is verified every time the user visits any page. 
+Users can also upload a post with an image, and this image is compressed on the frontend side and stored in a database. Like feature has also been added wherein users can like posts. 
+Users can also search other Linkize users and can then click on their names to view their profiles.
+Feedback by users is also added, and then the feedback is mailed to Linkize email. 
+4. Chat Rooms :
+* Chat rooms have also been implemented using socket.io. When someone joins a chat, a notification is sent in the room that the particular user has joined the chat. Also, the user is typing feature has also been implemented to know which user is currently typing. 
+5. View Profile Page :
+* Users can make changes to their profile like their profile image, bio, DOB, etc., and all this information is sent to the back-end and then further stored in the database.
+6. Edit Profile Page :
+* Users can make changes to their profile like their profile image, bio, DOB, etc., and all this information is sent to the back-end and then further stored in the database.
+7. Other features :
+* Light-dark mode: These modes are also implemented in the website for user's eye comfort. Once the user switches on to the other mode, all the other pages that the user navigates to will be in the same mode. 
+8. 404 page :
+* If the user navigates to a route that does not exist, a 404 error page is displayed, and the user can then be redirected to the homepage.
 
 ## Back-end
 1. Routes for authentication purpose

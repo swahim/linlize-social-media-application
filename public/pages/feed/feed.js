@@ -251,11 +251,11 @@ function logOutButton() {
 
   console.log(token);
   // if (token) {
-    localStorage.removeItem("jwt");
-    // location.href = "/pages/signin";
+  localStorage.removeItem("jwt");
+  // location.href = "/pages/signin";
   // } else {
-    document.cookie = "linkize=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
-    location.href = "/pages/signin";
+  document.cookie = "linkize=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+  location.href = "/pages/signin";
   // }
 }
 
@@ -500,6 +500,7 @@ feedbackButton.addEventListener("click", () => {
       "aria-label": "Type your message here",
     },
     showCancelButton: true,
+    width: '800px'
   }).then((result) => {
     if (result.value) {
       console.log(result.value);
@@ -570,26 +571,31 @@ dropDownSearchBox.style.left = `${xPosSearch}px`;
 const searchInput = document.querySelector(".searchInput");
 
 const createCardList = (obj) => {
+  if (obj.length === usersArray.length) {
+    dropDownSearchBox.classList.remove("visible");
+  }
   if (obj.length > 0) {
-    console.log(obj);
-    dropDownSearchBox.innerHTML="";
-    dropDownSearchBox.classList.toggle("visible");
+    dropDownSearchBox.innerHTML = "";
+    dropDownSearchBox.classList.add("visible");
 
-      for(var i=0; i<obj.length; i++) {
-        console.log(obj[i]);
-        dropDownSearchBox.innerHTML += `<div class="elementsDropDown after"><a href="/pages/viewProfile?userid=${obj[i].userid}">${obj[i].firstname} ${obj[i].lastname}</a></div>`;
-      }
-
+    for (var i = 0; i < obj.length; i++) {
+      dropDownSearchBox.innerHTML += `<div class="elementsDropDown after"><a class="drowDownLink" href="/pages/viewProfile?userid=${obj[i].userid}">${obj[i].firstname} ${obj[i].lastname}</a></div>`;
+    }
   }
 };
 searchInput.addEventListener("input", (e) => {
   const searchStr = e.target.value.toLowerCase();
   // console.log(searchStr);
-  const filteredArray = usersArray.filter((ele) => {
-    return (
-      ele.firstname.toLowerCase().includes(searchStr) ||
-      ele.lastname.toLowerCase().includes(searchStr)
-    );
-  });
-  createCardList(filteredArray);
+  if (searchStr.length > 0) {
+    const filteredArray = usersArray.filter((ele) => {
+      return (
+        ele.firstname.toLowerCase().includes(searchStr) ||
+        ele.lastname.toLowerCase().includes(searchStr)
+      );
+    });
+    createCardList(filteredArray);
+  } else if(searchStr.length===0){
+    dropDownSearchBox.classList.remove("visible");
+
+  }
 });

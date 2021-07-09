@@ -1361,3 +1361,10 @@ box-shadow: 0 8px 32px 0 rgba(56, 57, 66, 0.37);
   justify-content: center;
   align-items: center;
 }
+.swal-wide{
+  width:1000px !important;
+}
+.drowDownLink{
+  color: white;
+
+}

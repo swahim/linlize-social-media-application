@@ -495,7 +495,7 @@ const feedbackButton = document.querySelector(".feedback");
 feedbackButton.addEventListener("click", () => {
   const { value: text } = Swal.fire({
     input: "textarea",
-    inputLabel: "Message",
+    inputLabel: "Feedback",
     inputPlaceholder: "Type your message here...",
     inputAttributes: {
       "aria-label": "Type your message here",

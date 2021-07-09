@@ -381,9 +381,9 @@ async function myposts() {
         const LikeNumber = document.createElement("div");
         LikeNumber.className = `LikeNumber postid=${obj.postid}`;
         if (obj.likes.length > 0) {
-          LikeNumber.innerText = obj.likes.length;
+          LikeNumber.innerText = obj.likes.length+"  likes"
         } else {
-          LikeNumber.innerText = 0;
+          LikeNumber.innerText = 0+"  likes";
         }
         like.appendChild(LikeNumber);
 

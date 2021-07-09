@@ -7,17 +7,33 @@
 </p>
 
 > Social Media Application
+## Project Description
 
+Social media application for webkriti. 
+
+* Users can create their account in our database and sign in or directly sign in through google authentication.
+* Once the user is successfully signed in, they will be redirected to the complete their profile page to fill in other necessary details.
+* The user can see every post posted by other users on their home page and can like them.
+* The home page also contains an option to post their thoughts (post) with an image.
+* Also, there are rooms made for users to chat about topics with everyone online in the community. 
+* Also, other users can be searched, and the user can view that user's profile. 
+* Users can also send us feedback that will be mailed to us.
+* Lastly, a view profile page exists wherein users can see all their posts, delete them, or even update. 
+* We have also added light and dark modes for user's viewing comfort.
 ### 🏠 [Homepage](/public)
 
 ### ✨ [Deployed site](https://linkize.herokuapp.com/)
 
-<!-- ABOUT THE PROJECT -->
+# Features Implemented
 
-## About The Project
+## Front-end
 
-## Usage
+## Back-end
 
+
+# Technologies/Libraries/Packages Used
+
+## Local Setup
 1.  To run the server in dev mode use
     ```sh
     npm run dev

@@ -358,9 +358,7 @@ nav {
 .DisplayPost::-webkit-scrollbar {
   display: none;
 }
-.temp {
-  display: none;
-} */
+
 .ProfileDescription {
   display: flex;
   padding: 1%;
@@ -845,15 +843,20 @@ a {
   color: black;
 }
 .dropDownSearchBox {
-  position: absolute;
+  position: fixed;
   width: 200px;
   z-index: 20;
-  background: grey;
+  background: rgba(4, 142, 188, 1);
   padding: 1%;
   font-size: 1.5rem;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   opacity: 0;
+  color: white;
+  transition: all 0.2s linear;
+}
+body.dark .dropDownSearchBox{
+  background: #00adb5;
   color: white;
 }
 .dropDownSearchBox.visible {
@@ -861,6 +864,9 @@ a {
 }
 .after {
   margin: 10%;
+}
+.drowDownLink{
+  color:white;
 }
 /* Making Responsive */
 @media screen and (max-width: 1472px) {

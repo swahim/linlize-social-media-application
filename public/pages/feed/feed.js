@@ -380,19 +380,19 @@ async function myposts() {
         const LikeNumber = document.createElement("div");
         LikeNumber.className = `LikeNumber postid=${obj.postid}`;
         if (obj.likes.length > 0) {
-          LikeNumber.innerText = obj.likes.length;
+          LikeNumber.innerText = obj.likes.length+"  likes"
         } else {
-          LikeNumber.innerText = 0;
+          LikeNumber.innerText = 0+"  likes";
         }
         like.appendChild(LikeNumber);
 
-        const commentSection = document.createElement("div");
-        commentSection.className = "commentSection";
-        commentSection.innerHTML = `<i class="far fa-comment"></i>`;
+        // const commentSection = document.createElement("div");
+        // commentSection.className = "commentSection";
+        // commentSection.innerHTML = `<i class="far fa-comment"></i>`;
 
         likeSection.appendChild(like);
 
-        likeSection.appendChild(commentSection);
+        // likeSection.appendChild(commentSection);
 
         displayPost.append(navDisplayPost);
         displayPost.append(PostImageContainer);

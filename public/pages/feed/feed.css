@@ -433,7 +433,7 @@ nav {
 }
 .like {
   height: 100%;
-  width: 10%;
+  width: 60%;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
@@ -1322,4 +1322,10 @@ body.dark .dropDownSearchBox{
 }
 .swal2-container {
   zoom: 2;
+}
+.temp{
+  display: none;
+}
+.temp2{
+  height: 65rem;
 }

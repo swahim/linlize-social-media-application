@@ -167,8 +167,9 @@ nav {
 .searchDiv {
   border: 1px solid black;
   padding: 2%;
-  width: 40%;
+  width: 200px;
   display: flex;
+  height: 40px;
   justify-content: space-around;
   align-items: center;
 }
@@ -907,6 +908,20 @@ a {
   .feedbackPopUpContainer {
     width: 40%;
   }
+  .searchDiv{
+    width: 170px;
+  }
+  .dropDownSearchBox{
+    width: 170px;
+  }
+}
+@media screen and (max-width:1108px){
+  .searchDiv{
+    width: 150px;
+  }
+  .dropDownSearchBox{
+    width: 150px;
+  } 
 }
 @media screen and (max-width: 1150px) {
   html {
@@ -937,9 +952,6 @@ a {
   .dropDownContainer {
     right: 15%;
   }
-  .navDisplayPost{
-    background : red;
-  }
   .displayPostProfileImage {
     height: 5rem;
     width: 5.9rem;
@@ -954,7 +966,7 @@ a {
     width: 75%;
   }
   .right {
-    margin-left: 42%;
+    margin-left: 39.5%;
     height: 60rem;
   }
   .buttonFeedback {
@@ -1050,9 +1062,6 @@ a {
     display: none;
     pointer-events: none;
   }
-  .searchDiv {
-    height: 60%;
-  }
   nav {
     height: 7rem;
   }
@@ -1063,7 +1072,6 @@ a {
     display: block;
     width: 5%;
     height: 40%;
-    background : grey;
     align-self: center;
     display: flex;
     justify-content: space-evenly;
@@ -1251,6 +1259,9 @@ a {
     height: 40rem;
     overflow: scroll;
   }
+  .dropDownSearchBox{
+    width: 122px;
+  }
   .mainContainer {
     flex-direction: column-reverse;
     align-items: center;
@@ -1260,9 +1271,6 @@ a {
   }
   .leftTopBar {
     margin-left: 2%;
-  }
-  .searchDiv {
-    width: 50%;
   }
   .superContainer {
     flex-wrap: wrap;
@@ -1321,9 +1329,6 @@ a {
   }
 }
 @media screen and (max-width: 380px) {
-  .searchDiv {
-    height: 50%;
-  }
   .leftTopBar > img {
     height: 140%;
   }

@@ -30,8 +30,8 @@ Social media application for webkriti.
 <img src="assets/images/create_a_post.jpeg"></img>
 <img src="assets/images/feedback.jpeg"></img>
 <img src="assets/images/view_profile.jpeg"></img>
-<img src="assets/images/edit_profile.jpeg"></img>
 <img src="assets/images/edit_delete_post.jpeg"></img>
+<img src="assets/images/edit_profile.jpeg"></img>
 <img src="assets/images/startup.jpeg"></img>
 ### 🏠 [Homepage](/public)
 

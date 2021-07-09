@@ -10,7 +10,7 @@ const logOut = document.querySelector(".LogOut");
 const hamburgerLogOut = document.querySelector(".logOut");
 const dropDownContainer = document.querySelector(".dropDownContainer");
 let image_compressed = "";
-
+let usersArray = [];
 //hamburger
 const HamburgerMenuLinks = document.querySelector(".HamburgerMenuLinks");
 const Hamburger = document.querySelector(".HamLine");
@@ -189,6 +189,28 @@ window.addEventListener("load", () => {
           text: "Server Error Occured, Please Try Again Later !!",
         });
       });
+
+    fetch(`/details/search`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        data = data.data;
+        usersArray = data;
+        console.log(usersArray);
+        // searchUsers(data);
+      })
+      .catch((err) => {
+        console.log(err);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Server Error Occured, Please Try Again Later !!",
+        });
+      });
   }
 });
 
@@ -228,13 +250,13 @@ function logOutButton() {
   const cookie = getCookie("linkize");
 
   console.log(token);
-  if (token) {
+  // if (token) {
     localStorage.removeItem("jwt");
-    location.href = "/pages/signin";
-  } else {
+    // location.href = "/pages/signin";
+  // } else {
     document.cookie = "linkize=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
     location.href = "/pages/signin";
-  }
+  // }
 }
 
 logOut.addEventListener("click", () => {
@@ -529,21 +551,45 @@ yPos +=
   topBarProfileImage.clientTop;
 
 //Setting dropDown in this position
-dropDownContainer.style.top = `${yPos+56}px`;
-dropDownContainer.style.left = `${xPos-175}px`;
+dropDownContainer.style.top = `${yPos + 56}px`;
+dropDownContainer.style.left = `${xPos - 175}px`;
 
 //Getting position of search div
 const searchDiv = document.querySelector(".searchDiv");
 let xPosSearch = 0;
 let yPosSearch = 0;
-xPosSearch += (searchDiv.offsetLeft - searchDiv.scrollLeft + searchDiv.clientLeft);
-yPosSearch += (searchDiv.offsetTop - searchDiv.scrollTop + searchDiv.clientTop);
-
+xPosSearch +=
+  searchDiv.offsetLeft - searchDiv.scrollLeft + searchDiv.clientLeft;
+yPosSearch += searchDiv.offsetTop - searchDiv.scrollTop + searchDiv.clientTop;
+console.log(xPosSearch, yPosSearch);
 
 const dropDownSearchBox = document.querySelector(".dropDownSearchBox");
-dropDownSearchBox.style.top = `${yPosSearch}px`;
+dropDownSearchBox.style.top = `${yPosSearch + 40}px`;
 dropDownSearchBox.style.left = `${xPosSearch}px`;
 
-searchDiv.addEventListener("click", () => {
-  dropDownSearchBox.classList.toggle("visible");
-})
+const searchInput = document.querySelector(".searchInput");
+
+const createCardList = (obj) => {
+  if (obj.length > 0) {
+    console.log(obj);
+    dropDownSearchBox.innerHTML="";
+    dropDownSearchBox.classList.toggle("visible");
+
+      for(var i=0; i<obj.length; i++) {
+        console.log(obj[i]);
+        dropDownSearchBox.innerHTML += `<div class="elementsDropDown after"><a href="/pages/viewProfile?userid=${obj[i].userid}">${obj[i].firstname} ${obj[i].lastname}</a></div>`;
+      }
+
+  }
+};
+searchInput.addEventListener("input", (e) => {
+  const searchStr = e.target.value.toLowerCase();
+  // console.log(searchStr);
+  const filteredArray = usersArray.filter((ele) => {
+    return (
+      ele.firstname.toLowerCase().includes(searchStr) ||
+      ele.lastname.toLowerCase().includes(searchStr)
+    );
+  });
+  createCardList(filteredArray);
+});

@@ -197,3 +197,16 @@ exports.profile = (req, res) => {
       });
     });
 };
+
+// search route
+// this route sends basic details of all users
+exports.search = (req, res) => {
+  client
+  .query(`SELECT firstname, lastname, userid FROM details`)
+  .then((data) => {
+    data=data.rows;
+    res.status(200).json({
+      data: data,
+    })
+  })
+};

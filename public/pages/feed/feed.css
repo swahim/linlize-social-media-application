@@ -1320,3 +1320,6 @@ body.dark .dropDownSearchBox{
   color: white;
 
 }
+.swal2-container {
+  zoom: 2;
+}

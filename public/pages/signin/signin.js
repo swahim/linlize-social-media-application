@@ -127,7 +127,7 @@ signupbtn.addEventListener("click", (event) => {
         Swal.fire({
           icon: "error",
           title: "Invalid Password..",
-          text: "Min 8, 1 capital, 1 special character & 1 digit are allowed!!",
+          text: "Minimum 8, 1 capital, 1 special character & 1 digit are allowed!!",
         })
       } else {
         // this case => email, password is valid, & both password matches

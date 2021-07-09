@@ -20,6 +20,14 @@ Social media application for webkriti.
 * Users can also send us feedback that will be mailed to us.
 * Lastly, a view profile page exists wherein users can see all their posts, delete them, or even update. 
 * We have also added light and dark modes for user's viewing comfort.
+
+# Screen shots
+<img src="assets/images/landing_page1.jpeg"></img>
+<img src="assets/images/landing_page2.jpeg"></img>
+<img src="assets/images/signin1.jpeg"></img>
+<img src="assets/images/signin2.jpeg"></img>
+<img src="assets/images/feed.jpeg"></img>
+<img src="assets/images/startup.jpeg"></img>
 ### 🏠 [Homepage](/public)
 
 ### ✨ [Deployed site](https://linkize.herokuapp.com/)

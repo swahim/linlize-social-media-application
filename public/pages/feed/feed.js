@@ -387,13 +387,13 @@ async function myposts() {
         }
         like.appendChild(LikeNumber);
 
-        const commentSection = document.createElement("div");
-        commentSection.className = "commentSection";
-        commentSection.innerHTML = `<i class="far fa-comment"></i>`;
+        // const commentSection = document.createElement("div");
+        // commentSection.className = "commentSection";
+        // commentSection.innerHTML = `<i class="far fa-comment"></i>`;
 
         likeSection.appendChild(like);
 
-        likeSection.appendChild(commentSection);
+        // likeSection.appendChild(commentSection);
 
         displayPost.append(navDisplayPost);
         displayPost.append(PostImageContainer);

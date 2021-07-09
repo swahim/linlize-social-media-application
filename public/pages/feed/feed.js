@@ -565,7 +565,7 @@ yPosSearch += searchDiv.offsetTop - searchDiv.scrollTop + searchDiv.clientTop;
 console.log(xPosSearch, yPosSearch);
 
 const dropDownSearchBox = document.querySelector(".dropDownSearchBox");
-dropDownSearchBox.style.top = `${yPosSearch + 40}px`;
+dropDownSearchBox.style.top = `${yPosSearch+40}px`;
 dropDownSearchBox.style.left = `${xPosSearch}px`;
 
 const searchInput = document.querySelector(".searchInput");

@@ -27,6 +27,7 @@ Social media application for webkriti.
 <img src="assets/images/signin1.jpeg"></img>
 <img src="assets/images/signin2.jpeg"></img>
 <img src="assets/images/feed.jpeg"></img>
+<img src="assets/images/startup.jpeg"></img>
 ### 🏠 [Homepage](/public)
 
 ### ✨ [Deployed site](https://linkize.herokuapp.com/)

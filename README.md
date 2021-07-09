@@ -31,6 +31,7 @@ Social media application for webkriti.
 ## Back-end
 1. Routes for authentication purpose
 * We have setup basic authentication & also implemented google & facebook passport strategy 
+* Currently facebook auth is working locally but giving issues on deployed website
 ```
 /auth/signin
 /auth/signup
@@ -65,6 +66,19 @@ Social media application for webkriti.
 /rooms/joinroom
 ```
 # Technologies/Libraries/Packages Used
+| Packages | README |
+| ------ | ------ |
+| bcrypt | To store hashed password in database  |
+| dotenv | To keep db connection string, client id, client secret key safe  |
+| image-to-base64 | To convert images of posts or image url to base 64 & storing in database  |
+| jsonwebtoken | To store users session encrypted and verify them as middleware in posts/details/feedback api request  |
+| moment-timezone | To handle time zone and send in socket connection  |
+| nodemailer | To send feedback to our mail  |
+| nodemon | To run application in dev mode  |
+| passport-facebook | Facebook authentication  |
+| passport-google-oauth20 | Google authentication  |
+| pg | To Connect to AWS RDS  |
+| socket.io | To enables realtime, bi-directional communication between web clients and servers.  |
 
 ## Local Setup
 1.  To run the server in dev mode use

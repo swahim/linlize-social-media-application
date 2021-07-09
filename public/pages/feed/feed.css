@@ -167,8 +167,9 @@ nav {
 .searchDiv {
   border: 1px solid black;
   padding: 2%;
-  width: 40%;
+  width: 200px;
   display: flex;
+  height: 40px;
   justify-content: space-around;
   align-items: center;
 }
@@ -357,9 +358,7 @@ nav {
 .DisplayPost::-webkit-scrollbar {
   display: none;
 }
-.temp {
-  display: none;
-}
+
 .ProfileDescription {
   display: flex;
   padding: 1%;
@@ -653,10 +652,6 @@ a {
   height: 90%;
 }
 .room {
-  /* background: rgba( 0, 0, 0, 0.40 );
-box-shadow: 0 8px 32px 0 rgba(56, 57, 66, 0.37);
-  backdrop-filter: blur(4.5px);
-  -webkit-backdrop-filter: blur(4.5px); */
   border-radius: 10px;
   width: 90%;
   height: 20%;
@@ -848,15 +843,20 @@ box-shadow: 0 8px 32px 0 rgba(56, 57, 66, 0.37);
   color: black;
 }
 .dropDownSearchBox {
-  position: absolute;
+  position: fixed;
   width: 200px;
   z-index: 20;
-  background: grey;
+  background: rgba(4, 142, 188, 1);
   padding: 1%;
   font-size: 1.5rem;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   opacity: 0;
+  color: white;
+  transition: all 0.2s linear;
+}
+body.dark .dropDownSearchBox{
+  background: #00adb5;
   color: white;
 }
 .dropDownSearchBox.visible {
@@ -865,7 +865,9 @@ box-shadow: 0 8px 32px 0 rgba(56, 57, 66, 0.37);
 .after {
   margin: 10%;
 }
-
+.drowDownLink{
+  color:white;
+}
 /* Making Responsive */
 @media screen and (max-width: 1472px) {
   nav {
@@ -911,6 +913,20 @@ box-shadow: 0 8px 32px 0 rgba(56, 57, 66, 0.37);
   .feedbackPopUpContainer {
     width: 40%;
   }
+  .searchDiv{
+    width: 170px;
+  }
+  .dropDownSearchBox{
+    width: 170px;
+  }
+}
+@media screen and (max-width:1108px){
+  .searchDiv{
+    width: 150px;
+  }
+  .dropDownSearchBox{
+    width: 150px;
+  } 
 }
 @media screen and (max-width: 1150px) {
   html {
@@ -958,7 +974,7 @@ box-shadow: 0 8px 32px 0 rgba(56, 57, 66, 0.37);
     width: 75%;
   }
   .right {
-    margin-left: 42%;
+    margin-left: 39.5%;
     height: 60rem;
   }
   .buttonFeedback {
@@ -1054,9 +1070,6 @@ box-shadow: 0 8px 32px 0 rgba(56, 57, 66, 0.37);
     display: none;
     pointer-events: none;
   }
-  .searchDiv {
-    height: 60%;
-  }
   nav {
     height: 7rem;
   }
@@ -1067,7 +1080,6 @@ box-shadow: 0 8px 32px 0 rgba(56, 57, 66, 0.37);
     display: block;
     width: 5%;
     height: 40%;
-    /* background : grey; */
     align-self: center;
     display: flex;
     justify-content: space-evenly;
@@ -1255,6 +1267,9 @@ box-shadow: 0 8px 32px 0 rgba(56, 57, 66, 0.37);
     height: 40rem;
     overflow: scroll;
   }
+  .dropDownSearchBox{
+    width: 122px;
+  }
   .mainContainer {
     flex-direction: column-reverse;
     align-items: center;
@@ -1264,9 +1279,6 @@ box-shadow: 0 8px 32px 0 rgba(56, 57, 66, 0.37);
   }
   .leftTopBar {
     margin-left: 2%;
-  }
-  .searchDiv {
-    width: 50%;
   }
   .superContainer {
     flex-wrap: wrap;
@@ -1302,9 +1314,9 @@ box-shadow: 0 8px 32px 0 rgba(56, 57, 66, 0.37);
     flex-direction: column;
   }
   .lineSeperation {
-    /* height: 0.7px;
+    height: 0.7px;
     width: 60%;
-    align-self: center; */
+    align-self: center;
     display: none;
   }
   .fa-comments,
@@ -1325,9 +1337,6 @@ box-shadow: 0 8px 32px 0 rgba(56, 57, 66, 0.37);
   }
 }
 @media screen and (max-width: 380px) {
-  .searchDiv {
-    height: 50%;
-  }
   .leftTopBar > img {
     height: 140%;
   }

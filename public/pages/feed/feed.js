@@ -564,32 +564,40 @@ yPosSearch += searchDiv.offsetTop - searchDiv.scrollTop + searchDiv.clientTop;
 console.log(xPosSearch, yPosSearch);
 
 const dropDownSearchBox = document.querySelector(".dropDownSearchBox");
-dropDownSearchBox.style.top = `${yPosSearch + 40}px`;
+dropDownSearchBox.style.top = `${yPosSearch+40}px`;
 dropDownSearchBox.style.left = `${xPosSearch}px`;
 
 const searchInput = document.querySelector(".searchInput");
 
 const createCardList = (obj) => {
+  if (obj.length === usersArray.length) {
+    dropDownSearchBox.classList.remove("visible");
+  }
   if (obj.length > 0) {
     console.log(obj);
-    dropDownSearchBox.innerHTML="";
-    dropDownSearchBox.classList.toggle("visible");
+    dropDownSearchBox.innerHTML = "";
+    dropDownSearchBox.classList.add("visible");
 
-      for(var i=0; i<obj.length; i++) {
-        console.log(obj[i]);
-        dropDownSearchBox.innerHTML += `<div class="elementsDropDown after"><a href="/pages/viewProfile?userid=${obj[i].userid}">${obj[i].firstname} ${obj[i].lastname}</a></div>`;
-      }
-
+    for (var i = 0; i < obj.length; i++) {
+      console.log(obj[i]);
+      dropDownSearchBox.innerHTML += `<div class="elementsDropDown after"><a class="drowDownLink" href="/pages/viewProfile?userid=${obj[i].userid}">${obj[i].firstname} ${obj[i].lastname}</a></div>`;
+    }
   }
 };
 searchInput.addEventListener("input", (e) => {
   const searchStr = e.target.value.toLowerCase();
   // console.log(searchStr);
-  const filteredArray = usersArray.filter((ele) => {
-    return (
-      ele.firstname.toLowerCase().includes(searchStr) ||
-      ele.lastname.toLowerCase().includes(searchStr)
-    );
-  });
-  createCardList(filteredArray);
+  if (searchStr.length > 0) {
+    console.log(searchStr.length);
+    const filteredArray = usersArray.filter((ele) => {
+      return (
+        ele.firstname.toLowerCase().includes(searchStr) ||
+        ele.lastname.toLowerCase().includes(searchStr)
+      );
+    });
+    createCardList(filteredArray);
+  } else if(searchStr.length===0){
+    dropDownSearchBox.classList.remove("visible");
+
+  }
 });

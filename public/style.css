@@ -645,3 +645,15 @@ main {
     height : 100%;
   }
 }
+@media screen and (max-width:380px){
+  html{
+    font-size: 35%;
+  }
+  .text{
+    font-size:3.5rem;
+
+  }
+  .section3{
+    height:130vh;
+  }
+}

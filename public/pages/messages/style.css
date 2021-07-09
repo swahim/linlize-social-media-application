@@ -101,6 +101,9 @@ button {
   font-size: 2rem;
   color: rgba(255, 166, 0,0.8);
 }
+.fa-rocket, .fa-briefcase{
+  font-size: 2rem;
+}
 .homeContainer{
   width: 3.5rem;
   height: 3.5rem;

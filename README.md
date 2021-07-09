@@ -29,8 +29,41 @@ Social media application for webkriti.
 ## Front-end
 
 ## Back-end
-
-
+1. Routes for authentication purpose
+* We have setup basic authentication & also implemented google & facebook passport strategy 
+```
+/auth/signin
+/auth/signup
+/auth/google
+/auth/facebook
+```
+2. Details route to get, update, view or search other profiles
+```
+/details/getdetails
+/profile/:userid
+/search
+```
+3. Feedback route to send mail to us using node mailer
+```
+/feedback/sendmail
+```
+4. Posts route to create a new post, get all posts, update / dislike post, update / delete post
+* We are verifying token as middleware for every post, put, update or delete request
+```
+/posts/createnewpost
+/posts/getallposts
+/posts/updatelike/:postid
+/posts/updateddislike/:postid
+/posts/updatepost/:postid
+/posts/deletepost/:postid
+/posts/profile/:username
+/posts/getpics
+```
+5. Rooms
+* By this user can join room by verify token & to send name, userid to socket connection
+```
+/rooms/joinroom
+```
 # Technologies/Libraries/Packages Used
 
 ## Local Setup

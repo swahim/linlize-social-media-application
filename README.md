@@ -134,19 +134,19 @@ Feedback by users is also added, and then the feedback is mailed to Linkize emai
 
 👤 **Sohan Bandary, Swahim Namdev, Ranjith Jupaka**
 
-### Sohan
+### Sohan Bandary (2020IMG-016)
 * Github: [@sohan2410](https://github.com/sohan2410)
 * LinkedIn: [@sohan-bandary](https://linkedin.com/in/sohan-bandary)
 * Gmail: [mail](mailto:bandarysohan24@gmail.com)
 * Instagram: [@sohan24.py](https://www.instagram.com/sohan24.py/)
 
-### Swahim
+### Swahim Namdev (2020IMG-063)
 * Github: [@swahim](https://github.com/swahim)
 * LinkedIn: [@swahimnamdev](https://www.linkedin.com/in/swahimnamdev/)
 * Gmail: [mail](mailto:swahimn@gmail.com)
 * Instagram: [@swahim_n](https://www.instagram.com/swahim_n/)
 
-### Ranjith
+### Ranjith Jupaka (2020IMT-042)
 * Github: [@ranjithcoder](https://github.com/ranjithcoder)
 * LinkedIn: [@jupaka-ranjith-998675164](https://www.linkedin.com/in/jupaka-ranjith-998675164/)
 * Instagram: [@ranjithjupaka_1](https://www.instagram.com/ranjithjupaka_1/)

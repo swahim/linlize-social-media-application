@@ -39,33 +39,6 @@ const bgChanger = () => {
     section3.classList.remove("section3-BgEffect");
   }
 };
-// const animation1 = () => {
-//   const firstBoxRight = document.querySelector(".firstBoxRight");
-
-//   if(window.scrollY > window.innerHeight / 2.6){
-//       firstBoxRight.style.animation = "fade-in 2s ease";
-//   }else{
-//     firstBoxRight.style.animation = "fade-out 1s ease";
-//   }
-// }
-
-// const animation2 = () => {
-//   const secondBoxRight = document.querySelector(".secondBoxRight");
-//   if(window.scrollY > window.innerHeight / 1.54){
-//     secondBoxRight.style.animation = "fade-in 2s ease";
-//   }else{
-//     secondBoxRight.style.animation = "fade-out 1s ease";
-//   }
-// }
-
-// const animation3 = () => {
-//   const secondBoxLeft2 = document.querySelector(".secondBoxLeft2");
-//   if(window.scrollY > window.innerHeight / 1.03){
-//     secondBoxLeft2.style.amimation = "fade-in 2s ease";
-//   }else{
-//     secondBoxLeft2.style.animation = "fade-out 1s ease";
-//   }
-// }
 
 window.addEventListener("scroll", () => {
   bgChanger();

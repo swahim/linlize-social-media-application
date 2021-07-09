@@ -186,6 +186,7 @@ window.addEventListener("load", () => {
         Swal.fire({
           icon: "error",
           title: "Oops...",
+          customClass: 'swal-wide',
           text: "Server Error Occured, Please Try Again Later !!",
         });
       });

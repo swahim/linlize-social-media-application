@@ -29,10 +29,6 @@ router.get(
 );
 
 router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
-  console.log("in redirect url");
-  let token;
-  console.log(req.user);
-
   // Getting the information given by google when user authenticated with google like first name, last name, profile pic, email.
   const lastname = req.user.name.familyName;
   const firstname = req.user.name.givenName;
@@ -44,15 +40,16 @@ router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
     .query(`SELECT * FROM details WHERE email = '${email}';`)
     .then((data) => {
       isValid = data.rows;
-
       // Checking if user already exists, then we can send token to client with the help of cookies,
       // not sending as a json object because we weren't able to acquire token using json object
       if (isValid.length !== 0) {
-        console.log("in user already exists");
+        // getting userid from database to send jwt token
+        const user_id = data.rows[0].userid;
         // Creating a token with the help of jwt by providing email and a secret key
         const token = jwt.sign(
           {
             email: email,
+            user_id: user_id,
           },
           process.env.SECRET_KEY
         );
@@ -83,17 +80,22 @@ router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
                 `INSERT INTO details (firstname, lastname, email, img, mime) VALUES  ('${firstname}','${lastname}','${email}',bytea('${imgdata}'), '${mime}');`
               )
               .then((data) => {
-                // After successfully storing required data in our database, it's time to send cookies and redirect to client side
-                const token = jwt.sign(
-                  {
-                    email: email,
-                  },
-                  process.env.SECRET_KEY
-                );
-                res.cookie("linkize", token, {
-                  expires: new Date(Date.now() + 3600000),
-                });
-                res.redirect("/pages/feed");
+                client
+                  .query(`SELECT userid FROM details WHERE email='${email}'`)
+                  .then((data) => {
+                    // After successfully storing required data in our database, it's time to send cookies and redirect to client side
+                    const token = jwt.sign(
+                      {
+                        email: email,
+                        user_id: data.rows[0].userid,
+                      },
+                      process.env.SECRET_KEY
+                    );
+                    res.cookie("linkize", token, {
+                      expires: new Date(Date.now() + 3600000),
+                    });
+                    res.redirect("/pages/completeProfile/");
+                  });
               })
               .catch((err) => {
                 console.log(err);
@@ -181,7 +183,7 @@ router.get(
               res.cookie("linkize", token, {
                 expires: new Date(Date.now() + 900000),
               });
-              res.redirect("/pages/feed");
+              res.redirect("/pages/completeProfile/");
             })
             // During this process, if any error occured
             .catch((err) => {

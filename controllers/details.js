@@ -29,7 +29,6 @@ exports.getdetails = (req, res) => {
         //storing image and mime in a variable
         image = data.rows[0].img;
         mime = data.rows[0].mime;
-
         // sending all the details of user as a json object
         res.status(200).json({
           message: "profile fetched successfully",

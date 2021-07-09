@@ -1,5 +1,3 @@
-const token = localStorage.getItem("jwt");
-const googleauthtoken = localStorage.getItem("googleauthtoken");
 
 const submit = document.querySelector(".submit");
 
@@ -35,11 +33,12 @@ function getToken() {
     return getCookie("linkize");
   }
 }
+const token = getToken();
+
 
 window.addEventListener("load", () => {
   const body = document.querySelector("body");
   body.classList.add("visible");
-  const token = getToken();
 
   if (localStorage.getItem("theme") === null) {
     localStorage.setItem("theme", "light");
@@ -65,7 +64,6 @@ window.addEventListener("load", () => {
 
         const loadingAnimation = document.querySelector(".loadingAnimation");
         loadingAnimation.classList.add("visible");
-        console.log(data);
         if (data.mime === null) {
           for (i = 0; i < profilePic.length; i++) {
             profilePic[i].src = "../../images/default-profile-picture1.jpg";
@@ -192,6 +190,7 @@ function uploadToServer(file, name) {
   })
     .then((res) => res.json())
     .then((data) => {
+      console.log(data);
       console.log("after update details");
       console.log(data);
       location.href = "/pages/feed/";
